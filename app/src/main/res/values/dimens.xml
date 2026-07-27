@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== Splash screen (source of truth: Figma frame 16:22, 390x844) ===== -->
+
+    <!-- Decorative blurred background circles (radial-gradient hosts sized to
+         include the soft blur falloff, centred on the Figma circle centre). -->
+    <dimen name="splash_circle_top_size">340dp</dimen>     <!-- 260 circle + ~40 blur each side -->
+    <dimen name="splash_circle_bottom_size">380dp</dimen>  <!-- 300 circle + ~40 blur each side -->
+
+    <!-- Logo mark -->
+    <dimen name="splash_logo_mark_width">138dp</dimen>
+    <dimen name="splash_logo_mark_height">112dp</dimen>
+    <dimen name="splash_logo_circle_size">112dp</dimen>
+    <dimen name="splash_badge_height">84dp</dimen>
+    <dimen name="splash_badge_corner">28dp</dimen>
+    <dimen name="splash_badge_padding_h">10dp</dimen>
+    <dimen name="splash_badge_overlap">14dp</dimen>       <!-- pill straddles circle's right edge -->
+    <dimen name="splash_badge_elevation">8dp</dimen>
+    <dimen name="splash_badge_text">44sp</dimen>
+
+    <!-- Wordmark + tagline -->
+    <dimen name="splash_wordmark_text">32sp</dimen>
+    <dimen name="splash_tagline_text">15sp</dimen>
+    <dimen name="splash_wordmark_spacing_top">8dp</dimen>
+    <dimen name="splash_tagline_spacing_top">2dp</dimen>
+
+    <!-- Bottom progress group -->
+    <dimen name="splash_progress_track_width">120dp</dimen>
+    <dimen name="splash_progress_track_height">4dp</dimen>
+    <dimen name="splash_progress_fill_width">70dp</dimen>
+    <dimen name="splash_progress_corner">12dp</dimen>
+    <dimen name="splash_progress_gap">16dp</dimen>
+    <dimen name="splash_progress_margin_bottom">88dp</dimen>
+    <dimen name="splash_progress_margin_horizontal">48dp</dimen>
+    <dimen name="splash_status_text">11sp</dimen>
+
+    <!-- ===== Login screen ===== -->
+    <dimen name="screen_gutter">16dp</dimen>
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">8dp</dimen>
+    <dimen name="space_lg">8dp</dimen>
+    <dimen name="space_xl">8dp</dimen>
+
+    <dimen name="login_logo_size">48dp</dimen>
+    <dimen name="login_title_text">32sp</dimen>
+
+    <dimen name="input_corner_radius">12dp</dimen>
+    <dimen name="input_stroke_width">1.5dp</dimen>
+
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="touch_target_min">48dp</dimen>
+
+    <dimen name="social_button_size">48dp</dimen>
+    <dimen name="social_button_corner">12dp</dimen>
+    <dimen name="social_button_gap">12dp</dimen>
+    <dimen name="social_button_padding">12dp</dimen>
+
+    <dimen name="divider_thickness">1.5dp</dimen>
+</resources>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ===== Splash text styles (Material 3 TextAppearance) ===== -->
+
+    <!-- Green "F" inside the white badge -->
+    <style name="TextAppearance.Finara.Badge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textSize">@dimen/splash_badge_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/brand_badge_green</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- "Finara" wordmark -->
+    <style name="TextAppearance.Finara.Wordmark" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">@dimen/splash_wordmark_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- "Money, made mindful" tagline -->
+    <style name="TextAppearance.Finara.Tagline" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">@dimen/splash_tagline_text</item>
+        <item name="android:textColor">@color/splash_white_85</item>
+    </style>
+
+    <!-- "Securing your data…" status line -->
+    <style name="TextAppearance.Finara.Status" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">@dimen/splash_status_text</item>
+        <item name="android:textColor">@color/splash_white_70</item>
+    </style>
+
+    <!-- res/values/themes.xml yoki styles.xml -->
+    <style name="Button.GetStarted" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">28dp</item>
+        <item name="rippleColor">#33FFFFFF</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <!-- ============================================================= -->
+    <!-- Login screen                                                  -->
+    <!-- ============================================================= -->
+
+    <!-- Typography -->
+    <style name="TextAppearance.Finara.Title" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">@dimen/login_title_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.Finara.Subtitle" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance.Finara.FieldLabel" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Rounded corners shared by the outlined text fields -->
+    <style name="ShapeAppearance.Finara.TextField" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/input_corner_radius</item>
+    </style>
+
+    <!-- Outlined email/password field wrapper -->
+    <style name="Widget.Finara.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Finara.TextField</item>
+        <item name="boxStrokeWidth">@dimen/input_stroke_width</item>
+        <item name="boxStrokeColor">@color/input_box_stroke</item>
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+        <item name="hintTextColor">@color/brand_green</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
+        <item name="startIconTint">@color/text_secondary</item>
+        <item name="endIconTint">@color/text_secondary</item>
+        <item name="errorEnabled">true</item>
+    </style>
+
+    <style name="Widget.Finara.TextInputEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- Primary gradient CTA. android:background carries the gradient, so
+         backgroundTint is cleared and insets zeroed to honour the 56dp height. -->
+    <style name="Widget.Finara.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:background">@drawable/bg_button_gradient</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/input_corner_radius</item>
+    </style>
+
+    <!-- Inline text links (Forgot password / Sign up) with ripple + 48dp target -->
+    <style name="Widget.Finara.TextLink" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/touch_target_min</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">@dimen/space_sm</item>
+        <item name="android:textColor">@color/brand_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!-- Outlined, rippled social sign-in icon button -->
+    <style name="Widget.Finara.SocialButton" parent="">
+        <item name="android:layout_width">@dimen/social_button_size</item>
+        <item name="android:layout_height">@dimen/social_button_size</item>
+        <item name="android:padding">@dimen/social_button_padding</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@drawable/bg_social_button</item>
+    </style>
+</resources>

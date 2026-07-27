@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark Mode is intentionally NOT supported yet. Mirror the Light base so a device
+         in system Dark Mode still shows the intended white UI instead of Material3's
+         default dark palette. When a real dark design is added, switch this back to a
+         DayNight/Dark parent and add values-night/colors.xml. -->
+    <style name="Base.Theme.ExpenseTracker" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+</resources>

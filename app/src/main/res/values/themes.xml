@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme.
+         Light-only: the UI is designed for a white surface. Using the Light parent
+         (not DayNight) keeps colorSurface white even when the system is in Dark Mode.
+         windowBackground + colorSurface are pinned to pure white so ?attr/colorSurface
+         backgrounds render the intended white in both preview and on-device. -->
+    <style name="Base.Theme.ExpenseTracker" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+
+    <style name="Theme.ExpenseTracker" parent="Base.Theme.ExpenseTracker" />
+
+    <!--
+      System splash theme (androidx.core:core-splashscreen). Shown by the OS during cold start
+      on every supported API (backported to 24+, native on Android 12+). This removes the blank/
+      white window before the first frame. It hands off to the real app theme via
+      postSplashScreenTheme, and MainActivity then shows the animated splash Fragment.
+    -->
+    <style name="Theme.ExpenseTracker.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.ExpenseTracker</item>
+    </style>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreen">
+
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.ubaydullayev.expensetracker.presentation.splash.SplashScreen"
+        android:label="screen_splash"
+        tools:layout="@layout/screen_splash">
+
+        <action
+            android:id="@+id/action_splashScreen_to_onboardingScreen"
+            app:destination="@id/onboardingScreen"
+            app:enterAnim="@anim/splash_fade_in"
+            app:exitAnim="@anim/splash_fade_out"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splashScreen_to_loginScreen"
+            app:destination="@id/loginScreen"
+            app:enterAnim="@anim/splash_fade_in"
+            app:exitAnim="@anim/splash_fade_out"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingScreen"
+        android:name="com.ubaydullayev.expensetracker.presentation.splash.OnboardingScreen"
+        android:label="screen_onboarding"
+        tools:layout="@layout/screen_onboarding">
+
+        <action
+            android:id="@+id/action_onboardingScreen_to_loginScreen"
+            app:destination="@id/loginScreen"
+            app:popUpTo="@id/onboardingScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginScreen"
+        android:name="com.ubaydullayev.expensetracker.presentation.login.LoginScreen"
+        android:label="screen_login"
+        tools:layout="@layout/screen_login">
+
+        <action
+            android:id="@+id/action_loginScreen_to_loginSignUpScreen"
+            app:destination="@id/loginSignUpScreen" />
+
+        <!-- On successful sign-in: clear the auth flow so Back exits the app. -->
+        <action
+            android:id="@+id/action_loginScreen_to_homeScreen"
+            app:destination="@id/homeScreen"
+            app:popUpTo="@id/loginScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginSignUpScreen"
+        android:name="com.ubaydullayev.expensetracker.presentation.splash.LoginSignUpScreen"
+        android:label="screen_login_sign_up"
+        tools:layout="@layout/screen_login_sign_up">
+
+        <!-- Return to the existing login instance instead of stacking a new one. -->
+        <action
+            android:id="@+id/action_loginSignUpScreen_to_loginScreen"
+            app:destination="@id/loginScreen"
+            app:popUpTo="@id/loginScreen"
+            app:popUpToInclusive="false" />
+
+        <!-- On successful sign-up: clear the whole auth flow (login + sign-up). -->
+        <action
+            android:id="@+id/action_loginSignUpScreen_to_homeScreen"
+            app:destination="@id/homeScreen"
+            app:popUpTo="@id/loginScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.ubaydullayev.expensetracker.presentation.home.HomeScreen"
+        android:label="screen_home"
+        tools:layout="@layout/screen_home" />
+
+</navigation>

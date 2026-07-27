@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/splash_background"
+    android:clipChildren="false"
+    tools:context=".presentation.splash.SplashScreen">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top_circle_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.128" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top_circle_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.296" />
+
+    <!-- Bottom circle centre (390, 710) -> x = parent end , 710/844 = 0.841 -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom_circle_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.841" />
+
+    <!-- ===== Blurred background circles ===== -->
+    <View
+        android:id="@+id/circle_top"
+        android:layout_width="@dimen/splash_circle_top_size"
+        android:layout_height="@dimen/splash_circle_top_size"
+        android:background="@drawable/bg_splash_ellipse_top"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="@id/guideline_top_circle_x"
+        app:layout_constraintEnd_toEndOf="@id/guideline_top_circle_x"
+        app:layout_constraintTop_toTopOf="@id/guideline_top_circle_y"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_top_circle_y" />
+
+    <View
+        android:id="@+id/circle_bottom"
+        android:layout_width="@dimen/splash_circle_bottom_size"
+        android:layout_height="@dimen/splash_circle_bottom_size"
+        android:background="@drawable/bg_splash_ellipse_bottom"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_bottom_circle_y"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_circle_y" />
+
+    <LinearLayout
+        android:id="@+id/logo_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:clipChildren="false"
+        android:alpha="0"
+        android:scaleX="0.85"
+        android:scaleY="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+        <!-- Logo mark: translucent circle + white "F" pill overlapping its edge -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/splash_logo_mark_height"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <View
+                android:layout_width="@dimen/splash_logo_circle_size"
+                android:layout_height="@dimen/splash_logo_circle_size"
+                android:layout_gravity="start|center_vertical"
+                android:background="@drawable/bg_splash_logo_circle"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/splash_badge_height"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="98dp"
+                android:background="@drawable/bg_splash_badge"
+                android:elevation="@dimen/splash_badge_elevation"
+                android:gravity="center"
+                android:paddingStart="@dimen/splash_badge_padding_h"
+                android:paddingEnd="@dimen/splash_badge_padding_h"
+                android:text="@string/splash_badge_letter"
+                android:fontFamily="sans-serif"
+                android:textAppearance="@style/TextAppearance.Finara.Badge" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/splash_wordmark_spacing_top"
+            android:text="@string/splash_wordmark"
+            android:fontFamily="sans-serif"
+            android:textAppearance="@style/TextAppearance.Finara.Wordmark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/splash_tagline_spacing_top"
+            android:text="@string/splash_tagline"
+            android:fontFamily="sans-serif"
+            android:textAppearance="@style/TextAppearance.Finara.Tagline" />
+    </LinearLayout>
+
+    <!-- ===== Bottom progress + status ===== -->
+    <LinearLayout
+        android:id="@+id/status_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="@dimen/splash_progress_margin_horizontal"
+        android:layout_marginEnd="@dimen/splash_progress_margin_horizontal"
+        android:layout_marginBottom="@dimen/splash_progress_margin_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/bg_splash_progress" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/splash_progress_gap"
+            android:text="@string/splash_status"
+            android:fontFamily="sans-serif"
+            android:textAppearance="@style/TextAppearance.Finara.Status" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

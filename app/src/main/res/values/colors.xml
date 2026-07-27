@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ===== Splash / Finara brand (from Figma: Personal-Finance-Manager > Splash) ===== -->
+    <!-- brand/gradient-b -->
+    <color name="splash_background">#FF057A55</color>
+    <!-- Green "F" glyph inside the white badge -->
+    <color name="brand_badge_green">#FF0E9F6E</color>
+
+    <!-- Translucent whites used across the splash (white @ opacity) -->
+    <color name="splash_white_85">#D9FFFFFF</color> <!-- tagline text          -->
+    <color name="splash_white_70">#B3FFFFFF</color> <!-- status text           -->
+    <color name="splash_white_20">#33FFFFFF</color> <!-- progress track        -->
+    <color name="splash_logo_circle">#1FFFFFFF</color> <!-- 12% circle behind F -->
+    <!-- res/values/colors.xml -->
+    <color name="primary">#6C63FF</color>
+    <color name="primary_dark">#5A52D5</color>
+
+    <!-- res/values/colors.xml -->057A55
+    <color name="brand_green">#0E9F6E</color>
+    <color name="brand_green_dark">#057A55</color>
+    <color name="green_tint">#DEF7EC</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="surface_border">#E5E7EB</color>
+
+</resources>

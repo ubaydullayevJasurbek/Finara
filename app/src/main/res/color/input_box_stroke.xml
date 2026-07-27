@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Outlined text-field stroke: brand green on focus, muted border otherwise.
+     Restores Material's focus state that a single hardcoded color removed. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/brand_green" android:state_focused="true" />
+    <item android:color="@color/surface_border" />
+</selector>

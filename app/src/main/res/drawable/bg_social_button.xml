@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rounded, outlined icon-button surface with a bounded ripple for pressed state. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/social_button_corner" />
+            <solid android:color="?attr/colorSurface" />
+            <stroke
+                android:width="@dimen/input_stroke_width"
+                android:color="@color/surface_border" />
+        </shape>
+    </item>
+</ripple>
