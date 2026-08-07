@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding 2 glyph (Figma 254:62): budget donut/clock. white @97%. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="78dp"
+    android:height="78dp"
+    android:viewportWidth="78"
+    android:viewportHeight="78">
+    <path
+        android:pathData="M39,68.25C55.1543,68.25 68.25,55.1543 68.25,39C68.25,22.8457 55.1543,9.75 39,9.75C22.8457,9.75 9.75,22.8457 9.75,39C9.75,55.1543 22.8457,68.25 39,68.25Z"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M39,9.75C45.0964,9.76354 51.0362,11.6816 55.9891,15.2361C60.9421,18.7905 64.6606,23.8038 66.625,29.575L39,39V9.75Z"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M39,22.75V39L50.375,45.5"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

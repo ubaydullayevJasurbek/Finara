@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding 3 glyph (Figma 254:101): AI sparkle. white @97%. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="78dp"
+    android:height="78dp"
+    android:viewportWidth="78"
+    android:viewportHeight="78">
+    <path
+        android:pathData="M39,9.75V22.75M39,55.25V68.25M9.75,39H22.75M55.25,39H68.25M39,26C39,29.4478 40.3696,32.7544 42.8076,35.1924C45.2456,37.6304 48.5522,39 52,39C48.5522,39 45.2456,40.3696 42.8076,42.8076C40.3696,45.2456 39,48.5522 39,52C39,48.5522 37.6304,45.2456 35.1924,42.8076C32.7544,40.3696 29.4478,39 26,39C29.4478,39 32.7544,37.6304 35.1924,35.1924C37.6304,32.7544 39,29.4478 39,26Z"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

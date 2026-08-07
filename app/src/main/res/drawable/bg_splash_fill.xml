@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 267:33: progress fill, #66F2B2 -> white @95%, left to right, fully rounded. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="0"
+        android:startColor="@color/splash_progress_fill_start"
+        android:endColor="@color/splash_white_95" />
+    <corners android:radius="@dimen/splash_track_radius" />
+</shape>

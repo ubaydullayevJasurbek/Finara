@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding 4 panel gradient (Figma 254:127): 116.889deg, #177A57/#0A4D38/#082B21. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="390dp"
+    android:height="470dp"
+    android:viewportWidth="390"
+    android:viewportHeight="470">
+    <path android:pathData="M0,0L390,0L390,470L0,470Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear"
+                android:startX="-54.9" android:startY="108.4"
+                android:endX="444.9" android:endY="361.6">
+                <item android:offset="0" android:color="#FF177A57" />
+                <item android:offset="0.41379" android:color="#FF0A4D38" />
+                <item android:offset="0.68966" android:color="#FF082B21" />
+                <item android:offset="1" android:color="#FF082B21" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

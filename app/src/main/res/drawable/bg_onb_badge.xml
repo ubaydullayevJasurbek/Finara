@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 254:24: frosted badge, white 14% fill, 1.5dp white 22% border, 48dp radius. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/onb_white_14" />
+    <stroke
+        android:width="@dimen/onb_badge_border"
+        android:color="@color/onb_white_22" />
+    <corners android:radius="@dimen/onb_badge_corner" />
+</shape>

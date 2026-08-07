@@ -1,55 +1,277 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  One onboarding page — recreation of Figma frame 254:14 (Onboarding template).
+  Top: green gradient "Illustration" panel (frosted badge + glyph, floating stat pills,
+  glows / dotted ring / sparkles), bottom-corners rounded 45dp. Below: chip + title + subtitle.
+  The Skip pill, dots indicator and CTA live in the host (screen_onboarding.xml).
+  Per-page values (panelBg, glyph, chip, pills, title, subtitle) are bound by OnboardingAdapter.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingHorizontal="16dp">
+    android:background="@color/onb_surface_bg">
 
-    <FrameLayout
-        android:id="@+id/imageCard"
+    <!-- ===================== Illustration panel =====================
+         MaterialCardView path-clips ALL children to its ShapeAppearance (top square,
+         bottom 45dp). No android:clipToOutline (would force a rect/uniform Outline clip),
+         no cardCornerRadius (would override the per-corner overlay), corner overlap off. -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/panel"
         android:layout_width="0dp"
-        android:layout_height="360dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_onboarding_image_card"
+        android:layout_height="@dimen/onb_panel_height"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:contentPadding="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Onb.Panel"
+        app:strokeWidth="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/imgOnboarding"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/img_onboarding_1" />
-    </FrameLayout>
+            android:clipChildren="true"
+            android:clipToPadding="true">
+
+            <!-- Per-page gradient background -->
+            <ImageView
+                android:id="@+id/panelBg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                tools:src="@drawable/bg_onb_panel_1" />
+
+            <!-- Glows -->
+            <View
+                android:layout_width="@dimen/onb_glow_top_size"
+                android:layout_height="@dimen/onb_glow_top_size"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="210dp"
+                android:layout_marginTop="-90dp"
+                android:background="@drawable/bg_onb_glow_top"
+                android:importantForAccessibility="no" />
+
+            <View
+                android:layout_width="@dimen/onb_glow_bottom_size"
+                android:layout_height="@dimen/onb_glow_bottom_size"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="-80dp"
+                android:layout_marginTop="300dp"
+                android:background="@drawable/bg_onb_glow_bottom"
+                android:importantForAccessibility="no" />
+
+            <!-- Dotted ring (centred) -->
+            <View
+                android:layout_width="@dimen/onb_ring_size"
+                android:layout_height="@dimen/onb_ring_size"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_splash_ring_inner"
+                android:importantForAccessibility="no" />
+
+            <!-- Sparkle dots (reuse the splash white dot) -->
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="90dp"
+                android:alpha="0.5"
+                android:background="@drawable/ic_splash_dot"
+                android:importantForAccessibility="no" />
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="320dp"
+                android:layout_marginTop="150dp"
+                android:alpha="0.45"
+                android:background="@drawable/ic_splash_dot"
+                android:importantForAccessibility="no" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="340dp"
+                android:alpha="0.4"
+                android:background="@drawable/ic_splash_dot"
+                android:importantForAccessibility="no" />
+
+            <View
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="60dp"
+                android:alpha="0.55"
+                android:background="@drawable/ic_splash_dot"
+                android:importantForAccessibility="no" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="180dp"
+                android:layout_marginTop="50dp"
+                android:alpha="0.4"
+                android:background="@drawable/ic_splash_dot"
+                android:importantForAccessibility="no" />
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="250dp"
+                android:layout_marginTop="380dp"
+                android:alpha="0.45"
+                android:background="@drawable/ic_splash_dot"
+                android:importantForAccessibility="no" />
+
+            <!-- Frosted badge + glyph (centred) -->
+            <FrameLayout
+                android:layout_width="@dimen/onb_badge_size"
+                android:layout_height="@dimen/onb_badge_size"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_onb_badge">
+
+                <ImageView
+                    android:id="@+id/imgOnboarding"
+                    android:layout_width="@dimen/onb_glyph_size"
+                    android:layout_height="@dimen/onb_glyph_size"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    tools:src="@drawable/ic_onb_track" />
+            </FrameLayout>
+
+            <!-- Floating stat pill (left) -->
+            <LinearLayout
+                android:id="@+id/pill1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="210dp"
+                android:background="@drawable/bg_onb_pill"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="7dp">
+
+                <ImageView
+                    android:id="@+id/pill1Dot"
+                    android:layout_width="@dimen/onb_pill_dot"
+                    android:layout_height="@dimen/onb_pill_dot"
+                    android:layout_marginEnd="6dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_splash_dot"
+                    android:tint="@color/onb_pill_green" />
+
+                <TextView
+                    android:id="@+id/pill1Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_extra_bold"
+                    android:textColor="#FAFFFFFF"
+                    android:textSize="11sp"
+                    tools:text="+$5,240" />
+            </LinearLayout>
+
+            <!-- Floating stat pill (right) -->
+            <LinearLayout
+                android:id="@+id/pill2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="250dp"
+                android:layout_marginTop="290dp"
+                android:background="@drawable/bg_onb_pill"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="7dp">
+
+                <ImageView
+                    android:id="@+id/pill2Dot"
+                    android:layout_width="@dimen/onb_pill_dot"
+                    android:layout_height="@dimen/onb_pill_dot"
+                    android:layout_marginEnd="6dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_splash_dot"
+                    android:tint="@color/onb_pill_coral" />
+
+                <TextView
+                    android:id="@+id/pill2Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_extra_bold"
+                    android:textColor="#FAFFFFFF"
+                    android:textSize="11sp"
+                    tools:text="−$84.20" />
+            </LinearLayout>
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ===================== Content ===================== -->
+    <TextView
+        android:id="@+id/txtChip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/bg_onb_chip"
+        android:backgroundTint="@color/onb_tint_green"
+        android:fontFamily="@font/inter_extra_bold"
+        android:letterSpacing="0.06"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/onb_brand_primary"
+        android:textSize="@dimen/onb_chip_text"
+        app:layout_constraintTop_toBottomOf="@id/panel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="TRACK" />
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:lineSpacingMultiplier="1.1"
-        android:text="@string/onboarding_text"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/imageCard"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/onb_content_padding"
+        android:layout_marginEnd="@dimen/onb_content_padding"
+        android:gravity="center_horizontal"
+        android:lineSpacingMultiplier="1.18"
+        android:textAppearance="@style/TextAppearance.Onb.Title"
+        app:layout_constraintTop_toBottomOf="@id/txtChip"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Every transaction,\nbeautifully organized" />
 
     <TextView
         android:id="@+id/txtSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:lineSpacingMultiplier="1.35"
-        android:text="@string/onboarding_txt2"
-        android:textColor="@color/text_secondary"
-        android:textSize="15sp"
+        android:layout_marginStart="@dimen/onb_content_padding"
+        android:layout_marginEnd="@dimen/onb_content_padding"
+        android:gravity="center_horizontal"
+        android:lineSpacingMultiplier="1.3"
+        android:textAppearance="@style/TextAppearance.Onb.Subtitle"
         app:layout_constraintTop_toBottomOf="@id/txtTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Automatically categorize your spending and see exactly where your money goes." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

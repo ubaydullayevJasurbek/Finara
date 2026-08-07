@@ -3,14 +3,6 @@
 
     <!-- ===== Splash text styles (Material 3 TextAppearance) ===== -->
 
-    <!-- Green "F" inside the white badge -->
-    <style name="TextAppearance.Finara.Badge" parent="TextAppearance.Material3.HeadlineLarge">
-        <item name="android:textSize">@dimen/splash_badge_text</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/brand_badge_green</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
     <!-- "Finara" wordmark -->
     <style name="TextAppearance.Finara.Wordmark" parent="TextAppearance.Material3.HeadlineMedium">
         <item name="android:textSize">@dimen/splash_wordmark_text</item>
@@ -20,7 +12,7 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <!-- "Money, made mindful" tagline -->
+    <!-- "Personal Finance Manager" tagline -->
     <style name="TextAppearance.Finara.Tagline" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textSize">@dimen/splash_tagline_text</item>
         <item name="android:textColor">@color/splash_white_85</item>
@@ -30,6 +22,33 @@
     <style name="TextAppearance.Finara.Status" parent="TextAppearance.Material3.BodySmall">
         <item name="android:textSize">@dimen/splash_status_text</item>
         <item name="android:textColor">@color/splash_white_70</item>
+    </style>
+
+    <!-- ===== Splash Activity typography (exact Figma 267:14 values, Inter) ===== -->
+    <!-- 267:29 "Finara": Inter ExtraBold 34, white, tracking -1.02px (-1.02/34 = -0.03em) -->
+    <style name="TextAppearance.Finara.Splash.Wordmark" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/inter_extra_bold</item>
+        <item name="android:textSize">@dimen/splash_wordmark_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- 267:30 "Personal Finance Manager": Inter Medium 13, white 60%, tracking 0.26px (0.02em) -->
+    <style name="TextAppearance.Finara.Splash.Tagline" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/splash_tagline_size</item>
+        <item name="android:textColor">@color/splash_white_60</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- 267:34 "Securing your data…": Inter Medium 12, white 50% -->
+    <style name="TextAppearance.Finara.Splash.Status" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/splash_status_size</item>
+        <item name="android:textColor">@color/splash_white_50</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <!-- res/values/themes.xml yoki styles.xml -->
@@ -44,6 +63,32 @@
         <item name="cornerRadius">28dp</item>
         <item name="rippleColor">#33FFFFFF</item>
         <item name="elevation">4dp</item>
+    </style>
+
+    <!-- ===== Onboarding ===== -->
+    <!-- Illustration panel: only the bottom corners are rounded (top sits at the screen edge). -->
+    <style name="ShapeAppearance.Onb.Panel" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/onb_panel_corner</item>
+        <item name="cornerSizeBottomRight">@dimen/onb_panel_corner</item>
+    </style>
+
+    <!-- 254:39 title: Inter ExtraBold 30, #0B0F14, centre, tracking -0.9px (-0.03em) -->
+    <style name="TextAppearance.Onb.Title" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/inter_extra_bold</item>
+        <item name="android:textSize">@dimen/onb_title_text</item>
+        <item name="android:textColor">@color/onb_text_primary</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- 254:40 subtitle: Inter Medium 15, #6B7280, centre, line-height 1.5 -->
+    <style name="TextAppearance.Onb.Subtitle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/onb_subtitle_text</item>
+        <item name="android:textColor">@color/onb_text_secondary</item>
     </style>
 
     <!-- ============================================================= -->

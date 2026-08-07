@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 254:47: CTA button, ~140deg gradient #14B880 -> #0A7352, fully rounded pill.
+     GradientDrawable angles snap to 45°; 315° is the top-left -> bottom-right diagonal. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="315"
+        android:startColor="@color/onb_cta_start"
+        android:endColor="@color/onb_cta_end" />
+    <corners android:radius="@dimen/onb_cta_corner" />
+</shape>

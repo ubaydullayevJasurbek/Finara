@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 267:16: 300dp radial glow, #0D9966 @40% center -> transparent edge. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="@dimen/splash_glow_bottom_radius"
+        android:centerX="0.5"
+        android:centerY="0.5"
+        android:startColor="@color/splash_glow_bottom"
+        android:endColor="@color/splash_glow_bottom_edge" />
+</shape>

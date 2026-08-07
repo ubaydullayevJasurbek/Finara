@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Frosted rounded-square logo badge (Figma frame 267:14 > "Frame" 267:25):
+     15% white fill, 1.5dp 24% white border, 32dp radius. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/splash_white_15" />
+    <stroke
+        android:width="@dimen/splash_logo_badge_border"
+        android:color="@color/splash_white_24" />
+    <corners android:radius="@dimen/splash_logo_badge_corner" />
+</shape>

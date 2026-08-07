@@ -13,7 +13,8 @@
     <color name="splash_white_85">#D9FFFFFF</color> <!-- tagline text          -->
     <color name="splash_white_70">#B3FFFFFF</color> <!-- status text           -->
     <color name="splash_white_20">#33FFFFFF</color> <!-- progress track        -->
-    <color name="splash_logo_circle">#1FFFFFFF</color> <!-- 12% circle behind F -->
+    <color name="splash_white_24">#3DFFFFFF</color> <!-- logo badge border 24% -->
+    <color name="splash_white_15">#26FFFFFF</color> <!-- logo badge fill 15%   -->
     <!-- res/values/colors.xml -->
     <color name="primary">#6C63FF</color>
     <color name="primary_dark">#5A52D5</color>
@@ -24,5 +25,60 @@
     <color name="green_tint">#DEF7EC</color>
     <color name="text_secondary">#6B7280</color>
     <color name="surface_border">#E5E7EB</color>
+
+    <!-- ===== Splash Activity (exact values from Figma frame 267:14) ===== -->
+    <!-- Background gradient stops -->
+    <color name="splash_grad_start">#FF127352</color>
+    <color name="splash_grad_mid">#FF084533</color>
+    <color name="splash_grad_end">#FF08211C</color>
+    <!-- Radial glows (center color carries the Figma opacity; edge fully transparent) -->
+    <color name="splash_glow_top">#5733E69E</color>        <!-- #33E69E @ 34% -->
+    <color name="splash_glow_top_edge">#0033E69E</color>
+    <color name="splash_glow_bottom">#660D9966</color>     <!-- #0D9966 @ 40% -->
+    <color name="splash_glow_bottom_edge">#000D9966</color>
+    <!-- Dotted rings -->
+    <color name="splash_ring_1">#1AFFFFFF</color>          <!-- inner, white @ 10% -->
+    <color name="splash_ring_2">#12FFFFFF</color>          <!-- outer, white @ 7%  -->
+    <!-- Progress -->
+    <color name="splash_progress_fill_start">#FF66F2B2</color>
+    <color name="splash_white_95">#F2FFFFFF</color>       <!-- progress fill end   -->
+    <color name="splash_white_16">#29FFFFFF</color>       <!-- progress track      -->
+    <!-- Type -->
+    <color name="splash_white_60">#99FFFFFF</color>       <!-- tagline             -->
+    <color name="splash_white_50">#80FFFFFF</color>       <!-- status              -->
+
+    <!-- ===== Onboarding (exact tokens from Figma 253:14..253:17) ===== -->
+    <color name="onb_surface_bg">#FFF7F8FA</color>
+    <color name="onb_surface_container">#FFEFF1F5</color>   <!-- inactive dot -->
+    <color name="onb_brand_primary">#FF0B7E57</color>
+    <color name="onb_text_primary">#FF0B0F14</color>
+    <color name="onb_text_secondary">#FF6B7280</color>
+    <!-- Chip tints + accents -->
+    <color name="onb_tint_green">#FFDEF7EC</color>
+    <color name="onb_tint_blue">#FFDBEAFE</color>
+    <color name="onb_tint_purple">#FFEDE9FE</color>
+    <color name="onb_accent_blue">#FF2E65C0</color>
+    <color name="onb_accent_purple">#FF784FD4</color>
+    <!-- CTA gradient -->
+    <color name="onb_cta_start">#FF14B880</color>
+    <color name="onb_cta_end">#FF0A7352</color>
+    <!-- Floating pill dots -->
+    <color name="onb_pill_green">#FF66F2B3</color>
+    <color name="onb_pill_coral">#FFFF998C</color>
+    <color name="onb_pill_blue">#FF8CC7FF</color>
+    <color name="onb_pill_purple">#FFA680FF</color>
+    <color name="onb_pill_teal">#FF4DE6CC</color>
+    <color name="onb_pill_amber">#FFFFD966</color>
+    <!-- Illustration glows -->
+    <color name="onb_glow_top">#5733D999</color>
+    <color name="onb_glow_top_edge">#0033D999</color>
+    <color name="onb_glow_bottom">#660D8C61</color>
+    <color name="onb_glow_bottom_edge">#000D8C61</color>
+    <!-- Translucent whites on the panel -->
+    <color name="onb_white_14">#24FFFFFF</color>
+    <color name="onb_white_16">#29FFFFFF</color>
+    <color name="onb_white_18">#2EFFFFFF</color>
+    <color name="onb_white_20">#33FFFFFF</color>
+    <color name="onb_white_22">#38FFFFFF</color>
 
 </resources>

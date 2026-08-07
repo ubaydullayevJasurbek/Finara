@@ -1,78 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Onboarding host (Figma 253:14..253:17). The ViewPager shows each page's illustration panel +
+  chip/title/subtitle; the Skip pill (over the panel), 4-dot indicator, gradient CTA and the
+  page-4 "Sign in" row are shared here. Skip/Sign-in visibility is toggled per page in code.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/onb_surface_bg"
     tools:context=".presentation.splash.OnboardingScreen">
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSkip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#F3F4F6"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:text="@string/skipBtn"
-        android:textAllCaps="false"
-        android:textColor="@color/text_secondary"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:cornerRadius="100dp"
-        app:elevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/btnSkip"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tabIndicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Skip pill, over the panel (top-right) -->
+    <TextView
+        android:id="@+id/btnSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_onb_skip"
+        android:fontFamily="@font/inter_extra_bold"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/skipBtn"
+        android:textColor="#F2FFFFFF"
+        android:textSize="12.5sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 4-dot progress indicator -->
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/tabIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:dotsColor="@color/surface_border"
-        app:dotsCornerRadius="4dp"
+        android:layout_marginBottom="26dp"
+        app:dotsColor="@color/onb_surface_container"
+        app:dotsCornerRadius="100dp"
         app:dotsSize="8dp"
-        app:dotsSpacing="4dp"
-        app:dotsWidthFactor="3"
+        app:dotsSpacing="3.5dp"
+        app:dotsWidthFactor="3.25"
         app:progressMode="true"
-        app:selectedDotColor="@color/brand_green"
-        app:layout_constraintBottom_toTopOf="@id/btnGetStarted"
+        app:selectedDotColor="@color/onb_brand_primary"
+        app:layout_constraintBottom_toTopOf="@id/ctaGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGetStarted"
+    <!-- CTA + optional sign-in row -->
+    <LinearLayout
+        android:id="@+id/ctaGroup"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/brand_green"
-        android:text="@string/get_started"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
-        app:elevation="4dp"
-        app:rippleColor="#33FFFFFF"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="@dimen/onb_content_padding"
+        android:layout_marginEnd="@dimen/onb_content_padding"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/btnGetStarted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_onb_cta"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp">
+
+            <TextView
+                android:id="@+id/ctaText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_extra_bold"
+                android:text="@string/onb_next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/onb_cta_text" />
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/ic_onb_arrow"
+                android:importantForAccessibility="no" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/signInRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/already_have_account"
+                android:textColor="@color/onb_text_secondary"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/txtSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/inter_extra_bold"
+                android:text="@string/sign_in"
+                android:textColor="@color/onb_brand_primary"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

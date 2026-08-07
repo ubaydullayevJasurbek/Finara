@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Small white dot (Figma 267:19..267:24). Per-instance size + opacity set in the layout. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="8dp"
+    android:height="8dp"
+    android:viewportWidth="8"
+    android:viewportHeight="8">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M0,4 A4,4 0 1,0 8,4 A4,4 0 1,0 0,4 Z" />
+</vector>

@@ -70,9 +70,8 @@ class SplashScreen : BaseFragment<ScreenSplashBinding>() {
             progressAnimator = progress
 
             progress.start()
-            progress.awaitEnd() // suspends until the bar actually reaches 100%
+            progress.awaitEnd()
 
-            // Reached here only on a natural finish while the view is alive -> navigate exactly once.
             navigateAway(onboardingDone)
         }
     }
@@ -91,8 +90,6 @@ class SplashScreen : BaseFragment<ScreenSplashBinding>() {
         logoAnimator = AnimatorSet().apply {
             duration = LOGO_SCALE_MS
             interpolator = overshoot
-            // AnimatorSet applies its duration/interpolator to children that don't set their own;
-            // fadeIn keeps its own (shorter, decelerate), the scale animators inherit the overshoot.
             playTogether(fadeIn, scaleX, scaleY)
             start()
         }
@@ -150,7 +147,6 @@ class SplashScreen : BaseFragment<ScreenSplashBinding>() {
         const val LOGO_SCALE_MS = 800L
         const val LOGO_OVERSHOOT_TENSION = 1.5f // subtle ~5% overshoot, not a heavy bounce
 
-        // Progress starts just after the logo, ends ~1400ms in (within the 1200-1800ms target).
         const val PROGRESS_START_DELAY_MS = 150L
         const val PROGRESS_DURATION_MS = 1250L
 

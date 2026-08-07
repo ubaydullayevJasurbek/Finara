@@ -4,15 +4,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Splash -->
-    <string name="splash_badge_letter">F</string>
     <string name="splash_wordmark">Finara</string>
-    <string name="splash_tagline">Money, made mindful</string>
+    <string name="splash_tagline">Personal Finance Manager</string>
     <string name="splash_status">Securing your data…</string>
     <string name="skipBtn">Skip</string>
     <string name="onboarding_text">Take control of      your money</string>
     <string name="onboarding_txt2">Smart budgets, automatic tracking, and AI insights that help you save more — all in one beautiful app.</string>
     <string name="get_started">Get Started</string>
     <string name="get_continue">Continue</string>
+    <string name="onb_next">Next</string>
     <string name="finara">Finara</string>
     <string name="welcome_to_finara">Welcome to Finara</string>
     <string name="email">Email</string>
@@ -35,7 +35,19 @@
     <string name="cd_sign_in_google">Sign in with Google</string>
     <string name="cd_sign_in_twitter">Sign in with X</string>
     <string name="error_email_required">Please enter your email</string>
+    <string name="error_email_invalid">Please enter a valid email</string>
     <string name="error_password_required">Please enter your password</string>
+    <string name="error_user_not_found">No account found for this email</string>
+    <string name="error_generic">Something went wrong. Please try again</string>
+
+    <!-- Forgot password -->
+    <string name="forgot_password_title">Forgot password?</string>
+    <string name="forgot_password_subtitle">Enter your email and we\'ll send you a link to reset your password</string>
+    <string name="send_reset_link">Send reset link</string>
+    <string name="remember_password">Remember your password?</string>
+    <string name="reset_email_sent_title">Check your email</string>
+    <string name="reset_email_sent_subtitle">We\'ve sent a password reset link to %1$s</string>
+    <string name="back_to_sign_in">Back to sign in</string>
 
     <!-- Sign up -->
     <string name="create_account">Create Account</string>
@@ -45,4 +57,5 @@
     <string name="error_name_required">Please enter your name</string>
     <string name="error_confirm_password_required">Please confirm your password</string>
     <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_unexpected_credential">Unexpected credential type</string>
 </resources>

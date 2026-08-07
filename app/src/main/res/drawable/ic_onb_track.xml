@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding 1 glyph (Figma 254:25): bar chart. white @97%. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="78dp"
+    android:height="78dp"
+    android:viewportWidth="78"
+    android:viewportHeight="78">
+    <path
+        android:pathData="M13,65V32.5M32.5,65V13M52,65V42.25M71.5,65H6.5"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Onboarding 4 glyph (Figma 254:138): award medal. white @97%. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="78dp"
+    android:height="78dp"
+    android:viewportWidth="78"
+    android:viewportHeight="78">
+    <path
+        android:pathData="M39,48.75C43.3098,48.75 47.443,47.038 50.4905,43.9905C53.538,40.943 55.25,36.8098 55.25,32.5C55.25,28.1902 53.538,24.057 50.4905,21.0095C47.443,17.962 43.3098,16.25 39,16.25C34.6902,16.25 30.557,17.962 27.5095,21.0095C24.462,24.057 22.75,28.1902 22.75,32.5C22.75,36.8098 24.462,40.943 27.5095,43.9905C30.557,47.038 34.6902,48.75 39,48.75Z"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M26.65,44.85L22.75,71.5L39,61.75L55.25,71.5L51.35,44.85"
+        android:fillColor="#00000000"
+        android:strokeColor="#F7FFFFFF"
+        android:strokeWidth="4.875"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

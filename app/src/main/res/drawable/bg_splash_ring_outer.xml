@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 267:18: 380dp dotted ring, white @ ~7% (measured from exported asset). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <stroke
+        android:width="@dimen/splash_ring_stroke"
+        android:color="@color/splash_ring_2"
+        android:dashWidth="@dimen/splash_ring2_dash"
+        android:dashGap="@dimen/splash_ring2_gap" />
+</shape>

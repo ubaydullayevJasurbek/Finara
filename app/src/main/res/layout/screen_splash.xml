@@ -1,58 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Splash fragment — 1:1 recreation of Figma frame 267:14 "Splash — Redesign" (390x844).
+  Decorative layers (glows, rings, dots) are centred on percent guidelines derived from the
+  frame so positions stay proportional across screen sizes; the logo stack is centred and the
+  status band sits at the frame's absolute offset. Paint order matches the Figma layer order.
+  IDs `logo_group` and `pb_loading` are kept because SplashScreen.kt animates them.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_background"
-    android:clipChildren="false"
+    android:background="@drawable/bg_splash_gradient"
     tools:context=".presentation.splash.SplashScreen">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top_circle_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.128" />
+    <!-- ===================== Position guidelines (centres) ===================== -->
+    <!-- X guidelines -->
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_glow_top" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.8974" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_glow_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.1026" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.5" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_dot19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.1872" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_dot20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.8269" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_dot21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.2359" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_dot22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.7782" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_dot23" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.4923" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gx_dot24" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.6731" />
+    <!-- Y guidelines -->
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_glow_top" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.0711" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_glow_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.8412" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.4502" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_dot19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.2642" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_dot20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.3584" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_dot21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.6422" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_dot22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.2174" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_dot23" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.1683" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_dot24" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.7139" />
+    <androidx.constraintlayout.widget.Guideline android:id="@+id/gy_band_top" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" app:layout_constraintGuide_percent="0.8436" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top_circle_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.296" />
-
-    <!-- Bottom circle centre (390, 710) -> x = parent end , 710/844 = 0.841 -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom_circle_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.841" />
-
-    <!-- ===== Blurred background circles ===== -->
+    <!-- ===================== Decorative glows ===================== -->
+    <!-- 267:15 -->
     <View
-        android:id="@+id/circle_top"
-        android:layout_width="@dimen/splash_circle_top_size"
-        android:layout_height="@dimen/splash_circle_top_size"
-        android:background="@drawable/bg_splash_ellipse_top"
+        android:layout_width="@dimen/splash_glow_top_size"
+        android:layout_height="@dimen/splash_glow_top_size"
+        android:background="@drawable/bg_splash_glow_top"
         android:importantForAccessibility="no"
-        app:layout_constraintStart_toStartOf="@id/guideline_top_circle_x"
-        app:layout_constraintEnd_toEndOf="@id/guideline_top_circle_x"
-        app:layout_constraintTop_toTopOf="@id/guideline_top_circle_y"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_top_circle_y" />
-
+        app:layout_constraintStart_toStartOf="@id/gx_glow_top"
+        app:layout_constraintEnd_toEndOf="@id/gx_glow_top"
+        app:layout_constraintTop_toTopOf="@id/gy_glow_top"
+        app:layout_constraintBottom_toBottomOf="@id/gy_glow_top" />
+    <!-- 267:16 -->
     <View
-        android:id="@+id/circle_bottom"
-        android:layout_width="@dimen/splash_circle_bottom_size"
-        android:layout_height="@dimen/splash_circle_bottom_size"
-        android:background="@drawable/bg_splash_ellipse_bottom"
+        android:layout_width="@dimen/splash_glow_bottom_size"
+        android:layout_height="@dimen/splash_glow_bottom_size"
+        android:background="@drawable/bg_splash_glow_bottom"
         android:importantForAccessibility="no"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_bottom_circle_y"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom_circle_y" />
+        app:layout_constraintStart_toStartOf="@id/gx_glow_bottom"
+        app:layout_constraintEnd_toEndOf="@id/gx_glow_bottom"
+        app:layout_constraintTop_toTopOf="@id/gy_glow_bottom"
+        app:layout_constraintBottom_toBottomOf="@id/gy_glow_bottom" />
 
+    <!-- ===================== Dotted rings (concentric, centre 195,380) ===================== -->
+    <!-- 267:17 inner 300 -->
+    <View
+        android:layout_width="@dimen/splash_ring_inner_size"
+        android:layout_height="@dimen/splash_ring_inner_size"
+        android:background="@drawable/bg_splash_ring_inner"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="@id/gx_center"
+        app:layout_constraintEnd_toEndOf="@id/gx_center"
+        app:layout_constraintTop_toTopOf="@id/gy_center"
+        app:layout_constraintBottom_toBottomOf="@id/gy_center" />
+    <!-- 267:18 outer 380 -->
+    <View
+        android:layout_width="@dimen/splash_ring_outer_size"
+        android:layout_height="@dimen/splash_ring_outer_size"
+        android:background="@drawable/bg_splash_ring_outer"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="@id/gx_center"
+        app:layout_constraintEnd_toEndOf="@id/gx_center"
+        app:layout_constraintTop_toTopOf="@id/gy_center"
+        app:layout_constraintBottom_toBottomOf="@id/gy_center" />
+
+    <!-- ===================== Sparkle dots ===================== -->
+    <!-- 267:19 6px @55% -->
+    <View android:layout_width="@dimen/splash_dot_6" android:layout_height="@dimen/splash_dot_6" android:background="@drawable/ic_splash_dot" android:alpha="0.55" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="@id/gx_dot19" app:layout_constraintEnd_toEndOf="@id/gx_dot19" app:layout_constraintTop_toTopOf="@id/gy_dot19" app:layout_constraintBottom_toBottomOf="@id/gy_dot19" />
+    <!-- 267:20 5px @45% -->
+    <View android:layout_width="@dimen/splash_dot_5" android:layout_height="@dimen/splash_dot_5" android:background="@drawable/ic_splash_dot" android:alpha="0.45" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="@id/gx_dot20" app:layout_constraintEnd_toEndOf="@id/gx_dot20" app:layout_constraintTop_toTopOf="@id/gy_dot20" app:layout_constraintBottom_toBottomOf="@id/gy_dot20" />
+    <!-- 267:21 4px @40% -->
+    <View android:layout_width="@dimen/splash_dot_4" android:layout_height="@dimen/splash_dot_4" android:background="@drawable/ic_splash_dot" android:alpha="0.4" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="@id/gx_dot21" app:layout_constraintEnd_toEndOf="@id/gx_dot21" app:layout_constraintTop_toTopOf="@id/gy_dot21" app:layout_constraintBottom_toBottomOf="@id/gy_dot21" />
+    <!-- 267:22 7px @50% -->
+    <View android:layout_width="@dimen/splash_dot_7" android:layout_height="@dimen/splash_dot_7" android:background="@drawable/ic_splash_dot" android:alpha="0.5" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="@id/gx_dot22" app:layout_constraintEnd_toEndOf="@id/gx_dot22" app:layout_constraintTop_toTopOf="@id/gy_dot22" app:layout_constraintBottom_toBottomOf="@id/gy_dot22" />
+    <!-- 267:23 4px @35% -->
+    <View android:layout_width="@dimen/splash_dot_4" android:layout_height="@dimen/splash_dot_4" android:background="@drawable/ic_splash_dot" android:alpha="0.35" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="@id/gx_dot23" app:layout_constraintEnd_toEndOf="@id/gx_dot23" app:layout_constraintTop_toTopOf="@id/gy_dot23" app:layout_constraintBottom_toBottomOf="@id/gy_dot23" />
+    <!-- 267:24 5px @42% -->
+    <View android:layout_width="@dimen/splash_dot_5" android:layout_height="@dimen/splash_dot_5" android:background="@drawable/ic_splash_dot" android:alpha="0.42" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="@id/gx_dot24" app:layout_constraintEnd_toEndOf="@id/gx_dot24" app:layout_constraintTop_toTopOf="@id/gy_dot24" app:layout_constraintBottom_toBottomOf="@id/gy_dot24" />
+
+    <!-- ===================== Centre stack: badge + wordmark + tagline (gap 22 / 4) ===================== -->
     <LinearLayout
         android:id="@+id/logo_group"
         android:layout_width="wrap_content"
@@ -60,6 +103,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:clipChildren="false"
+        android:clipToPadding="false"
         android:alpha="0"
         android:scaleX="0.85"
         android:scaleY="0.85"
@@ -67,87 +111,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintVertical_bias="0.5">
 
-        <!-- Logo mark: translucent circle + white "F" pill overlapping its edge -->
+        <!-- 267:25 frosted badge + 267:26 bar-chart mark -->
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/splash_logo_mark_height"
-            android:clipChildren="false"
-            android:clipToPadding="false">
+            android:id="@+id/logo_badge"
+            android:layout_width="@dimen/splash_logo_badge_size"
+            android:layout_height="@dimen/splash_logo_badge_size"
+            android:background="@drawable/bg_splash_logo_badge"
+            android:elevation="@dimen/splash_badge_shadow_elev">
 
-            <View
-                android:layout_width="@dimen/splash_logo_circle_size"
-                android:layout_height="@dimen/splash_logo_circle_size"
-                android:layout_gravity="start|center_vertical"
-                android:background="@drawable/bg_splash_logo_circle"
+            <ImageView
+                android:layout_width="@dimen/splash_logo_mark_size"
+                android:layout_height="@dimen/splash_logo_mark_size"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_splash_mark"
                 android:importantForAccessibility="no" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/splash_badge_height"
-                android:layout_gravity="start|center_vertical"
-                android:layout_marginStart="98dp"
-                android:background="@drawable/bg_splash_badge"
-                android:elevation="@dimen/splash_badge_elevation"
-                android:gravity="center"
-                android:paddingStart="@dimen/splash_badge_padding_h"
-                android:paddingEnd="@dimen/splash_badge_padding_h"
-                android:text="@string/splash_badge_letter"
-                android:fontFamily="sans-serif"
-                android:textAppearance="@style/TextAppearance.Finara.Badge" />
         </FrameLayout>
 
+        <!-- 267:29 "Finara" -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/splash_wordmark_spacing_top"
+            android:layout_marginTop="@dimen/splash_stack_gap"
             android:text="@string/splash_wordmark"
-            android:fontFamily="sans-serif"
-            android:textAppearance="@style/TextAppearance.Finara.Wordmark" />
+            android:textAppearance="@style/TextAppearance.Finara.Splash.Wordmark" />
 
+        <!-- 267:30 "Personal Finance Manager" -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/splash_tagline_spacing_top"
+            android:layout_marginTop="@dimen/splash_text_gap"
             android:text="@string/splash_tagline"
-            android:fontFamily="sans-serif"
-            android:textAppearance="@style/TextAppearance.Finara.Tagline" />
+            android:textAppearance="@style/TextAppearance.Finara.Splash.Tagline" />
     </LinearLayout>
 
-    <!-- ===== Bottom progress + status ===== -->
+    <!-- ===================== Bottom status band (Figma 267:31: top 712, h 90, gap 16) ===================== -->
     <LinearLayout
         android:id="@+id/status_group"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/splash_band_height"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginStart="@dimen/splash_progress_margin_horizontal"
-        android:layout_marginEnd="@dimen/splash_progress_margin_horizontal"
-        android:layout_marginBottom="@dimen/splash_progress_margin_bottom"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="@id/gy_band_top">
 
-
+        <!-- 267:32 track + 267:33 fill -->
         <ProgressBar
             android:id="@+id/pb_loading"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
+            android:layout_width="@dimen/splash_track_width"
+            android:layout_height="@dimen/splash_track_height"
             android:indeterminate="false"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/bg_splash_progress" />
 
-
+        <!-- 267:34 "Securing your data…" -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/splash_progress_gap"
+            android:layout_marginTop="@dimen/splash_status_gap"
             android:text="@string/splash_status"
-            android:fontFamily="sans-serif"
-            android:textAppearance="@style/TextAppearance.Finara.Status" />
+            android:textAppearance="@style/TextAppearance.Finara.Splash.Status" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

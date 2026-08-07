@@ -21,14 +21,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="@dimen/login_logo_size"
                 android:layout_height="@dimen/login_logo_size"
                 android:importantForAccessibility="no"
-                android:src="@drawable/finara_monochrome" />
+                android:src="@drawable/finara_mark_brand" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_md"
+            app:startIconDrawable="@drawable/ic_person"
             android:hint="@string/hint_name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -78,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
                 android:imeOptions="actionNext"
+
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +129,8 @@
             android:layout_marginTop="@dimen/space_md"
             android:hint="@string/hint_password"
             app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_password">
+            app:startIconDrawable="@drawable/ic_password"
+            tools:ignore="PrivateResource">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEdit"
@@ -155,7 +159,8 @@
             android:layout_marginTop="@dimen/space_md"
             android:hint="@string/confirm_hint_password"
             app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_password">
+            app:startIconDrawable="@drawable/ic_password"
+            tools:ignore="PrivateResource">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirmPasswordEdit"

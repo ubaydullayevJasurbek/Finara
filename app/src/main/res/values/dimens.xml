@@ -7,16 +7,12 @@
     <dimen name="splash_circle_top_size">340dp</dimen>     <!-- 260 circle + ~40 blur each side -->
     <dimen name="splash_circle_bottom_size">380dp</dimen>  <!-- 300 circle + ~40 blur each side -->
 
-    <!-- Logo mark -->
-    <dimen name="splash_logo_mark_width">138dp</dimen>
-    <dimen name="splash_logo_mark_height">112dp</dimen>
-    <dimen name="splash_logo_circle_size">112dp</dimen>
-    <dimen name="splash_badge_height">84dp</dimen>
-    <dimen name="splash_badge_corner">28dp</dimen>
-    <dimen name="splash_badge_padding_h">10dp</dimen>
-    <dimen name="splash_badge_overlap">14dp</dimen>       <!-- pill straddles circle's right edge -->
+    <!-- Logo mark: frosted rounded-square badge holding the bar-chart glyph (Figma 267:25/267:26) -->
+    <dimen name="splash_logo_badge_size">104dp</dimen>
+    <dimen name="splash_logo_badge_corner">32dp</dimen>
+    <dimen name="splash_logo_badge_border">1.5dp</dimen>
+    <dimen name="splash_logo_mark_size">50dp</dimen>
     <dimen name="splash_badge_elevation">8dp</dimen>
-    <dimen name="splash_badge_text">44sp</dimen>
 
     <!-- Wordmark + tagline -->
     <dimen name="splash_wordmark_text">32sp</dimen>
@@ -34,6 +30,61 @@
     <dimen name="splash_progress_margin_horizontal">48dp</dimen>
     <dimen name="splash_status_text">11sp</dimen>
 
+    <!-- ===== Splash Activity (exact values from Figma frame 267:14, 390x844) ===== -->
+    <!-- Decorative radial glows -->
+    <dimen name="splash_glow_top_size">340dp</dimen>
+    <dimen name="splash_glow_top_radius">170dp</dimen>
+    <dimen name="splash_glow_bottom_size">300dp</dimen>
+    <dimen name="splash_glow_bottom_radius">150dp</dimen>
+    <!-- Dotted rings -->
+    <dimen name="splash_ring_inner_size">300dp</dimen>
+    <dimen name="splash_ring_outer_size">380dp</dimen>
+    <dimen name="splash_ring_stroke">1dp</dimen>
+    <dimen name="splash_ring1_dash">3.9dp</dimen>
+    <dimen name="splash_ring1_gap">9dp</dimen>
+    <dimen name="splash_ring2_dash">4.9dp</dimen>
+    <dimen name="splash_ring2_gap">11.6dp</dimen>
+    <!-- Sparkle dots -->
+    <dimen name="splash_dot_7">7dp</dimen>
+    <dimen name="splash_dot_6">6dp</dimen>
+    <dimen name="splash_dot_5">5dp</dimen>
+    <dimen name="splash_dot_4">4dp</dimen>
+    <!-- Centre stack -->
+    <dimen name="splash_stack_gap">22dp</dimen>       <!-- badge -> text group -->
+    <dimen name="splash_text_gap">4dp</dimen>         <!-- wordmark -> tagline -->
+    <dimen name="splash_badge_shadow_elev">12dp</dimen>
+    <dimen name="splash_wordmark_size">34sp</dimen>
+    <dimen name="splash_tagline_size">13sp</dimen>
+    <!-- Bottom band (Figma 267:31: top 712, height 90) -->
+    <dimen name="splash_band_height">90dp</dimen>
+    <dimen name="splash_track_width">140dp</dimen>
+    <dimen name="splash_track_height">4dp</dimen>
+    <dimen name="splash_fill_width">88dp</dimen>
+    <dimen name="splash_track_radius">2dp</dimen>
+    <dimen name="splash_status_gap">16dp</dimen>
+    <dimen name="splash_status_size">12sp</dimen>
+
+    <!-- ===== Onboarding (exact values from Figma 253:14..253:17, 390x844) ===== -->
+    <dimen name="onb_panel_height">470dp</dimen>
+    <dimen name="onb_panel_corner">45dp</dimen>
+    <dimen name="onb_panel_elevation">12dp</dimen>
+    <dimen name="onb_badge_size">180dp</dimen>
+    <dimen name="onb_badge_corner">48dp</dimen>
+    <dimen name="onb_badge_border">1.5dp</dimen>
+    <dimen name="onb_glyph_size">78dp</dimen>
+    <dimen name="onb_glow_top_size">260dp</dimen>
+    <dimen name="onb_glow_top_radius">130dp</dimen>
+    <dimen name="onb_glow_bottom_size">220dp</dimen>
+    <dimen name="onb_glow_bottom_radius">110dp</dimen>
+    <dimen name="onb_ring_size">300dp</dimen>
+    <dimen name="onb_pill_dot">7dp</dimen>
+    <dimen name="onb_content_padding">28dp</dimen>
+    <dimen name="onb_chip_text">10.5sp</dimen>
+    <dimen name="onb_title_text">30sp</dimen>
+    <dimen name="onb_subtitle_text">15sp</dimen>
+    <dimen name="onb_cta_corner">28dp</dimen>
+    <dimen name="onb_cta_text">16sp</dimen>
+
     <!-- ===== Login screen ===== -->
     <dimen name="screen_gutter">16dp</dimen>
     <dimen name="space_xs">4dp</dimen>
@@ -44,6 +95,8 @@
 
     <dimen name="login_logo_size">48dp</dimen>
     <dimen name="login_title_text">32sp</dimen>
+
+    <dimen name="forgot_badge_size">112dp</dimen>
 
     <dimen name="input_corner_radius">12dp</dimen>
     <dimen name="input_stroke_width">1.5dp</dimen>

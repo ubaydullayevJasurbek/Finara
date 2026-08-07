@@ -51,6 +51,10 @@
             android:id="@+id/action_loginScreen_to_loginSignUpScreen"
             app:destination="@id/loginSignUpScreen" />
 
+        <action
+            android:id="@+id/action_loginScreen_to_forgotPasswordScreen"
+            app:destination="@id/forgotPasswordScreen" />
+
         <!-- On successful sign-in: clear the auth flow so Back exits the app. -->
         <action
             android:id="@+id/action_loginScreen_to_homeScreen"
@@ -78,6 +82,20 @@
             app:destination="@id/homeScreen"
             app:popUpTo="@id/loginScreen"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordScreen"
+        android:name="com.ubaydullayev.expensetracker.presentation.splash.ForgotPasswordScreen"
+        android:label="screen_forgot_password"
+        tools:layout="@layout/screen_forgot_password">
+
+        <!-- Return to the existing login instance instead of stacking a new one. -->
+        <action
+            android:id="@+id/action_forgotPasswordScreen_to_loginScreen"
+            app:destination="@id/loginScreen"
+            app:popUpTo="@id/loginScreen"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment

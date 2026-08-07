@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Finara bar-chart mark inside the splash badge (Figma frame 267:14 > "Frame" 267:26). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="50dp"
+    android:height="50dp"
+    android:viewportWidth="50"
+    android:viewportHeight="50">
+    <path
+        android:pathData="M8.33333,41.6667V20.8333M20.8333,41.6667V8.33333M33.3333,41.6667V27.0833M45.8333,41.6667H4.16667"
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="4.58333"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>
