@@ -6,5 +6,7 @@
     <style name="Base.Theme.ExpenseTracker" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
+        <!-- Light-only UI: opt out of platform/OEM Force Dark auto-inversion (API 29+). -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 </resources>

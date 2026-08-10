@@ -19,10 +19,14 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_in_to_access_your_finances">Sign in to access your finances</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="sign_in_subtitle">Sign in to continue to your finances</string>
     <string name="remember_me">Remember me</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="sign_in">Sign In</string>
     <string name="or_continue_with">or continue with</string>
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
     <string name="hint_name">your name...</string>
     <string name="hint_email">your email</string>
     <string name="hint_password">Enter your password</string>
@@ -51,11 +55,25 @@
 
     <!-- Sign up -->
     <string name="create_account">Create Account</string>
-    <string name="sign_up_subtitle">Start managing your finances today</string>
+    <string name="sign_up_subtitle">Start tracking in under a minute</string>
+    <string name="create_account_title">Create your account</string>
+    <string name="agree_terms">I agree to the Terms of Service and Privacy Policy</string>
+    <string name="error_terms_required">Please accept the Terms of Service and Privacy Policy</string>
     <string name="full_name">Full Name</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="error_name_required">Please enter your name</string>
     <string name="error_confirm_password_required">Please confirm your password</string>
     <string name="error_password_mismatch">Passwords do not match</string>
     <string name="error_unexpected_credential">Unexpected credential type</string>
+    <string name="good_morning">Good morning</string>
+    <string name="my_name">My Name</string>
+    <string name="am">AM</string>
+    <string name="_12_000">12 000</string>
+    <string name="expense">Expense</string>
+    <string name="income">Income</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="balance_amount">$12,480.50</string>
+    <string name="trend_this_month">+$1,240 (11.2%) this month</string>
+    <string name="income_amount">$5,240</string>
+    <string name="expense_amount">$2,960</string>
 </resources>

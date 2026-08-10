@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Figma 167:21 "Eye Toggle": 32dp rounded-16 square, white 12% fill. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/white_12" />
+    <corners android:radius="16dp" />
+</shape>

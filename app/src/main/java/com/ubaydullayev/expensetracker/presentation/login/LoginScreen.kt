@@ -17,6 +17,7 @@ import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.core.auth.GoogleSignInHelper
 import com.ubaydullayev.expensetracker.databinding.ScreenLoginBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
+import com.ubaydullayev.expensetracker.presentation.common.applySystemBarInsetsAsPadding
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -27,12 +28,29 @@ class LoginScreen : BaseFragment<ScreenLoginBinding>() {
 
     private val googleHelper by lazy { GoogleSignInHelper(this, auth) }
 
+    // The green hero banner must bleed to the very top, behind a fully transparent status bar,
+    // so we opt out of BaseFragment's root top-inset padding and drive insets ourselves below.
+    override val applySystemBarInsets: Boolean = false
+
+    // Status-bar icons are white: they sit over the dark-green banner (iOS light-content equivalent).
+    override val lightStatusBars: Boolean = false
+
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ScreenLoginBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Edge-to-edge insets + status-bar icon color are handled by BaseFragment.
         super.onViewCreated(view, savedInstanceState)
+
+        // Banner stays full-bleed under the transparent status bar (hero pattern → no top inset).
+        // Only the scrollable form is inset, for the navigation bar and any side display cutout.
+        // Heights come from live WindowInsets, so they adapt to notch / gesture nav / rotation —
+        // never a hardcoded status-bar height.
+        binding.formContainer.applySystemBarInsetsAsPadding(
+            applyLeft = true,
+            applyTop = false,
+            applyRight = true,
+            applyBottom = true,
+        )
 
         setupInputs()
         setupPrimaryActions()
@@ -92,9 +110,7 @@ class LoginScreen : BaseFragment<ScreenLoginBinding>() {
 
     private fun setupSocialSignIn() = with(binding) {
         appleBtn.setOnClickListener { /* TODO: start Apple sign-in */ }
-        facebookBtn.setOnClickListener { /* TODO: start Facebook sign-in */ }
         googleBtn.setOnClickListener { signInWithGoogle() }
-        twitterBtn.setOnClickListener { /* TODO: start X (Twitter) sign-in */ }
     }
 
     private fun signInWithGoogle() = with(binding) {

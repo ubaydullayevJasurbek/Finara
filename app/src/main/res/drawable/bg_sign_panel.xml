@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Sign In brand panel gradient (Figma 262:15): 133.631deg, #0F6B4D/#084533/#0A261F. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="390dp"
+    android:height="250dp"
+    android:viewportWidth="390"
+    android:viewportHeight="250">
+    <path android:pathData="M0,0L390,0L390,250L0,250Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="359.5"
+                android:endY="281.9"
+                android:startX="30.5"
+                android:startY="-31.9"
+                android:type="linear">
+                <item
+                    android:color="#FF0F6B4D"
+                    android:offset="0" />
+                <item
+                    android:color="#FF084533"
+                    android:offset="0.41379" />
+                <item
+                    android:color="#FF0A261F"
+                    android:offset="0.68966" />
+                <item
+                    android:color="#FF0A261F"
+                    android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

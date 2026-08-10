@@ -4,268 +4,343 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/login_bg"
     android:fillViewport="true"
     tools:context=".presentation.splash.LoginSignUpScreen">
 
+    <!-- Root content: NO horizontal padding so the banner can span full width -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/screen_gutter"
-        android:paddingTop="@dimen/space_sm"
         android:paddingBottom="@dimen/space_xl">
 
-        <!-- Brand header -->
+        <!-- ============ HERO / HEADER PANEL (Figma 262:73) ============ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/panel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_panel_height"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false"
+            app:contentPadding="0dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Sign.Panel"
+            app:strokeWidth="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="true"
+                android:clipToPadding="true">
+
+                <!-- Gradient background -->
+                <ImageView
+                    android:id="@+id/panelBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_sign_panel" />
+
+                <!-- Glow -->
+                <View
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="230dp"
+                    android:layout_marginTop="-80dp"
+                    android:background="@drawable/bg_onb_glow_top"
+                    android:importantForAccessibility="no" />
+
+                <!-- Sparkle dots -->
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="70dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/ic_splash_dot"
+                    android:importantForAccessibility="no" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="320dp"
+                    android:layout_marginTop="120dp"
+                    android:alpha="0.45"
+                    android:background="@drawable/ic_splash_dot"
+                    android:importantForAccessibility="no" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginTop="190dp"
+                    android:alpha="0.4"
+                    android:background="@drawable/ic_splash_dot"
+                    android:importantForAccessibility="no" />
+
+                <!-- Centre stack: badge + title + subtitle.
+                     Vertically centred so it stays clear of the transparent status bar
+                     that overlays the top of this full-bleed hero. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="28dp">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/login_badge_size"
+                        android:layout_height="@dimen/login_badge_size"
+                        android:background="@drawable/bg_sign_badge">
+
+                        <ImageView
+                            android:layout_width="@dimen/login_badge_glyph"
+                            android:layout_height="@dimen/login_badge_glyph"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_onb_track" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/welcomeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/login_title_gap"
+                        android:fontFamily="@font/inter_extra_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.02"
+                        android:text="@string/create_account_title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/login_title_size" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/login_subtitle_gap"
+                        android:fontFamily="@font/inter_medium"
+                        android:gravity="center"
+                        android:text="@string/sign_up_subtitle"
+                        android:textColor="@color/sign_white_75"
+                        android:textSize="@dimen/login_subtitle_size" />
+                </LinearLayout>
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ============ FORM CONTENT ============
+             Gutter padding lives here, below the banner. Bottom + side (nav-bar /
+             cutout) insets are applied to THIS view at runtime (see LoginSignUpScreen),
+             so the banner above stays full-bleed under the status bar. -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/formContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
+            android:layout_marginTop="@dimen/login_header_gap"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/login_gutter">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/login_logo_size"
-                android:layout_height="@dimen/login_logo_size"
-                android:importantForAccessibility="no"
-                android:src="@drawable/finara_mark_brand" />
-
+            <!-- Full name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_md"
-                android:text="@string/finara"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="?attr/colorOnSurface"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:labelFor="@id/nameEdit"
+                android:text="@string/full_name"
+                android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xl"
-            android:text="@string/create_account"
-            android:textAppearance="@style/TextAppearance.Finara.Title" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xs"
-            android:text="@string/sign_up_subtitle"
-            android:textAppearance="@style/TextAppearance.Finara.Subtitle" />
-
-        <!-- Full name -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xl"
-            android:labelFor="@id/nameEdit"
-            android:text="@string/full_name"
-            android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameLayout"
-            style="@style/Widget.Finara.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_md"
-            app:startIconDrawable="@drawable/ic_person"
-            android:hint="@string/hint_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameEdit"
-                style="@style/Widget.Finara.TextInputEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameLayout"
+                style="@style/Widget.Finara.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="name"
-                android:imeOptions="actionNext"
+                android:layout_marginTop="@dimen/login_label_gap"
+                android:hint="@string/hint_name"
+                app:startIconDrawable="@drawable/ic_person">
 
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEdit"
+                    style="@style/Widget.Finara.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/login_input_min_height"
+                    android:paddingVertical="@dimen/login_input_padding_v"
+                    android:autofillHints="name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Email -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_lg"
-            android:labelFor="@id/gmailEdit"
-            android:text="@string/email"
-            android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/gmailLayout"
-            style="@style/Widget.Finara.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_md"
-            android:hint="@string/hint_email"
-            app:startIconDrawable="@drawable/ic_mail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/gmailEdit"
-                style="@style/Widget.Finara.TextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="emailAddress"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Password -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_lg"
-            android:labelFor="@id/passwordEdit"
-            android:text="@string/password"
-            android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordLayout"
-            style="@style/Widget.Finara.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_md"
-            android:hint="@string/hint_password"
-            app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_password"
-            tools:ignore="PrivateResource">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordEdit"
-                style="@style/Widget.Finara.TextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="newPassword"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Confirm password -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_lg"
-            android:labelFor="@id/confirmPasswordEdit"
-            android:text="@string/confirm_password"
-            android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/confirmPasswordLayout"
-            style="@style/Widget.Finara.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_md"
-            android:hint="@string/confirm_hint_password"
-            app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_password"
-            tools:ignore="PrivateResource">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confirmPasswordEdit"
-                style="@style/Widget.Finara.TextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="newPassword"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Primary CTA -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/createAccountBtn"
-            style="@style/Widget.Finara.Button.Primary"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/space_lg"
-            android:text="@string/create_account" />
-
-        <!-- Divider -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xl"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/divider_thickness"
-                android:layout_weight="1"
-                android:background="@color/surface_border" />
-
+            <!-- Email -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_md"
-                android:text="@string/or_continue_with"
+                android:layout_marginTop="@dimen/login_field_gap"
+                android:labelFor="@id/gmailEdit"
+                android:text="@string/email"
+                android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/gmailLayout"
+                style="@style/Widget.Finara.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_label_gap"
+                android:hint="@string/hint_email"
+                app:startIconDrawable="@drawable/ic_mail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gmailEdit"
+                    style="@style/Widget.Finara.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/login_input_min_height"
+                    android:paddingVertical="@dimen/login_input_padding_v"
+                    android:autofillHints="emailAddress"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_field_gap"
+                android:labelFor="@id/passwordEdit"
+                android:text="@string/password"
+                android:textAppearance="@style/TextAppearance.Finara.FieldLabel" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                style="@style/Widget.Finara.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_label_gap"
+                android:hint="@string/hint_password"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_password"
+                tools:ignore="PrivateResource">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEdit"
+                    style="@style/Widget.Finara.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/login_input_min_height"
+                    android:paddingVertical="@dimen/login_input_padding_v"
+                    android:autofillHints="newPassword"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Terms agreement (Figma 262:108): checkbox + agreement text -->
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/termsCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_row_gap"
+                android:checked="false"
+                android:text="@string/agree_terms"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                app:buttonTint="@color/brand_green" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/divider_thickness"
-                android:layout_weight="1"
-                android:background="@color/surface_border" />
-        </LinearLayout>
+            <!-- Primary CTA: pill-shaped gradient button with a trailing arrow (Figma 262:114) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/createAccountBtn"
+                style="@style/Widget.Finara.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_button_height"
+                android:layout_marginTop="@dimen/login_action_gap"
+                android:background="@drawable/bg_login_button"
+                android:text="@string/create_account"
+                app:icon="@drawable/ic_onb_arrow"
+                app:iconGravity="textEnd"
+                app:iconPadding="@dimen/login_button_icon_gap"
+                app:iconTint="@color/white" />
 
-        <!-- Social sign-up -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/space_lg"
-            android:orientation="horizontal">
+            <!-- Divider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_divider_gap"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/appleBtn"
-                style="@style/Widget.Finara.SocialButton"
-                android:contentDescription="@string/cd_sign_in_apple"
-                android:src="@drawable/ic_apple" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/divider_thickness"
+                    android:layout_weight="1"
+                    android:background="@color/surface_border" />
 
-            <ImageButton
-                android:id="@+id/facebookBtn"
-                style="@style/Widget.Finara.SocialButton"
-                android:layout_marginStart="@dimen/social_button_gap"
-                android:contentDescription="@string/cd_sign_in_facebook"
-                android:src="@drawable/ic_facebook" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/login_divider_text_margin"
+                    android:text="@string/or_continue_with"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
 
-            <ImageButton
-                android:id="@+id/googleBtn"
-                style="@style/Widget.Finara.SocialButton"
-                android:layout_marginStart="@dimen/social_button_gap"
-                android:contentDescription="@string/cd_sign_in_google"
-                android:src="@drawable/ic_google" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/divider_thickness"
+                    android:layout_weight="1"
+                    android:background="@color/surface_border" />
+            </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/twitterBtn"
-                style="@style/Widget.Finara.SocialButton"
-                android:layout_marginStart="@dimen/social_button_gap"
-                android:contentDescription="@string/cd_sign_in_twitter"
-                android:src="@drawable/ic_xtwitter" />
-        </LinearLayout>
+            <!-- Social sign-up: two equal-width labelled pills, side by side. -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_social_gap"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
-        <!-- Footer -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/space_lg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/googleBtn"
+                    style="@style/Widget.Finara.SocialPill"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cd_sign_in_google"
+                    android:text="@string/google"
+                    app:icon="@drawable/ic_google" />
 
-            <TextView
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/appleBtn"
+                    style="@style/Widget.Finara.SocialPill"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/login_social_btn_gap"
+                    android:contentDescription="@string/cd_sign_in_apple"
+                    android:text="@string/apple"
+                    app:icon="@drawable/ic_apple" />
+            </LinearLayout>
+
+            <!-- Footer -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/already_have_account"
-                android:textColor="?attr/colorOnSurfaceVariant" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/login_footer_gap"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/signInBtn"
-                style="@style/Widget.Finara.TextLink"
-                android:layout_marginStart="@dimen/space_xs"
-                android:text="@string/sign_in" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/already_have_account"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/signInBtn"
+                    style="@style/Widget.Finara.TextLink"
+                    android:layout_marginStart="@dimen/space_xs"
+                    android:text="@string/sign_in" />
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

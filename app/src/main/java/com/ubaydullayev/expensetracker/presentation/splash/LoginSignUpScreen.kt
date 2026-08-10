@@ -21,6 +21,7 @@ import com.google.firebase.auth.userProfileChangeRequest
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.databinding.ScreenLoginSignUpBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
+import com.ubaydullayev.expensetracker.presentation.common.applySystemBarInsetsAsPadding
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -30,12 +31,24 @@ class LoginSignUpScreen : BaseFragment<ScreenLoginSignUpBinding>() {
     private val auth: FirebaseAuth by lazy { Firebase.auth }
     private val credentialManager by lazy { CredentialManager.create(requireContext()) }
 
+    override val applySystemBarInsets: Boolean = false
+
+    override val lightStatusBars: Boolean = false
+
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ScreenLoginSignUpBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Edge-to-edge insets + status-bar icon color are handled by BaseFragment.
         super.onViewCreated(view, savedInstanceState)
+
+        // Banner stays full-bleed under the transparent status bar; only the scrollable form
+        // is inset for the navigation bar and any side display cutout (live WindowInsets).
+        binding.formContainer.applySystemBarInsetsAsPadding(
+            applyLeft = true,
+            applyTop = false,
+            applyRight = true,
+            applyBottom = true,
+        )
 
         setupInputs()
         setupPrimaryActions()
@@ -47,7 +60,6 @@ class LoginSignUpScreen : BaseFragment<ScreenLoginSignUpBinding>() {
         nameEdit.doAfterTextChanged { nameLayout.error = null }
         gmailEdit.doAfterTextChanged { gmailLayout.error = null }
         passwordEdit.doAfterTextChanged { passwordLayout.error = null }
-        confirmPasswordEdit.doAfterTextChanged { confirmPasswordLayout.error = null }
     }
 
     private fun setupPrimaryActions() = with(binding) {
@@ -69,9 +81,7 @@ class LoginSignUpScreen : BaseFragment<ScreenLoginSignUpBinding>() {
 
     private fun setupSocialSignUp() = with(binding) {
         appleBtn.setOnClickListener { /* TODO: start Apple sign-up */ }
-        facebookBtn.setOnClickListener { /* TODO: start Facebook sign-up */ }
         googleBtn.setOnClickListener { signInWithGoogle() }
-        twitterBtn.setOnClickListener { /* TODO: start X (Twitter) sign-up */ }
     }
 
     private fun signInWithGoogle() {
@@ -149,17 +159,19 @@ class LoginSignUpScreen : BaseFragment<ScreenLoginSignUpBinding>() {
         }
 
         val password = passwordEdit.text?.toString().orEmpty()
-        val confirm = confirmPasswordEdit.text?.toString().orEmpty()
-
         if (password.isBlank()) {
             passwordLayout.error = getString(R.string.error_password_required)
             valid = false
         }
-        if (confirm.isBlank()) {
-            confirmPasswordLayout.error = getString(R.string.error_confirm_password_required)
-            valid = false
-        } else if (password.isNotBlank() && password != confirm) {
-            confirmPasswordLayout.error = getString(R.string.error_password_mismatch)
+
+        // Terms of Service must be accepted (Figma 262:108). MaterialCheckBox has no inline
+        // error slot, so surface it as a toast.
+        if (!termsCheck.isChecked) {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.error_terms_required),
+                Toast.LENGTH_SHORT
+            ).show()
             valid = false
         }
 

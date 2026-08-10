@@ -66,6 +66,7 @@
 
     <!-- ===== Onboarding (exact values from Figma 253:14..253:17, 390x844) ===== -->
     <dimen name="onb_panel_height">470dp</dimen>
+    <dimen name="sign_panel_height">286dp</dimen>
     <dimen name="onb_panel_corner">45dp</dimen>
     <dimen name="onb_panel_elevation">12dp</dimen>
     <dimen name="onb_badge_size">180dp</dimen>
@@ -88,9 +89,9 @@
     <!-- ===== Login screen ===== -->
     <dimen name="screen_gutter">16dp</dimen>
     <dimen name="space_xs">4dp</dimen>
-    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_sm">4dp</dimen>
     <dimen name="space_md">8dp</dimen>
-    <dimen name="space_lg">8dp</dimen>
+    <dimen name="space_lg">4dp</dimen>
     <dimen name="space_xl">8dp</dimen>
 
     <dimen name="login_logo_size">48dp</dimen>
@@ -110,4 +111,43 @@
     <dimen name="social_button_padding">12dp</dimen>
 
     <dimen name="divider_thickness">1.5dp</dimen>
+
+    <!-- ===== Sign In / Sign Up (exact values from Figma 262:14 & 262:72, 390-wide) ===== -->
+    <!-- Header (green hero / Brand Panel) -->
+    <dimen name="login_panel_height">250dp</dimen>     <!-- Brand Panel height -->
+    <dimen name="login_panel_corner">32dp</dimen>      <!-- header bottom-corner radius -->
+    <dimen name="login_badge_size">64dp</dimen>        <!-- icon badge 64x64 -->
+    <dimen name="login_badge_corner">16dp</dimen>      <!-- icon badge radius -->
+    <dimen name="login_badge_glyph">32dp</dimen>       <!-- glyph inside the badge -->
+    <dimen name="login_title_gap">16dp</dimen>         <!-- badge -> title -->
+    <dimen name="login_title_size">24sp</dimen>        <!-- "Welcome back" / "Create your account" -->
+    <dimen name="login_subtitle_gap">8dp</dimen>       <!-- title -> subtitle -->
+    <dimen name="login_subtitle_size">14sp</dimen>
+
+    <!-- Spacing (Figma auto-layout gaps) -->
+    <dimen name="login_gutter">24dp</dimen>            <!-- form content inset (L/R) -->
+    <dimen name="login_header_gap">28dp</dimen>        <!-- header bottom -> first field label -->
+    <dimen name="login_label_gap">8dp</dimen>          <!-- field label -> its input -->
+    <dimen name="login_field_gap">14dp</dimen>         <!-- input -> next field label -->
+    <dimen name="login_row_gap">14dp</dimen>           <!-- last input -> checkbox row -->
+    <dimen name="login_action_gap">24dp</dimen>        <!-- checkbox row -> primary CTA -->
+    <dimen name="login_divider_gap">18dp</dimen>       <!-- CTA -> "or continue with" -->
+    <dimen name="login_divider_text_margin">14dp</dimen> <!-- gap each side of divider label -->
+    <dimen name="login_social_gap">18dp</dimen>        <!-- divider -> social row -->
+    <dimen name="login_social_btn_gap">12dp</dimen>    <!-- gap between the two social pills -->
+    <dimen name="login_footer_gap">18dp</dimen>        <!-- social row -> footer -->
+
+    <!-- Inputs (Figma field frame 342x52) -->
+    <dimen name="login_input_min_height">52dp</dimen>  <!-- input field height -->
+    <dimen name="login_input_padding_v">14dp</dimen>   <!-- input inner vertical padding -->
+
+    <!-- Primary CTA (Figma 342x53, pill) -->
+    <dimen name="login_button_height">53dp</dimen>     <!-- primary button height -->
+    <dimen name="login_button_corner">26dp</dimen>     <!-- pill radius (~height/2) -->
+    <dimen name="login_button_icon_gap">8dp</dimen>    <!-- text -> arrow -->
+
+    <!-- Social pills (Figma 165x47, pill) -->
+    <dimen name="login_social_height">47dp</dimen>     <!-- social button height -->
+    <dimen name="login_social_corner">24dp</dimen>     <!-- social pill radius -->
+    <dimen name="login_social_icon_gap">8dp</dimen>    <!-- icon -> label -->
 </resources>
