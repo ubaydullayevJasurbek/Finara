@@ -76,4 +76,5 @@
     <string name="trend_this_month">+$1,240 (11.2%) this month</string>
     <string name="income_amount">$5,240</string>
     <string name="expense_amount">$2,960</string>
+    <string name="add">Add</string>
 </resources>
