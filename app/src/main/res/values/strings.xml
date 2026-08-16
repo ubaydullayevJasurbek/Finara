@@ -77,4 +77,13 @@
     <string name="income_amount">$5,240</string>
     <string name="expense_amount">$2,960</string>
     <string name="add">Add</string>
+    <string name="transfer">Transfer</string>
+    <string name="scan">Scan</string>
+    <string name="statistics">Statistics</string>
+    <string name="financial_health">Financial Health</string>
+    <string name="great_you_re_saving_24_of_income">Great! You\'re saving 24% of income.</string>
+    <string name="excellent">Excellent</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_budget">Budget</string>
+    <string name="nav_profile">Profile</string>
 </resources>

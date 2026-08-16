@@ -1,519 +1,698 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fillViewport="true"
-    android:overScrollMode="never"
     tools:context=".presentation.home.HomeScreen">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/homeScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/good_morning"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/my_nameTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/my_name"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/good_morning"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/userAvatarBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="14dp"
-            android:fontFamily="@font/inter_extra_bold"
-            android:includeFontPadding="false"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            android:padding="0dp"
-            android:text="@string/am"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:backgroundTint="@color/brand_green_dark"
-            app:cornerRadius="24dp"
-            app:elevation="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/my_nameTxt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="@color/onb_white_20" />
+            <TextView
+                android:id="@+id/my_nameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/my_name"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/notificationBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:insetLeft="0dp"
-            android:insetTop="0dp"
-            android:insetRight="0dp"
-            android:insetBottom="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:padding="0dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            app:backgroundTint="@color/brand_green_dark"
-            app:cornerRadius="24dp"
-            app:elevation="0dp"
-            app:icon="@drawable/notification_icon"
-            app:iconGravity="textStart"
-            app:iconPadding="0dp"
-            app:iconSize="22dp"
-            app:iconTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/my_nameTxt"
-            app:layout_constraintEnd_toStartOf="@+id/userAvatarBtn"
-            app:rippleColor="@color/onb_white_20" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/userAvatarBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="14dp"
+                android:fontFamily="@font/inter_extra_bold"
+                android:includeFontPadding="false"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:padding="0dp"
+                android:text="@string/am"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:backgroundTint="@color/brand_green_dark"
+                app:cornerRadius="24dp"
+                app:elevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/my_nameTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:rippleColor="@color/onb_white_20" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/notificationBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                app:backgroundTint="@color/brand_green_dark"
+                app:cornerRadius="24dp"
+                app:elevation="0dp"
+                app:icon="@drawable/notification_icon"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="22dp"
+                app:iconTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/my_nameTxt"
+                app:layout_constraintEnd_toStartOf="@+id/userAvatarBtn"
+                app:rippleColor="@color/onb_white_20" />
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            android:layout_width="0dp"
-            android:layout_height="272dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="14dp"
-            android:elevation="12dp"
-            app:cardCornerRadius="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_nameTxt">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="0dp"
+                android:layout_height="272dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="14dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_nameTxt">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- ====== Dekorativ qatlam ======
-                     match_parent balandlik — FrameLayout o'lchov qoidasiga ko'ra
-                     bunday bolalar wrap_content hisobiga kirmaydi. Shuning uchun
-                     kartaning balandligini faqat pastdagi kontent belgilaydi,
-                     glow/ellipslar esa ortiqcha bo'sh joy hosil qilmaydi
-                     (ortig'i kartaning yumaloq chetida clip bo'ladi). -->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/panelBg"
+
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:importantForAccessibility="no"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/bg_onb_panel_1" />
+                        android:layout_height="match_parent">
 
-                    <!-- Dekorativ glow / ellipslar (Figma 167:16..167:18) -->
-                    <View
-                        android:layout_width="@dimen/onb_glow_top_size"
-                        android:layout_height="@dimen/onb_glow_top_size"
-                        android:layout_gravity="top|start"
-                        android:layout_marginStart="210dp"
-                        android:layout_marginTop="-90dp"
-                        android:background="@drawable/bg_onb_glow_top"
-                        android:importantForAccessibility="no" />
+                        <ImageView
+                            android:id="@+id/panelBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bg_onb_panel_1" />
 
-                    <View
-                        android:layout_width="@dimen/onb_glow_bottom_size"
-                        android:layout_height="@dimen/onb_glow_bottom_size"
-                        android:layout_gravity="bottom|start"
-                        android:layout_marginStart="-80dp"
-                        android:background="@drawable/bg_onb_glow_bottom"
-                        android:importantForAccessibility="no" />
+                        <!-- Dekorativ glow / ellipslar (Figma 167:16..167:18) -->
+                        <View
+                            android:layout_width="@dimen/onb_glow_top_size"
+                            android:layout_height="@dimen/onb_glow_top_size"
+                            android:layout_gravity="top|start"
+                            android:layout_marginStart="210dp"
+                            android:layout_marginTop="-90dp"
+                            android:background="@drawable/bg_onb_glow_top"
+                            android:importantForAccessibility="no" />
 
-                    <View
-                        android:layout_width="120dp"
-                        android:layout_height="156dp"
-                        android:layout_gravity="center|end"
-                        android:background="@drawable/ellipse"
-                        android:importantForAccessibility="no" />
+                        <View
+                            android:layout_width="@dimen/onb_glow_bottom_size"
+                            android:layout_height="@dimen/onb_glow_bottom_size"
+                            android:layout_gravity="bottom|start"
+                            android:layout_marginStart="-80dp"
+                            android:background="@drawable/bg_onb_glow_bottom"
+                            android:importantForAccessibility="no" />
+
+                        <View
+                            android:layout_width="120dp"
+                            android:layout_height="156dp"
+                            android:layout_gravity="center|end"
+                            android:background="@drawable/ellipse"
+                            android:importantForAccessibility="no" />
+                    </FrameLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="24dp"
+                        android:paddingTop="24dp"
+                        android:paddingBottom="22dp">
+
+                        <!-- Header: "Total Balance" + ko'z tugmasi -->
+                        <TextView
+                            android:id="@+id/totalBalanceTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:letterSpacing="0.01"
+                            android:text="@string/total_balance"
+                            android:textColor="@color/white_70"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/eyeToggle"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/eyeToggle" />
+
+                        <FrameLayout
+                            android:id="@+id/eyeToggle"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_eye_toggle"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_eye"
+                                app:tint="@color/white_70" />
+                        </FrameLayout>
+
+                        <!-- Balans summasi -->
+                        <TextView
+                            android:id="@+id/balanceTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:fontFamily="@font/inter_extra_bold"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="-0.02"
+                            android:text="@string/balance_amount"
+                            android:textColor="@color/white"
+                            android:textSize="40sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/eyeToggle"
+                            tools:ignore="UseCompatTextViewDrawableXml" />
+
+                        <!-- Trend pill: yashil ↑ + "+$1,240 (11.2%) this month" -->
+                        <LinearLayout
+                            android:id="@+id/trendBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_trend_pill"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="12dp"
+                            android:paddingBottom="5dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/balanceTxt">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_arrow_up"
+                                app:tint="@color/income_green" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="@string/trend_this_month"
+                                android:textColor="@color/white_95"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- ============ INCOME / EXPENSE (Figma 167:30) ============
+                             white 10% fon, 1dp white 12% border, 18dp radius.
+                             Chapda Income, markazda vertikal chiziq, o'ngda Expense. -->
+                        <LinearLayout
+                            android:id="@+id/incomeExpenseBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:background="@drawable/bg_income_expense"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/trendBadge">
+
+                            <!-- Income -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|start"
+                                android:orientation="horizontal">
+
+                                <FrameLayout
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="@drawable/bg_icon_square">
+
+                                    <ImageView
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        android:layout_gravity="center"
+                                        android:importantForAccessibility="no"
+                                        android:src="@drawable/ic_arrow_down"
+                                        app:tint="@color/income_green" />
+                                </FrameLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/incomeLabelTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:text="@string/income"
+                                        android:textColor="@color/white_65"
+                                        android:textSize="11sp" />
+
+                                    <TextView
+                                        android:id="@+id/incomeAmountTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:text="@string/income_amount"
+                                        android:textColor="@color/white"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!-- Vertikal divider -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="32dp"
+                                android:background="@color/white_15" />
+
+                            <!-- Expense -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <FrameLayout
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="@drawable/bg_icon_square">
+
+                                    <ImageView
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        android:layout_gravity="center"
+                                        android:importantForAccessibility="no"
+                                        android:src="@drawable/ic_arrow_up"
+                                        app:tint="@color/expense_red" />
+                                </FrameLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/expenseLabelTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:text="@string/expense"
+                                        android:textColor="@color/white_65"
+                                        android:textSize="11sp" />
+
+                                    <TextView
+                                        android:id="@+id/expenseAmountTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:text="@string/expense_amount"
+                                        android:textColor="@color/white"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </FrameLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAdd"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="66dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="12dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:backgroundTint="#D7F2E3"
+                        app:cornerRadius="24dp"
+                        app:icon="@drawable/ic_plus"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp"
+                        app:iconTint="#1F8A5A"
+                        app:rippleColor="#B8E6CC" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/add"
+                        android:textColor="#6B7280"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTransfer"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="66dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="12dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:backgroundTint="#DBEAFE"
+                        app:cornerRadius="24dp"
+                        app:icon="@drawable/ic_transfer"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp"
+                        app:iconTint="#2563EB"
+                        app:rippleColor="#B8E6CC" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/transfer"
+                        android:textColor="#6B7280"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnScan"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="66dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="12dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:backgroundTint="#EDE9FE"
+                        app:cornerRadius="24dp"
+                        app:icon="@drawable/scan_qr_code"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp"
+                        app:iconTint="#7C3AED"
+                        app:rippleColor="#B8E6CC" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/scan"
+                        android:textColor="#6B7280"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnStat"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="66dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="12dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:backgroundTint="#FEF3C7"
+                        app:cornerRadius="24dp"
+                        app:icon="@drawable/chart_pie"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="32dp"
+                        app:iconTint="#78350F"
+                        app:rippleColor="#B8E6CC" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/statistics"
+                        android:textColor="#6B7280"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:strokeColor="#E3E7EA"
+                app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="24dp"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="22dp">
+                    android:layout_height="match_parent">
 
-                    <!-- Header: "Total Balance" + ko'z tugmasi -->
-                    <TextView
-                        android:id="@+id/totalBalanceTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_medium"
-                        android:letterSpacing="0.01"
-                        android:text="@string/total_balance"
-                        android:textColor="@color/white_70"
-                        android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/eyeToggle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/eyeToggle" />
-
+                    <!-- Financial Health Circle -->
                     <FrameLayout
-                        android:id="@+id/eyeToggle"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/bg_eye_toggle"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/healthCircleContainer"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginStart="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/healthProgress"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
                             android:layout_gravity="center"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_eye"
-                            app:tint="@color/white_70" />
-                    </FrameLayout>
-
-                    <!-- Balans summasi -->
-                    <TextView
-                        android:id="@+id/balanceTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:fontFamily="@font/inter_extra_bold"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.02"
-                        android:text="@string/balance_amount"
-                        android:textColor="@color/white"
-                        android:textSize="40sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/eyeToggle"
-                        tools:ignore="UseCompatTextViewDrawableXml" />
-
-                    <!-- Trend pill: yashil ↑ + "+$1,240 (11.2%) this month" -->
-                    <LinearLayout
-                        android:id="@+id/trendBadge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_trend_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="5dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/balanceTxt">
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_arrow_up"
-                            app:tint="@color/income_green" />
+                            android:progress="82"
+                            app:indicatorColor="@color/brand_green"
+                            app:indicatorSize="110dp"
+                            app:trackColor="#E9EEF1"
+                            app:trackThickness="10dp" />
 
                         <TextView
+                            android:id="@+id/healthScore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="@string/trend_this_month"
-                            android:textColor="@color/white_95"
-                            android:textSize="12sp"
+                            android:layout_gravity="center"
+                            android:text="82"
+                            android:textColor="@color/black"
+                            android:textSize="30sp"
                             android:textStyle="bold" />
-                    </LinearLayout>
 
-                    <!-- ============ INCOME / EXPENSE (Figma 167:30) ============
-                         white 10% fon, 1dp white 12% border, 18dp radius.
-                         Chapda Income, markazda vertikal chiziq, o'ngda Expense. -->
-                    <LinearLayout
-                        android:id="@+id/incomeExpenseBox"
+                    </FrameLayout>
+
+                    <!-- Right Content -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/healthContent"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:background="@drawable/bg_income_expense"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="14dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/trendBadge">
+                        app:layout_constraintStart_toEndOf="@id/healthCircleContainer"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <!-- Income -->
-                        <LinearLayout
+                        <!-- Heart -->
+                        <ImageView
+                            android:id="@+id/healthIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_heart"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Title -->
+                        <TextView
+                            android:id="@+id/financialHealthTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|start"
-                            android:orientation="horizontal">
+                            android:layout_marginStart="10dp"
+                            android:text="@string/financial_health"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/healthIcon"
+                            app:layout_constraintTop_toTopOf="@id/healthIcon" />
 
-                            <FrameLayout
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:background="@drawable/bg_icon_square">
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:layout_gravity="center"
-                                    android:importantForAccessibility="no"
-                                    android:src="@drawable/ic_arrow_down"
-                                    app:tint="@color/income_green" />
-                            </FrameLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/incomeLabelTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/inter_medium"
-                                    android:text="@string/income"
-                                    android:textColor="@color/white_65"
-                                    android:textSize="11sp" />
-
-                                <TextView
-                                    android:id="@+id/incomeAmountTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:text="@string/income_amount"
-                                    android:textColor="@color/white"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <!-- Vertikal divider -->
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="32dp"
-                            android:background="@color/white_15" />
-
-                        <!-- Expense -->
-                        <LinearLayout
+                        <!-- Description -->
+                        <TextView
+                            android:id="@+id/financialHealthDescription"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="8dp"
+                            android:maxLines="2"
+                            android:text="@string/great_you_re_saving_24_of_income"
+                            android:textColor="#7D8792"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/healthIcon" />
 
-                            <FrameLayout
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:background="@drawable/bg_icon_square">
+                        <!-- Status Badge -->
+                        <TextView
+                            android:id="@+id/healthStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:background="@drawable/bg_health_status"
+                            android:paddingHorizontal="14dp"
+                            android:paddingVertical="5dp"
+                            android:text="@string/excellent"
+                            android:textColor="@color/brand_green"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/financialHealthDescription" />
 
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:layout_gravity="center"
-                                    android:importantForAccessibility="no"
-                                    android:src="@drawable/ic_arrow_up"
-                                    app:tint="@color/expense_red" />
-                            </FrameLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/expenseLabelTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/inter_medium"
-                                    android:text="@string/expense"
-                                    android:textColor="@color/white_65"
-                                    android:textSize="11sp" />
-
-                                <TextView
-                                    android:id="@+id/expenseAmountTxt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:text="@string/expense_amount"
-                                    android:textColor="@color/white"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="14dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+    </androidx.core.widget.NestedScrollView>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAdd"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    app:backgroundTint="#D7F2E3"
-                    app:cornerRadius="28dp"
-                    app:icon="@drawable/ic_plus"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="32dp"
-                    app:iconTint="#1F8A5A"
-                    app:rippleColor="#B8E6CC" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/add"
-                    android:textColor="#6B7280"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="8dp"
+        app:itemIconTint="@color/brand_green"
+        app:itemTextColor="@color/black"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnTransfer"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    app:backgroundTint="#DBEAFE"
-                    app:cornerRadius="28dp"
-                    app:icon="@drawable/ic_transfer"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="32dp"
-                    app:iconTint="#2563EB"
-                    app:rippleColor="#B8E6CC" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/add"
-                    android:textColor="#6B7280"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnScan"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    app:backgroundTint="#EDE9FE"
-                    app:cornerRadius="28dp"
-                    app:icon="@drawable/scan_qr_code"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="32dp"
-                    app:iconTint="#7C3AED"
-                    app:rippleColor="#B8E6CC" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/add"
-                    android:textColor="#6B7280"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStat"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    app:backgroundTint="#FEF3C7"
-                    app:cornerRadius="28dp"
-                    app:icon="@drawable/chart_pie"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="32dp"
-                    app:iconTint="#78350F"
-                    app:rippleColor="#B8E6CC" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/add"
-                    android:textColor="#6B7280"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
