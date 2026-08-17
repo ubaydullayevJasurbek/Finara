@@ -7,15 +7,14 @@
         android:title="@string/nav_home" />
 
     <item
-        android:id="@+id/nav_statistics"
+        android:id="@+id/nav_transactions"
         android:icon="@drawable/ic_transcations"
         android:title="@string/transaction" />
 
     <item
-        android:id="@+id/navAddBtn"
+        android:id="@+id/nav_add"
         android:icon="@drawable/ic_add"
-        android:title="@string/add"
-        />
+        android:title="@string/add" />
 
     <item
         android:id="@+id/nav_budget"

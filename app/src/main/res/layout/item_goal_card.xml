@@ -155,15 +155,15 @@
         <!-- Doiraviy progress -->
         <FrameLayout
             android:id="@+id/progressRing"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/goalProgressRing"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:indeterminate="false"
                 android:progress="68"
                 app:indicatorColor="#3359D9"

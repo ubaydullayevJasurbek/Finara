@@ -1,9 +1,57 @@
-<androidx.fragment.app.FragmentContainerView android:id="@+id/nav_host_fragment"
-    android:name="androidx.navigation.fragment.NavHostFragment"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_background"
-    app:defaultNavHost="true"
-    app:navGraph="@navigation/nav_graph"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    android:background="@color/splash_background">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomBarContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <!-- Bottom-bar chrome lives at the activity level so it persists across the tab
+         destinations. The container carries the navigation-bar inset as bottom padding
+         (applied in code) while the bar itself keeps its fixed drawing height. -->
+    <LinearLayout
+        android:id="@+id/bottomBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <me.ibrahimsn.lib.NiceBottomBar
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:activeItem="0"
+            app:backgroundColor="@color/white"
+            app:badgeColor="@color/error"
+            app:iconMargin="4dp"
+            app:iconSize="24dp"
+            app:indicatorColor="#4CAF50"
+            app:indicatorEnabled="true"
+            app:indicatorGravity="top"
+            app:indicatorInterpolator="anticipateOvershoot"
+            app:indicatorWidth="64dp"
+            app:itemFontFamily="@font/inter_medium"
+            app:menu="@menu/bottom_nav_menu"
+            app:textColor="@color/text_secondary"
+            app:textColorActive="@color/black"
+            app:textSize="12sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

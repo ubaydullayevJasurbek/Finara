@@ -91,12 +91,20 @@ class LoginScreen : BaseFragment<ScreenLoginBinding>() {
             signInBtn.isEnabled = false
 
             viewLifecycleOwner.lifecycleScope.launch {
-                try {
+                val signedIn = try {
                     auth.signInWithEmailAndPassword(email, password).await()
-                    findNavController().navigate(R.id.action_loginScreen_to_homeScreen)
+                    true
                 } catch (e: Exception) {
                     signInBtn.isEnabled = true
                     Toast.makeText(requireContext(), mapAuthError(e), Toast.LENGTH_SHORT).show()
+                    false
+                }
+
+                // Navigate only after a confirmed sign-in, and outside the auth try/catch: a
+                // navigation failure here must not be caught and re-labelled as an auth error
+                // (that masking is what hid the real "destination cannot be found" cause).
+                if (signedIn) {
+                    findNavController().navigate(R.id.action_loginScreen_to_homeScreen)
                 }
             }
 
@@ -117,11 +125,18 @@ class LoginScreen : BaseFragment<ScreenLoginBinding>() {
 
         googleBtn.setOnClickListener {
             lifecycleScope.launch {
-                try {
+                val signedIn = try {
                     googleHelper.signIn()
-                    findNavController().navigate(R.id.action_loginScreen_to_homeScreen)
+                    true
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                    false
+                }
+
+                // Navigate outside the auth try/catch so a navigation failure is never masked
+                // as a sign-in error.
+                if (signedIn) {
+                    findNavController().navigate(R.id.action_loginScreen_to_homeScreen)
                 }
             }
         }

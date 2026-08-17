@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AI Insight card (Figma 171:14). MaterialCardView orqali o'ralgan —
+     yumaloq burchaklar dekorativ doiralarni avtomatik clip qiladi
+     (Budget cardidagi bilan bir xil pattern). -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/aiInsightCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_ai_insight_card">
+
+        <!-- Dekorativ shaffof doiralar (eng orqada; card burchaklari clip qiladi) -->
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/bg_decorative_ellipse"
+            android:importantForAccessibility="no"
+            android:translationX="40dp"
+            android:translationY="-50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/bg_decorative_ellipse"
+            android:importantForAccessibility="no"
+            android:translationX="-40dp"
+            android:translationY="120dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Icon -->
+        <FrameLayout
+            android:id="@+id/aiIconContainer"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_icon_tint_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_sparkle" />
+        </FrameLayout>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvAiTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/ai_insight"
+            android:textColor="#0B0F14"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/aiIconContainer"
+            app:layout_constraintEnd_toStartOf="@id/tvNewBadge"
+            app:layout_constraintStart_toEndOf="@id/aiIconContainer"
+            app:layout_constraintTop_toTopOf="@id/aiIconContainer" />
+
+        <!-- NEW badge -->
+        <TextView
+            android:id="@+id/tvNewBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_pill_tint_purple"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="@string/ai_new_badge"
+            android:textColor="#784FD4"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/aiIconContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/aiIconContainer" />
+
+        <!-- Insight text (to'liq ko'rinadi — qirqilmaydi) -->
+        <TextView
+            android:id="@+id/tvInsightText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:lineSpacingExtra="3dp"
+            android:text="@string/ai_insight_sample"
+            android:textColor="#3D4552"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aiIconContainer" />
+
+        <!-- CTA -->
+        <TextView
+            android:id="@+id/btnViewTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_pill_white_solid"
+            android:paddingStart="18dp"
+            android:paddingEnd="14dp"
+            android:paddingVertical="11dp"
+            android:text="@string/ai_view_tips"
+            android:textColor="#784FD4"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInsightText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

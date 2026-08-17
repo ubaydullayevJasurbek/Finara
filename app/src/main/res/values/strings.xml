@@ -91,4 +91,23 @@
     <string name="see_all">See all</string>
     <string name="housing">Housing</string>
     <string name="txc">/</string>
+
+    <!-- Home: section titles / placeholder values -->
+    <string name="saving_goals">Saving Goals</string>
+    <string name="financial_score_value" translatable="false">82</string>
+
+    <!-- Home: AI Insight card -->
+    <string name="ai_insight">AI Insight</string>
+    <string name="ai_new_badge">NEW</string>
+    <string name="ai_insight_sample">You spent 18% more on dining this month. Cutting 2 takeouts/week could save you ~$120.</string>
+    <string name="ai_view_tips">View tips  →</string>
+
+    <!-- Home: accessibility (contentDescription for icon-only controls) -->
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_profile">Profile</string>
+    <string name="cd_toggle_balance">Show or hide balance</string>
+    <string name="add_transaction">Add transaction</string>
+    <string name="transfer_money">Transfer money</string>
+    <string name="scan_receipt">Scan receipt</string>
+    <string name="view_statistics">View statistics</string>
 </resources>

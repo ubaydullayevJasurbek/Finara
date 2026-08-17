@@ -55,10 +55,12 @@
             android:id="@+id/action_loginScreen_to_forgotPasswordScreen"
             app:destination="@id/forgotPasswordScreen" />
 
-        <!-- On successful sign-in: clear the auth flow so Back exits the app. -->
+        <!-- On successful sign-in: enter the main graph (resolves to its start = home) and
+             clear the auth flow so Back exits the app. Target the graph, not the inner
+             homeScreen: navigating from outside into a nested graph must address the graph. -->
         <action
             android:id="@+id/action_loginScreen_to_homeScreen"
-            app:destination="@id/homeScreen"
+            app:destination="@id/mainGraph"
             app:popUpTo="@id/loginScreen"
             app:popUpToInclusive="true" />
     </fragment>
@@ -76,10 +78,11 @@
             app:popUpTo="@id/loginScreen"
             app:popUpToInclusive="false" />
 
-        <!-- On successful sign-up: clear the whole auth flow (login + sign-up). -->
+        <!-- On successful sign-up: enter the main graph (resolves to its start = home) and
+             clear the whole auth flow (login + sign-up). Target the graph, not inner homeScreen. -->
         <action
             android:id="@+id/action_loginSignUpScreen_to_homeScreen"
-            app:destination="@id/homeScreen"
+            app:destination="@id/mainGraph"
             app:popUpTo="@id/loginScreen"
             app:popUpToInclusive="true" />
     </fragment>
@@ -98,10 +101,39 @@
             app:popUpToInclusive="false" />
     </fragment>
 
-    <fragment
-        android:id="@+id/homeScreen"
-        android:name="com.ubaydullayev.expensetracker.presentation.home.HomeScreen"
-        android:label="screen_home"
-        tools:layout="@layout/screen_home" />
+    <!-- Main app section: the four bottom-bar tabs plus the Add flow.
+         Grouped so tab navigation can pop up to this graph's start (home)
+         without touching the auth flow above. Home is the tab back-stack root. -->
+    <navigation
+        android:id="@+id/mainGraph"
+        app:startDestination="@id/homeScreen">
+
+        <fragment
+            android:id="@+id/homeScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.home.HomeScreen"
+            android:label="screen_home"
+            tools:layout="@layout/screen_home" />
+        <fragment
+            android:id="@+id/transactionScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.transaction.TransactionScreen"
+            android:label="screen_transaction"
+            tools:layout="@layout/screen_transaction" />
+        <fragment
+            android:id="@+id/budgetScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.budget.BudgetScreen"
+            android:label="screen_budget"
+            tools:layout="@layout/screen_budget" />
+        <fragment
+            android:id="@+id/profileScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.profile.ProfileScreen"
+            android:label="screen_profile"
+            tools:layout="@layout/screen_profile" />
+        <fragment
+            android:id="@+id/addFabScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.addfab.AddFabScreen"
+            android:label="screen_add_fab"
+            tools:layout="@layout/screen_add_fab" />
+
+    </navigation>
 
 </navigation>
