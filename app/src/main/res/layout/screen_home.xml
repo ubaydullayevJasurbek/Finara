@@ -7,6 +7,7 @@
     android:background="@color/white"
     tools:context=".presentation.home.HomeScreen">
 
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/homeScrollView"
         android:layout_width="0dp"
@@ -18,141 +19,142 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/homeContentContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+            <!-- ==================== 1. HEADER ==================== -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/good_morning"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:paddingHorizontal="14dp">
 
-            <TextView
-                android:id="@+id/my_nameTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/my_name"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                <TextView
+                    android:id="@+id/tvGreeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/good_morning"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/userAvatarBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="14dp"
-                android:fontFamily="@font/inter_extra_bold"
-                android:includeFontPadding="false"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                android:padding="0dp"
-                android:text="@string/am"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:backgroundTint="@color/brand_green_dark"
-                app:cornerRadius="24dp"
-                app:elevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/my_nameTxt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:rippleColor="@color/onb_white_20" />
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/my_name"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tvGreeting"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGreeting" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/notificationBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:padding="0dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                app:backgroundTint="@color/brand_green_dark"
-                app:cornerRadius="24dp"
-                app:elevation="0dp"
-                app:icon="@drawable/notification_icon"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:iconSize="22dp"
-                app:iconTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/my_nameTxt"
-                app:layout_constraintEnd_toStartOf="@+id/userAvatarBtn"
-                app:rippleColor="@color/onb_white_20" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ivProfile"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:fontFamily="@font/inter_extra_bold"
+                    android:includeFontPadding="false"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp"
+                    android:text="@string/am"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:backgroundTint="@color/brand_green_dark"
+                    app:cornerRadius="24dp"
+                    app:elevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:rippleColor="@color/onb_white_20" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNotification"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    app:backgroundTint="@color/brand_green_dark"
+                    app:cornerRadius="24dp"
+                    app:elevation="0dp"
+                    app:icon="@drawable/notification_icon"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconSize="22dp"
+                    app:iconTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+                    app:layout_constraintEnd_toStartOf="@+id/ivProfile"
+                    app:rippleColor="@color/onb_white_20" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ==================== 2. BALANCE CARD ==================== -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
-                android:layout_width="0dp"
+                android:id="@+id/balanceCard"
+                android:layout_width="match_parent"
                 android:layout_height="272dp"
-                android:layout_marginStart="14dp"
+                android:layout_marginHorizontal="14dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="14dp"
                 android:elevation="12dp"
                 app:cardCornerRadius="28dp"
-                app:cardElevation="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_nameTxt">
+                app:cardElevation="12dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-
-                    <FrameLayout
+                    <!-- Dekorativ fon: panel + glow/ellips qatlamlari -->
+                    <ImageView
+                        android:id="@+id/panelBg"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/bg_onb_panel_1" />
 
-                        <ImageView
-                            android:id="@+id/panelBg"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:importantForAccessibility="no"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/bg_onb_panel_1" />
+                    <View
+                        android:layout_width="@dimen/onb_glow_top_size"
+                        android:layout_height="@dimen/onb_glow_top_size"
+                        android:layout_gravity="top|start"
+                        android:layout_marginStart="210dp"
+                        android:layout_marginTop="-90dp"
+                        android:background="@drawable/bg_onb_glow_top"
+                        android:importantForAccessibility="no" />
 
-                        <!-- Dekorativ glow / ellipslar (Figma 167:16..167:18) -->
-                        <View
-                            android:layout_width="@dimen/onb_glow_top_size"
-                            android:layout_height="@dimen/onb_glow_top_size"
-                            android:layout_gravity="top|start"
-                            android:layout_marginStart="210dp"
-                            android:layout_marginTop="-90dp"
-                            android:background="@drawable/bg_onb_glow_top"
-                            android:importantForAccessibility="no" />
+                    <View
+                        android:layout_width="@dimen/onb_glow_bottom_size"
+                        android:layout_height="@dimen/onb_glow_bottom_size"
+                        android:layout_gravity="bottom|start"
+                        android:layout_marginStart="-80dp"
+                        android:background="@drawable/bg_onb_glow_bottom"
+                        android:importantForAccessibility="no" />
 
-                        <View
-                            android:layout_width="@dimen/onb_glow_bottom_size"
-                            android:layout_height="@dimen/onb_glow_bottom_size"
-                            android:layout_gravity="bottom|start"
-                            android:layout_marginStart="-80dp"
-                            android:background="@drawable/bg_onb_glow_bottom"
-                            android:importantForAccessibility="no" />
+                    <View
+                        android:layout_width="120dp"
+                        android:layout_height="156dp"
+                        android:layout_gravity="center|end"
+                        android:background="@drawable/ellipse"
+                        android:importantForAccessibility="no" />
 
-                        <View
-                            android:layout_width="120dp"
-                            android:layout_height="156dp"
-                            android:layout_gravity="center|end"
-                            android:background="@drawable/ellipse"
-                            android:importantForAccessibility="no" />
-                    </FrameLayout>
-
+                    <!-- Balance kartochkasi kontenti -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -160,9 +162,9 @@
                         android:paddingTop="24dp"
                         android:paddingBottom="22dp">
 
-                        <!-- Header: "Total Balance" + ko'z tugmasi -->
+                        <!-- "Total Balance" label + ko'z tugmasi -->
                         <TextView
-                            android:id="@+id/totalBalanceTxt"
+                            android:id="@+id/tvBalanceLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
@@ -170,12 +172,12 @@
                             android:text="@string/total_balance"
                             android:textColor="@color/white_70"
                             android:textSize="13sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/eyeToggle"
+                            app:layout_constraintBottom_toBottomOf="@+id/btnToggleBalance"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/eyeToggle" />
+                            app:layout_constraintTop_toTopOf="@+id/btnToggleBalance" />
 
                         <FrameLayout
-                            android:id="@+id/eyeToggle"
+                            android:id="@+id/btnToggleBalance"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:background="@drawable/bg_eye_toggle"
@@ -193,7 +195,7 @@
 
                         <!-- Balans summasi -->
                         <TextView
-                            android:id="@+id/balanceTxt"
+                            android:id="@+id/tvTotalBalance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
@@ -204,10 +206,10 @@
                             android:textColor="@color/white"
                             android:textSize="40sp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/eyeToggle"
+                            app:layout_constraintTop_toBottomOf="@+id/btnToggleBalance"
                             tools:ignore="UseCompatTextViewDrawableXml" />
 
-                        <!-- Trend pill: yashil ↑ + "+$1,240 (11.2%) this month" -->
+                        <!-- Oylik o'zgarish (trend pill) -->
                         <LinearLayout
                             android:id="@+id/trendBadge"
                             android:layout_width="wrap_content"
@@ -221,7 +223,7 @@
                             android:paddingEnd="12dp"
                             android:paddingBottom="5dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/balanceTxt">
+                            app:layout_constraintTop_toBottomOf="@+id/tvTotalBalance">
 
                             <ImageView
                                 android:layout_width="12dp"
@@ -231,6 +233,7 @@
                                 app:tint="@color/income_green" />
 
                             <TextView
+                                android:id="@+id/tvMonthlyChange"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="6dp"
@@ -241,9 +244,7 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- ============ INCOME / EXPENSE (Figma 167:30) ============
-                             white 10% fon, 1dp white 12% border, 18dp radius.
-                             Chapda Income, markazda vertikal chiziq, o'ngda Expense. -->
+                        <!-- Income / Expense qutisi -->
                         <LinearLayout
                             android:id="@+id/incomeExpenseBox"
                             android:layout_width="0dp"
@@ -297,7 +298,7 @@
                                         android:textSize="11sp" />
 
                                     <TextView
-                                        android:id="@+id/incomeAmountTxt"
+                                        android:id="@+id/tvIncome"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="2dp"
@@ -308,7 +309,6 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-                            <!-- Vertikal divider -->
                             <View
                                 android:layout_width="1dp"
                                 android:layout_height="32dp"
@@ -352,7 +352,7 @@
                                         android:textSize="11sp" />
 
                                     <TextView
-                                        android:id="@+id/expenseAmountTxt"
+                                        android:id="@+id/tvExpense"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="2dp"
@@ -371,17 +371,16 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- ==================== 3. QUICK ACTIONS ==================== -->
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/quickActionsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+                android:paddingHorizontal="16dp">
 
+                <!-- Add -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -424,6 +423,7 @@
 
                 </LinearLayout>
 
+                <!-- Transfer -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -466,6 +466,7 @@
 
                 </LinearLayout>
 
+                <!-- Scan -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -508,6 +509,7 @@
 
                 </LinearLayout>
 
+                <!-- Statistics -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -517,7 +519,7 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnStat"
+                        android:id="@+id/btnStatistics"
                         style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="66dp"
                         android:layout_height="64dp"
@@ -552,7 +554,9 @@
 
             </LinearLayout>
 
+            <!-- ==================== 4. FINANCIAL HEALTH CARD ==================== -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/financialHealthCard"
                 android:layout_width="match_parent"
                 android:layout_height="156dp"
                 android:layout_marginHorizontal="14dp"
@@ -560,9 +564,6 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="1dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 app:strokeColor="#E3E7EA"
                 app:strokeWidth="1dp">
 
@@ -570,7 +571,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <!-- Financial Health Circle -->
+                    <!-- Score doirasi -->
                     <FrameLayout
                         android:id="@+id/healthCircleContainer"
                         android:layout_width="110dp"
@@ -592,7 +593,7 @@
                             app:trackThickness="10dp" />
 
                         <TextView
-                            android:id="@+id/healthScore"
+                            android:id="@+id/tvFinancialScore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -603,7 +604,7 @@
 
                     </FrameLayout>
 
-                    <!-- Right Content -->
+                    <!-- O'ng tarafdagi matn bloki -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/healthContent"
                         android:layout_width="0dp"
@@ -615,7 +616,6 @@
                         app:layout_constraintStart_toEndOf="@id/healthCircleContainer"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <!-- Heart -->
                         <ImageView
                             android:id="@+id/healthIcon"
                             android:layout_width="20dp"
@@ -625,9 +625,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- Title -->
                         <TextView
-                            android:id="@+id/financialHealthTitle"
+                            android:id="@+id/tvFinancialHealthTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -639,9 +638,8 @@
                             app:layout_constraintStart_toEndOf="@id/healthIcon"
                             app:layout_constraintTop_toTopOf="@id/healthIcon" />
 
-                        <!-- Description -->
                         <TextView
-                            android:id="@+id/financialHealthDescription"
+                            android:id="@+id/tvFinancialHealthDescription"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -653,9 +651,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/healthIcon" />
 
-                        <!-- Status Badge -->
                         <TextView
-                            android:id="@+id/healthStatus"
+                            android:id="@+id/tvFinancialHealthStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -667,7 +664,7 @@
                             android:textSize="13sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/financialHealthDescription" />
+                            app:layout_constraintTop_toBottomOf="@id/tvFinancialHealthDescription" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -676,23 +673,62 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/budgetsSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvBudgetsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/budgets"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnSeeAllBudgets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/see_all"
+                    android:textColor="@color/brand_green"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <me.ibrahimsn.lib.NiceBottomBar
         android:id="@+id/bottomNavigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:elevation="8dp"
-        app:itemIconTint="@color/brand_green"
-        app:itemTextColor="@color/black"
-        app:labelVisibilityMode="labeled"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:activeItem="0"
+        app:backgroundColor="@color/white"
+        app:badgeColor="@color/error"
+        app:iconMargin="4dp"
+        app:iconSize="24dp"
+        app:indicatorColor="#4CAF50"
+        app:indicatorEnabled="true"
+        app:indicatorGravity="top"
+        app:indicatorInterpolator="anticipateOvershoot"
+        app:indicatorWidth="64dp"
+        app:itemFontFamily="@font/inter_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        app:textColor="@color/text_secondary"
+        app:textColorActive="@color/black"
+        app:textSize="12sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

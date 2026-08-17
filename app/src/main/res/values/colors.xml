@@ -102,4 +102,5 @@
     <color name="income_green">#FF66F2B2</color>
     <color name="expense_red">#FFFF998C</color>
 
+    <color name="error">#BA1A1A</color>
 </resources>

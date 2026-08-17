@@ -1,6 +1,5 @@
 [versions]
 agp = "9.3.0"
-circlesloadingview = "1.0"
 coreSplashscreen = "1.0.1"
 credentials = "1.3.0"
 credentialsPlayServicesAuth = "1.3.0"
@@ -21,6 +20,7 @@ constraintlayout = "2.1.4"
 materialVersion = "1.12.0"
 navigationFragment = "2.9.8"
 navigationFragmentKtx = "2.9.3"
+nicebottombar = "2.2"
 viewpager2 = "1.1.0"
 googleGmsGoogleServices = "4.5.0"
 firebaseAuth = "24.2.0"
@@ -37,7 +37,6 @@ androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecyc
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
-circlesloadingview = { module = "com.github.ibrahimsn98:CirclesLoadingView", version.ref = "circlesloadingview" }
 dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
 googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -51,6 +50,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 material-v1120 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+nicebottombar = { module = "com.github.ibrahimsn98:NiceBottomBar", version.ref = "nicebottombar" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

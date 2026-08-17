@@ -86,4 +86,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_budget">Budget</string>
     <string name="nav_profile">Profile</string>
+    <string name="transaction">Transaction</string>
+    <string name="budgets">Budgets</string>
+    <string name="see_all">See all</string>
 </resources>
