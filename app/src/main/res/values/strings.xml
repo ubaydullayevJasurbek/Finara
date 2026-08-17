@@ -89,4 +89,6 @@
     <string name="transaction">Transaction</string>
     <string name="budgets">Budgets</string>
     <string name="see_all">See all</string>
+    <string name="housing">Housing</string>
+    <string name="txc">/</string>
 </resources>

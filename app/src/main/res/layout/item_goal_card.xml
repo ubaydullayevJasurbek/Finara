@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    android:background="@drawable/bg_card_white_rounded24">
+
+    <!-- ==================== Gradient banner ==================== -->
+    <FrameLayout
+        android:id="@+id/bannerContainer"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:background="@drawable/bg_goal_banner_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Dekorativ shaffof doiralar (ikonka va pill'lar ostida chiziladi) -->
+        <View
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="-42dp"
+            android:layout_marginEnd="-40dp"
+            android:background="@drawable/bg_circle_white_translucent"
+            android:importantForAccessibility="no" />
+
+        <View
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="-22dp"
+            android:layout_marginBottom="-20dp"
+            android:background="@drawable/bg_circle_white_translucent"
+            android:importantForAccessibility="no" />
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_circle_white_translucent"
+            android:importantForAccessibility="no" />
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="52dp"
+            android:layout_marginBottom="26dp"
+            android:background="@drawable/bg_circle_white_translucent"
+            android:importantForAccessibility="no" />
+
+        <!-- Goal turi ikonkasi (Travel->plane, Safety->shield, Tech->laptop).
+             Adapter bind() da ivGoalIcon.setImageResource(...) bilan almashtiriladi. -->
+        <ImageView
+            android:id="@+id/ivGoalIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_plane"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="14dp"
+            android:background="@drawable/bg_pill_white_transparent"
+            android:paddingVertical="5dp"
+            android:paddingStart="9dp"
+            android:paddingEnd="11dp"
+            android:text="HIGH"
+            android:textColor="@color/white"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTargetDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="14dp"
+            android:background="@drawable/bg_pill_white_transparent"
+            android:paddingVertical="5dp"
+            android:paddingStart="9dp"
+            android:paddingEnd="11dp"
+            android:text="Dec 2026"
+            android:textColor="@color/white"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <!-- ==================== Content ==================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bannerContainer">
+
+        <!-- Goal nomi -->
+        <TextView
+            android:id="@+id/tvGoalName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Japan Trip 2026"
+            android:textColor="#0B0F14"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/progressRing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Kategoriya + taxminiy sana -->
+        <LinearLayout
+            android:id="@+id/tagRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/progressRing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGoalName">
+
+            <TextView
+                android:id="@+id/tvCategoryTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_tint_blue"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Travel"
+                android:textColor="#2E65C0"
+                android:textSize="10.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEstDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Est. Nov 2026"
+                android:textColor="#6B7280"
+                android:textSize="11.5sp" />
+        </LinearLayout>
+
+        <!-- Doiraviy progress -->
+        <FrameLayout
+            android:id="@+id/progressRing"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/goalProgressRing"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:indeterminate="false"
+                android:progress="68"
+                app:indicatorColor="#3359D9"
+                app:indicatorSize="52dp"
+                app:trackColor="#EFF1F5"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="6dp" />
+
+            <TextView
+                android:id="@+id/tvPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="68%"
+                android:textColor="#0B0F14"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <!-- Saved / target qatori -->
+        <LinearLayout
+            android:id="@+id/savedRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/tvToGo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tagRow">
+
+            <TextView
+                android:id="@+id/tvSaved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$4,080"
+                android:textColor="#0B0F14"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTargetAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="/ $6,000"
+                android:textColor="#6B7280"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvToGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$1,920 to go"
+            android:textColor="#0B7E57"
+            android:textSize="12.5sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/savedRow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/savedRow" />
+
+        <!-- Chiziqli progress bar: to'ldirilgan qism percent orqali statik hisoblanadi.
+             Runtime width hisoblash shart emas — 68% = 0.68. -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/progressContainer"
+            android:layout_width="0dp"
+            android:layout_height="9dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/savedRow">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_progress_track"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/goalProgressFill"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_progress_fill_blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.68" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
