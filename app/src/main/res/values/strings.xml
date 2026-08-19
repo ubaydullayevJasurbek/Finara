@@ -110,4 +110,7 @@
     <string name="transfer_money">Transfer money</string>
     <string name="scan_receipt">Scan receipt</string>
     <string name="view_statistics">View statistics</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="netflix_premium">Netflix Premium</string>
+    <string name="monthly_entertainment">Monthly · Entertainment</string>
 </resources>
