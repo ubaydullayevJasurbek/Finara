@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ubaydullayev.expensetracker.R
-import com.ubaydullayev.expensetracker.adapter.Transaction
-import com.ubaydullayev.expensetracker.adapter.TransactionsAdapter
-import com.ubaydullayev.expensetracker.adapter.UpcomingBill
-import com.ubaydullayev.expensetracker.adapter.UpcomingBillsAdapter
+import com.ubaydullayev.expensetracker.adapter.transactionadapter.Transaction
+import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
+import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBill
+import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBillsAdapter
 import com.ubaydullayev.expensetracker.databinding.ScreenHomeBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
 
@@ -109,37 +109,43 @@ class HomeScreen : BaseViewModelFragment<ScreenHomeBinding, HomeViewModel>(HomeV
         BillEntry(
             dueInDays = 2,
             bill = UpcomingBill(
+                id = "netflix",
                 title = "Netflix Premium",
                 category = "Entertainment",
                 frequency = "Monthly",
-                price = "$22.99",
+                price = 22.99,
                 dueText = "Due in 2d",
-                dueColor = Color.parseColor("#E53935"),
+                isUrgent = true,
                 iconRes = R.drawable.ic_play,
+                iconBgColor = Color.parseColor("#E53935"),
             ),
         ),
         BillEntry(
             dueInDays = 5,
             bill = UpcomingBill(
+                id = "car_insurance",
                 title = "Car Insurance",
                 category = "Insurance",
                 frequency = "Monthly",
-                price = "$140.00",
+                price = 140.00,
                 dueText = "Due in 5d",
-                dueColor = Color.parseColor("#F59E0B"),
+                isUrgent = false,
                 iconRes = R.drawable.ic_shield,
+                iconBgColor = Color.parseColor("#F59E0B"),
             ),
         ),
         BillEntry(
             dueInDays = 9,
             bill = UpcomingBill(
+                id = "adobe",
                 title = "Adobe Creative",
                 category = "Software",
                 frequency = "Monthly",
-                price = "$54.99",
+                price = 54.99,
                 dueText = "Due in 9d",
-                dueColor = Color.parseColor("#2E7D32"),
+                isUrgent = false,
                 iconRes = R.drawable.ic_laptop,
+                iconBgColor = Color.parseColor("#2E7D32"),
             ),
         ),
     )

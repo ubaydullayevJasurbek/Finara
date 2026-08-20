@@ -1,4 +1,4 @@
-package com.ubaydullayev.expensetracker.adapter
+package com.ubaydullayev.expensetracker.adapter.transactionadapter
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable

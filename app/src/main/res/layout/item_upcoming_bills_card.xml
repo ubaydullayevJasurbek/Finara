@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="@color/white"
+    app:strokeColor="@color/social_pill_stroke"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp">
 
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
+        android:background="@color/white"
         android:paddingBottom="16dp">
 
         <!-- Chap tomondagi rangli chiziq -->

@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
+    // Applied without a version — inherited from the buildscript classpath in the
+    // root build.gradle.kts so KSP stays in lockstep with the bumped Kotlin plugin.
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -77,5 +80,18 @@ dependencies {
     implementation(libs.googleid)
 
     implementation(libs.nicebottombar)
+
+// Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)   // Coroutines/Flow uchun
+    ksp(libs.androidx.room.compiler)
+
+    // ViewModel + LiveData (Room bilan birga ishlatamiz)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v270)
+    implementation(libs.androidx.lifecycle.livedata.ktx.v270)
+
+    // Coroutines (Room so'rovlarini background thread'da bajarish uchun)
+    implementation(libs.kotlinx.coroutines.android)
+
 
 }

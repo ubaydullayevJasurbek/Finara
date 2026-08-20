@@ -103,4 +103,9 @@
     <color name="expense_red">#FFFF998C</color>
 
     <color name="error">#BA1A1A</color>
+
+    <color name="red_bg">#FFEBEE</color>
+    <color name="red_text">#E53935</color>
+    <color name="green_bg">#E8F5E9</color>
+    <color name="green_text">#2E7D32</color>
 </resources>

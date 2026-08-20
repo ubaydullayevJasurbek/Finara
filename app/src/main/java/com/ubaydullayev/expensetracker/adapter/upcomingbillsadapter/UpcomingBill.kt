@@ -1,15 +1,17 @@
-package com.ubaydullayev.expensetracker.adapter
+package com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter
 
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 
 /** One upcoming bill row shown in the Home "Upcoming Bills" list. */
 data class UpcomingBill(
+    val id: String,
     val title: String,
     val category: String,
     val frequency: String,
-    val price: String,
+    val price: Double,
     val dueText: String,
-    @param:ColorInt val dueColor: Int,
-    @param:DrawableRes val iconRes: Int,
+    val isUrgent: Boolean,
+    val iconRes: Int,
+    val iconBgColor: Int
 )

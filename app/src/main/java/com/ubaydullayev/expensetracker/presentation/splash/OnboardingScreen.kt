@@ -9,8 +9,8 @@ import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.ubaydullayev.expensetracker.R
-import com.ubaydullayev.expensetracker.adapter.OnboardingAdapter
-import com.ubaydullayev.expensetracker.adapter.OnboardingPage
+import com.ubaydullayev.expensetracker.adapter.onboardingadapter.OnboardingAdapter
+import com.ubaydullayev.expensetracker.adapter.onboardingadapter.OnboardingPage
 import com.ubaydullayev.expensetracker.databinding.ScreenOnboardingBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
 

@@ -450,7 +450,7 @@
                         app:iconPadding="0dp"
                         app:iconSize="32dp"
                         app:iconTint="#2563EB"
-                        app:rippleColor="#B8E6CC" />
+                        app:rippleColor="@color/onb_pill_blue" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -494,7 +494,7 @@
                         app:iconPadding="0dp"
                         app:iconSize="32dp"
                         app:iconTint="#7C3AED"
-                        app:rippleColor="#B8E6CC" />
+                        app:rippleColor="@color/onb_pill_purple" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -538,7 +538,7 @@
                         app:iconPadding="0dp"
                         app:iconSize="32dp"
                         app:iconTint="#78350F"
-                        app:rippleColor="#B8E6CC" />
+                        app:rippleColor="@color/onb_pill_amber" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -827,9 +827,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                android:layout_marginTop="16dp">
+                app:cardElevation="2dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRecentTransactions"

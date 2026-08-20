@@ -1,4 +1,4 @@
-package com.ubaydullayev.expensetracker.adapter
+package com.ubaydullayev.expensetracker.adapter.onboardingadapter
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater

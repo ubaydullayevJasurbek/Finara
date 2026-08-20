@@ -1,4 +1,4 @@
-package com.ubaydullayev.expensetracker.adapter
+package com.ubaydullayev.expensetracker.adapter.transactionadapter
 
 data class Transaction(
     val id: String,

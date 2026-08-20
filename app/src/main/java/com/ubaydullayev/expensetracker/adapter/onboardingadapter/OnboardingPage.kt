@@ -1,4 +1,4 @@
-package com.ubaydullayev.expensetracker.adapter
+package com.ubaydullayev.expensetracker.adapter.onboardingadapter
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
