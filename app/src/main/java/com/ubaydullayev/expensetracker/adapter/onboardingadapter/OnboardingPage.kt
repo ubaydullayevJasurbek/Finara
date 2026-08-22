@@ -3,7 +3,6 @@ package com.ubaydullayev.expensetracker.adapter.onboardingadapter
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 
-/** One onboarding page (Figma 253:14..253:17). All per-page values live here. */
 data class OnboardingPage(
     @param:DrawableRes val panelBg: Int,
     @param:DrawableRes val glyph: Int,

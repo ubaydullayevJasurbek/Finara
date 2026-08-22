@@ -1,24 +1,47 @@
 package com.ubaydullayev.expensetracker.presentation.home
 
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ubaydullayev.expensetracker.R
-import com.ubaydullayev.expensetracker.adapter.transactionadapter.Transaction
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
-import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBill
 import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBillsAdapter
+import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
+import com.ubaydullayev.expensetracker.data.repository.SavingGoalRepositoryImpl
+import com.ubaydullayev.expensetracker.data.repository.TransactionRepositoryImpl
+import com.ubaydullayev.expensetracker.data.repository.UpcomingBillRepositoryImpl
 import com.ubaydullayev.expensetracker.databinding.ScreenHomeBinding
+import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
+import kotlinx.coroutines.launch
 
-class HomeScreen : BaseViewModelFragment<ScreenHomeBinding, HomeViewModel>(HomeViewModel::class.java) {
+class HomeScreen :
+    BaseViewModelFragment<ScreenHomeBinding, HomeViewModel>(HomeViewModel::class.java) {
 
     // The bottom bar now lives in the activity shell (below this fragment) and consumes the
     // navigation-bar inset itself, so Home must not add that inset again or a gap appears above the bar.
     override val insetBottom: Boolean = false
+
+    override val viewModelFactory: ViewModelProvider.Factory
+        get() {
+            val database = AppDatabase.getInstance(requireContext())
+            return HomeViewModelFactory(
+                transactionRepository = TransactionRepositoryImpl(database.transactionDao()),
+                upcomingBillRepository = UpcomingBillRepositoryImpl(database.upcomingBillDao()),
+                savingGoalRepository = SavingGoalRepositoryImpl(database.savingGoalDao())
+            )
+        }
+
+    private lateinit var transactionsAdapter: TransactionsAdapter
+    private lateinit var upcomingBillsAdapter: UpcomingBillsAdapter
+
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ScreenHomeBinding.inflate(inflater, container, false)
@@ -26,129 +49,97 @@ class HomeScreen : BaseViewModelFragment<ScreenHomeBinding, HomeViewModel>(HomeV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupUpcomingBills()
-        setupRecentTransactions()
+        setupRecyclerViews()
+        observeData()
     }
 
-    private fun setupRecentTransactions() {
+    private fun setupRecyclerViews() {
+        transactionsAdapter = TransactionsAdapter(emptyList())
         binding.rvRecentTransactions.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = TransactionsAdapter(recentTransactions())
+            adapter = transactionsAdapter
             isNestedScrollingEnabled = false
         }
-    }
 
-    /** Sample recent transactions shown on Home; the full history opens via "See all". */
-    private fun recentTransactions(): List<Transaction> = listOf(
-        Transaction(
-            id = "1",
-            title = "Grocery Store",
-            category = "Food",
-            categoryColor = Color.parseColor("#E65100"),
-            categoryBgColor = Color.parseColor("#FFF3E0"),
-            dateTime = "Today, 2:30 PM",
-            amount = 54.20,
-            isIncome = false,
-            iconRes = R.drawable.ic_scan,
-            iconBgColor = Color.parseColor("#FFF3E0"),
-        ),
-        Transaction(
-            id = "2",
-            title = "Salary",
-            category = "Income",
-            categoryColor = Color.parseColor("#2E7D32"),
-            categoryBgColor = Color.parseColor("#E8F5E9"),
-            dateTime = "Today, 9:00 AM",
-            amount = 3200.00,
-            isIncome = true,
-            iconRes = R.drawable.ic_stats,
-            iconBgColor = Color.parseColor("#E8F5E9"),
-        ),
-        Transaction(
-            id = "3",
-            title = "Netflix Premium",
-            category = "Entertainment",
-            categoryColor = Color.parseColor("#C2185B"),
-            categoryBgColor = Color.parseColor("#FCE4EC"),
-            dateTime = "Yesterday, 6:15 PM",
-            amount = 22.99,
-            isIncome = false,
-            iconRes = R.drawable.ic_play,
-            iconBgColor = Color.parseColor("#FCE4EC"),
-        ),
-        Transaction(
-            id = "4",
-            title = "Flight Ticket",
-            category = "Travel",
-            categoryColor = Color.parseColor("#1565C0"),
-            categoryBgColor = Color.parseColor("#E3F2FD"),
-            dateTime = "Yesterday, 11:40 AM",
-            amount = 189.00,
-            isIncome = false,
-            iconRes = R.drawable.ic_plane,
-            iconBgColor = Color.parseColor("#E3F2FD"),
-        ),
-    )
-
-    private fun setupUpcomingBills() {
-        // Show only the 2-3 nearest bills here; the full list opens via "See all".
-        val nearestBills = upcomingBills()
-            .sortedBy { it.dueInDays }
-            .take(3)
-            .map { it.bill }
-
+        upcomingBillsAdapter = UpcomingBillsAdapter(emptyList())
         binding.rvUpcomingBills.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = UpcomingBillsAdapter(nearestBills)
+            adapter = upcomingBillsAdapter
             isNestedScrollingEnabled = false
+        }
+
+        setupGoalCardClickListener()
+    }
+
+
+    private fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle((Lifecycle.State.STARTED)) {
+                launch {
+                    viewModel.recentTransactions.collect { transactions ->
+                        binding.sectionRecentTransactions.visibility =
+                            if (transactions.isEmpty()) View.GONE else View.VISIBLE
+                        transactionsAdapter.updateData(transactions)
+                    }
+                }
+
+                launch {
+                    viewModel.upcomingBill.collect { upcomingBills ->
+                        binding.sectionUpcomingBills.visibility =
+                            if (upcomingBills.isEmpty()) View.GONE else View.VISIBLE
+                        upcomingBillsAdapter.updateData(upcomingBills)
+                    }
+                }
+                launch {
+                    viewModel.savingGoals.collect { savingGoals ->
+                        val topGoal = savingGoals.firstOrNull()
+                        binding.sectionSavingGoals.visibility =
+                            if (topGoal == null) View.GONE else View.VISIBLE
+                        if (topGoal != null) bindGoalCard(topGoal)
+                    }
+                }
+            }
         }
     }
 
-    /** Sample bills paired with a due-in-days value used only for sorting. */
-    private fun upcomingBills(): List<BillEntry> = listOf(
-        BillEntry(
-            dueInDays = 2,
-            bill = UpcomingBill(
-                id = "netflix",
-                title = "Netflix Premium",
-                category = "Entertainment",
-                frequency = "Monthly",
-                price = 22.99,
-                dueText = "Due in 2d",
-                isUrgent = true,
-                iconRes = R.drawable.ic_play,
-                iconBgColor = Color.parseColor("#E53935"),
-            ),
-        ),
-        BillEntry(
-            dueInDays = 5,
-            bill = UpcomingBill(
-                id = "car_insurance",
-                title = "Car Insurance",
-                category = "Insurance",
-                frequency = "Monthly",
-                price = 140.00,
-                dueText = "Due in 5d",
-                isUrgent = false,
-                iconRes = R.drawable.ic_shield,
-                iconBgColor = Color.parseColor("#F59E0B"),
-            ),
-        ),
-        BillEntry(
-            dueInDays = 9,
-            bill = UpcomingBill(
-                id = "adobe",
-                title = "Adobe Creative",
-                category = "Software",
-                frequency = "Monthly",
-                price = 54.99,
-                dueText = "Due in 9d",
-                isUrgent = false,
-                iconRes = R.drawable.ic_laptop,
-                iconBgColor = Color.parseColor("#2E7D32"),
-            ),
-        ),
-    )
+    @SuppressLint("SetTextI18n")
+    private fun bindGoalCard(goal: SavingGoal) {
+        val cardBinding = binding.includeGoalCard
+        cardBinding.tvGoalName.text = goal.title
+        cardBinding.tvCategoryTag.text = goal.category
+        cardBinding.tvEstDate.text = goal.estimatedDate
+        cardBinding.tvPriority.text = goal.priority
+        cardBinding.tvTargetDate.text = goal.targetDate
 
-    private data class BillEntry(val dueInDays: Int, val bill: UpcomingBill)
+        val percent = ((goal.currentAmount / goal.targetAmount) * 100).toInt()
+        cardBinding.tvPercent.text = "$percent%"
+        cardBinding.goalProgressRing.progress = percent
+
+        cardBinding.tvSaved.text = "$${formatAmount(goal.currentAmount)}"
+        cardBinding.tvTargetAmount.text = "/ $${formatAmount(goal.targetAmount)}"
+
+        val remaining = goal.targetAmount - goal.currentAmount
+        cardBinding.tvToGo.text = "$${formatAmount(remaining)} to go"
+
+        val fillParams = cardBinding.goalProgressFill.layoutParams as ConstraintLayout.LayoutParams
+        fillParams.matchConstraintPercentWidth = percent / 100f
+        cardBinding.goalProgressFill.layoutParams = fillParams
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun formatAmount(amount: Double): String {
+        return String.format("%,.0f", amount)
+    }
+
+    private fun setupGoalCardClickListener() {
+        // Kartaning o'ziga bosilganda -> to'liq Saving Goals screen'iga o'tish
+        binding.includeGoalCard.root.setOnClickListener {
+            // Masalan: findNavController().navigate(R.id.action_home_to_savingGoals)
+        }
+
+        // "See all" tugmasiga bosilganda ham xuddi shu screen'ga o'tish
+        binding.btnSeeAllSavingGoals.setOnClickListener {
+            // findNavController().navigate(R.id.action_home_to_savingGoals)
+        }
+    }
 }

@@ -7,9 +7,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.databinding.ItemUpcomingBillsCardBinding
+import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
+import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 
 class UpcomingBillsAdapter(
-    private val items: List<UpcomingBill>
+    private var items: List<UpcomingBill>
 ) : RecyclerView.Adapter<UpcomingBillsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemUpcomingBillsCardBinding) :
@@ -31,10 +33,11 @@ class UpcomingBillsAdapter(
         b.subtitle.text = "${item.frequency} · ${item.category}"
         b.price.text = "$${String.format("%,.2f", item.price)}"
         b.dueBadge.text = item.dueText
-        b.iconImage.setImageResource(item.iconRes)
-        b.iconBackground.setCardBackgroundColor(item.iconRes)
 
-        // isUrgent ga qarab rang avtomatik tanlanadi
+        val style = CategoryStyleProvider.getStyle(item.category)
+        b.iconImage.setImageResource(style.iconRes)
+        b.iconBackground.setCardBackgroundColor(style.iconBgColor)
+
         val (badgeBg, badgeText, accentColor) = if (item.isUrgent) {
             Triple(
                 ContextCompat.getColor(context, R.color.red_bg),
@@ -53,6 +56,11 @@ class UpcomingBillsAdapter(
         bg.setColor(badgeBg)
         b.dueBadge.setTextColor(badgeText)
         b.accentBar.setBackgroundColor(accentColor)
+    }
+
+    fun updateData(newItems: List<UpcomingBill>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = items.size
