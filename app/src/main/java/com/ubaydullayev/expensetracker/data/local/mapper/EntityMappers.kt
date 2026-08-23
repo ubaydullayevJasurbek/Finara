@@ -1,21 +1,23 @@
 package com.ubaydullayev.expensetracker.data.local.mapper
 
+import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
+import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
 
-fun TransactionEntity.toDomainModel(): Transaction{
+fun TransactionEntity.toDomainModel(): Transaction {
 
     return Transaction(
         id = id,
         title = title,
         category = category,
-        dateTime = dateTime,
         amount = amount,
-        isIncome = isIncome
+        isIncome = isIncome,
+        timestamp = timestamp
     )
 }
 
@@ -25,11 +27,12 @@ fun Transaction.toEntity(): TransactionEntity {
         id = id,
         title = title,
         category = category,
-        dateTime = dateTime,
         amount = amount,
-        isIncome = isIncome
+        isIncome = isIncome,
+        timestamp = timestamp
     )
 }
+
 fun UpcomingBillEntity.toDomainModel(): UpcomingBill {
     return UpcomingBill(
         id = id,
@@ -38,7 +41,7 @@ fun UpcomingBillEntity.toDomainModel(): UpcomingBill {
         frequency = frequency,
         price = price,
         dueText = dueText,
-        isUrgent = isUrgent
+        isUrgent = isUrgent,
     )
 }
 
@@ -78,5 +81,25 @@ fun SavingGoal.toEntity(): SavingGoalEntity {
         targetDate = targetDate,
         currentAmount = currentAmount,
         targetAmount = targetAmount
+    )
+}
+
+fun BudgetEntity.toDomainModel(): Budget {
+    return Budget(
+        id = id,
+        title = title,
+        category = category,
+        spentAmount = spentAmount,
+        limitAmount = limitAmount
+    )
+}
+
+fun Budget.toEntity(): BudgetEntity {
+    return BudgetEntity(
+        id = id,
+        title = title,
+        category = category,
+        spentAmount = spentAmount,
+        limitAmount = limitAmount
     )
 }

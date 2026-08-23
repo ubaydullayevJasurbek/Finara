@@ -4,7 +4,7 @@ data class Transaction(
     val id: Long,
     val title: String,
     val category: String,
-    val dateTime: String,
     val amount: Double,
-    val isIncome: Boolean
+    val isIncome: Boolean,
+    val timestamp:Long
 )

@@ -11,15 +11,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ubaydullayev.expensetracker.adapter.budgetsadapter.BudgetsAdapter
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
 import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBillsAdapter
 import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
+import com.ubaydullayev.expensetracker.data.repository.BudgetRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.SavingGoalRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.TransactionRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.UpcomingBillRepositoryImpl
 import com.ubaydullayev.expensetracker.databinding.ScreenHomeBinding
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
+import com.ubaydullayev.expensetracker.utils.HorizontalSpaceDecoration
 import kotlinx.coroutines.launch
 
 class HomeScreen :
@@ -35,12 +38,14 @@ class HomeScreen :
             return HomeViewModelFactory(
                 transactionRepository = TransactionRepositoryImpl(database.transactionDao()),
                 upcomingBillRepository = UpcomingBillRepositoryImpl(database.upcomingBillDao()),
-                savingGoalRepository = SavingGoalRepositoryImpl(database.savingGoalDao())
+                savingGoalRepository = SavingGoalRepositoryImpl(database.savingGoalDao()),
+                budgetRepository = BudgetRepositoryImpl(database.budgetDao())
             )
         }
 
     private lateinit var transactionsAdapter: TransactionsAdapter
     private lateinit var upcomingBillsAdapter: UpcomingBillsAdapter
+    private lateinit var budgetsAdapter: BudgetsAdapter
 
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
@@ -66,6 +71,15 @@ class HomeScreen :
             layoutManager = LinearLayoutManager(requireContext())
             adapter = upcomingBillsAdapter
             isNestedScrollingEnabled = false
+        }
+
+        budgetsAdapter = BudgetsAdapter(emptyList())
+        binding.budgetRecycler.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = budgetsAdapter
+            isNestedScrollingEnabled = false
+            addItemDecoration(HorizontalSpaceDecoration(12))
         }
 
         setupGoalCardClickListener()
@@ -98,8 +112,44 @@ class HomeScreen :
                         if (topGoal != null) bindGoalCard(topGoal)
                     }
                 }
+                launch {
+                    viewModel.budgets.collect { budgets ->
+                        binding.sectionBudgets.visibility =
+                            if (budgets.isEmpty()) View.GONE else View.VISIBLE
+                        budgetsAdapter.updateData(budgets)
+                    }
+                }
+                launch {
+                    viewModel.balanceSummary.collect { summary ->
+                        bindBalanceCard(summary)
+                    }
+                }
+                launch {
+                    viewModel.financialHealth.collect { health ->
+                        bindFinancialHealth(health)
+                    }
+                }
             }
         }
+    }
+
+    @SuppressLint("DefaultLocale", "SetTextI18n")
+    private fun bindBalanceCard(summary: BalanceSummary) {
+        binding.tvTotalBalance.text = "$${formatAmount(summary.totalBalance)}"
+        binding.tvIncome.text = "$${formatAmount(summary.monthlyIncome)}"
+        binding.tvExpense.text = "$${formatAmount(summary.monthlyExpense)}"
+
+        val sign = if (summary.trendPercent >= 0) "+" else ""
+        binding.tvMonthlyChange.text =
+            "$sign${String.format("%.1f", summary.trendPercent)}% this month"
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun bindFinancialHealth(health: FinancialHealth) {
+        binding.tvFinancialScore.text = health.score.toString()
+        binding.healthProgress.progress = health.score
+        binding.tvFinancialHealthDescription.text = health.message
+        binding.tvFinancialHealthStatus.text = health.label
     }
 
     @SuppressLint("SetTextI18n")

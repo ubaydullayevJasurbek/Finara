@@ -49,7 +49,12 @@ object CategoryStyleProvider {
             iconRes = R.drawable.ic_flight,
             iconBgColor = "#E3F2FD".toColorInt(),
             textColor = "#1976D2".toColorInt()
-        )
+        ),
+        "Housing" to CategoryStyle(
+            iconRes = R.drawable.ic_home,
+            iconBgColor = "#E3F2FD".toColorInt(),
+            textColor = "#1976D2".toColorInt()
+        ),
     )
 
     private val default = CategoryStyle(

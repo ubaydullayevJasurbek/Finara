@@ -33,4 +33,18 @@ class TransactionRepositoryImpl(private val dao: TransactionDao) : TransactionRe
     override suspend fun deleteTransaction(transaction: Transaction) {
         dao.delete(transaction.toEntity())
     }
+
+    override fun getTotalBalance(): Flow<Double> = dao.getTotalBalance()
+
+    override fun getMonthlyIncome(monthStart: Long): Flow<Double> =
+        dao.getMonthlyIncome(monthStart)
+
+    override fun getMonthlyExpense(monthStart: Long): Flow<Double> =
+        dao.getMonthlyExpense(monthStart)
+
+    override fun getIncomeBetween(start: Long, end: Long): Flow<Double> =
+        dao.getIncomeBetween(start, end)
+
+    override fun getExpenseBetween(start: Long, end: Long): Flow<Double> =
+        dao.getExpenseBetween(start, end)
 }

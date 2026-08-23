@@ -11,7 +11,7 @@ data class TransactionEntity(
 
     val title: String,
     val category: String,
-    val dateTime: String,
     val amount: Double,
     val isIncome: Boolean,
+    val timestamp: Long
 )

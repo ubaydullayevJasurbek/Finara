@@ -11,6 +11,7 @@ import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.databinding.ItemTransactionBinding
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import androidx.core.graphics.toColorInt
+import com.ubaydullayev.expensetracker.utils.DateFormatter
 
 class TransactionsAdapter(
     private var items: List<Transaction>
@@ -32,7 +33,7 @@ class TransactionsAdapter(
         val b = holder.binding
 
         b.title.text = item.title
-        b.dateTime.text = item.dateTime
+        b.dateTime.text = DateFormatter.formatTransactionDate(item.timestamp)
 
         // Rang va icon endi CategoryStyleProvider orqali kategoriya nomidan aniqlanadi
         val style = CategoryStyleProvider.getStyle(item.category)
