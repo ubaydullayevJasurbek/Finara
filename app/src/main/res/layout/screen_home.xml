@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/green_bg"
     tools:context=".presentation.home.HomeScreen">
 
 
@@ -12,6 +12,8 @@
         android:id="@+id/homeScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:fillViewport="true"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,6 +25,7 @@
             android:id="@+id/homeContentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingStart="16dp"
@@ -374,8 +377,10 @@
                 android:id="@+id/quickActionsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="20dp"
                 android:baselineAligned="false"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="horizontal">
 
                 <!-- Add -->
@@ -384,6 +389,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -428,6 +435,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -472,6 +481,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -516,6 +527,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_weight="1"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -848,6 +861,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvSeeAllTransactions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -861,6 +875,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp">
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreen">
+    app:startDestination="@id/mainGraph">
 
     <fragment
         android:id="@+id/splashScreen"
@@ -112,7 +112,29 @@
             android:id="@+id/homeScreen"
             android:name="com.ubaydullayev.expensetracker.presentation.home.HomeScreen"
             android:label="screen_home"
-            tools:layout="@layout/screen_home" />
+            tools:layout="@layout/screen_home">
+            <action
+                android:id="@+id/action_homeScreen_to_transactionScreen"
+                app:destination="@id/transactionScreen" />
+
+            <action
+                android:id="@+id/action_homeScreen_to_budgetScreen"
+                app:destination="@id/budgetScreen" />
+
+            <action
+                android:id="@+id/action_homeScreen_to_profileScreen"
+                app:destination="@id/profileScreen" />
+
+            <action
+                android:id="@+id/action_homeScreen_to_addFabScreen"
+                app:destination="@id/addFabScreen"
+                />
+
+            <action
+                android:id="@+id/action_homeScreen_to_savingGoalsScreen"
+                app:destination="@+id/savingGoalsScreen" />
+
+        </fragment>
         <fragment
             android:id="@+id/transactionScreen"
             android:name="com.ubaydullayev.expensetracker.presentation.transaction.TransactionScreen"
@@ -128,12 +150,18 @@
             android:name="com.ubaydullayev.expensetracker.presentation.profile.ProfileScreen"
             android:label="screen_profile"
             tools:layout="@layout/screen_profile" />
-        <fragment
+        <dialog
             android:id="@+id/addFabScreen"
             android:name="com.ubaydullayev.expensetracker.presentation.addfab.AddFabScreen"
             android:label="screen_add_fab"
             tools:layout="@layout/screen_add_fab" />
+        <fragment
+            android:id="@+id/savingGoalsScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.savinggoals.SavingGoalsScreen"
+            android:label="screen_saving_goals"
+            tools:layout="@layout/screen_saving_goals" />
 
     </navigation>
+
 
 </navigation>

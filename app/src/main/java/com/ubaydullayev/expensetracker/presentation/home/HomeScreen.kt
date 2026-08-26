@@ -10,7 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.adapter.budgetsadapter.BudgetsAdapter
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
 import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBillsAdapter
@@ -56,6 +58,7 @@ class HomeScreen :
 
         setupRecyclerViews()
         observeData()
+        setupClickListeners()
     }
 
     private fun setupRecyclerViews() {
@@ -192,4 +195,31 @@ class HomeScreen :
             // findNavController().navigate(R.id.action_home_to_savingGoals)
         }
     }
+
+    private fun setupClickListeners() {
+
+        // Recent Transactions "See all"
+        binding.root.findViewById<View>(R.id.tvSeeAllTransactions)?.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_transactionScreen)
+        }
+        // Budgets "See all"
+        binding.btnSeeAllBudgets.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_budgetScreen)
+        }
+
+        // Profile avatar
+        binding.ivProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_profileScreen)
+        }
+        // Quick Action — Add
+        binding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_addFabScreen)
+        }
+
+        // SavingGoals "See all"
+        binding.btnSeeAllSavingGoals.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_savingGoalsScreen)
+        }
+    }
+
 }

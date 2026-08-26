@@ -24,4 +24,22 @@
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.ExpenseTracker</item>
     </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppBottomSheetStyle</item>
+    </style>
+
+    <style name="AppBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/AppShapeAppearanceBottomSheet</item>
+        <!-- Pin the rounded sheet surface to pure white (M3 colorSurface is slightly off-white). -->
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="AppShapeAppearanceBottomSheet" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
 </resources>

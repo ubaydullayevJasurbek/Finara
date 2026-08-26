@@ -113,4 +113,7 @@
     <string name="recent_transactions">Recent Transactions</string>
     <string name="netflix_premium">Netflix Premium</string>
     <string name="monthly_entertainment">Monthly · Entertainment</string>
+    <string name="track_spending">Track spending</string>
+    <string name="add_new">Add New</string>
+    <string name="choose_what_to_record">Choose what to record</string>
 </resources>
