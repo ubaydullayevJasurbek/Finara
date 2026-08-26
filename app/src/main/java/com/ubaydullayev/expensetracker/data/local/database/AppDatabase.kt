@@ -96,17 +96,14 @@ abstract class AppDatabase : RoomDatabase() {
 
             dao.insert(
                 TransactionEntity(
-                    title = "Salary",
-                    category = "Income",
-                    timestamp = now,
-                    amount = 3200.00,
-                    isIncome = true
+                    title = "Salary", category = "Income", timestamp = now,
+                    amount = 3200.00, isIncome = true, isRecurring = true
                 )
             )
             dao.insert(
                 TransactionEntity(
                     title = "Grocery Store",
-                    category = "Food",
+                    category = "Groceries",
                     timestamp = now - 5 * 60 * 60 * 1000,
                     amount = 54.20,
                     isIncome = false
@@ -118,7 +115,8 @@ abstract class AppDatabase : RoomDatabase() {
                     category = "Entertainment",
                     timestamp = now - oneDayMs,
                     amount = 22.99,
-                    isIncome = false
+                    isIncome = false,
+                    isRecurring = true
                 )
             )
             dao.insert(
@@ -127,8 +125,7 @@ abstract class AppDatabase : RoomDatabase() {
                     category = "Travel",
                     timestamp = now - oneDayMs - 2 * 60 * 60 * 1000,
                     amount = 189.00,
-                    isIncome = false,
-
+                    isIncome = false
                 )
             )
         }
@@ -170,7 +167,7 @@ abstract class AppDatabase : RoomDatabase() {
             dao.insert(
                 SavingGoalEntity(
                     title = "Japan Trip 2026",
-                    category = "Travel",
+                    category = "Travel",   // "Groceries" -> "Travel" TUZATILDI
                     estimatedDate = "Est. Nov 2026",
                     priority = "HIGH",
                     targetDate = "Dec 2026",

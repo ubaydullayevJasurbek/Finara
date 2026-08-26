@@ -15,45 +15,55 @@ data class CategoryStyle(
 object CategoryStyleProvider {
 
     private val style = mapOf(
-        "Income" to CategoryStyle(
+        TransactionCategory.INCOME to CategoryStyle(
             iconRes = R.drawable.ic_dollar,
             iconBgColor = "#E8F5E9".toColorInt(),
             textColor = "#2E7D32".toColorInt()
         ),
-        "Groceries" to CategoryStyle(
+        TransactionCategory.GROCERIES to CategoryStyle(
             iconRes = R.drawable.ic_cart,
             iconBgColor = "#FFF8E1".toColorInt(),
             textColor = "#F9A825".toColorInt()
         ),
-        "Transport" to CategoryStyle(
+        TransactionCategory.TRANSPORT to CategoryStyle(
             iconRes = R.drawable.ic_transport,
             iconBgColor = "#EDE7F6".toColorInt(),
             textColor = "#5E35B1".toColorInt()
         ),
-        "Shopping" to CategoryStyle(
+        TransactionCategory.SHOPPING to CategoryStyle(
             iconRes = R.drawable.ic_shopping,
             iconBgColor = "#FFEBEE".toColorInt(),
             textColor = "#E53935".toColorInt()
         ),
-        "Entertainment" to CategoryStyle(
+        TransactionCategory.ENTERTAINMENT to CategoryStyle(
             iconRes = R.drawable.ic_play,
             iconBgColor = "#FCE4EC".toColorInt(),
             textColor = "#E91E63".toColorInt()
         ),
-        "Music" to CategoryStyle(
+        TransactionCategory.MUSIC to CategoryStyle(
             iconRes = R.drawable.ic_music,
             iconBgColor = "#E8F5E9".toColorInt(),
             textColor = "#2E7D32".toColorInt()
         ),
-        "Travel" to CategoryStyle(
+        TransactionCategory.TRAVEL to CategoryStyle(
             iconRes = R.drawable.ic_flight,
             iconBgColor = "#E3F2FD".toColorInt(),
             textColor = "#1976D2".toColorInt()
         ),
-        "Housing" to CategoryStyle(
+        TransactionCategory.HOUSING to CategoryStyle(
             iconRes = R.drawable.ic_home,
             iconBgColor = "#E3F2FD".toColorInt(),
             textColor = "#1976D2".toColorInt()
+        ),
+        TransactionCategory.INSURANCE to CategoryStyle(
+            iconRes = R.drawable.ic_shield,
+            iconBgColor = "#E0F2F1".toColorInt(),
+            textColor = "#00897B".toColorInt()
+        ),
+        TransactionCategory.SOFTWARE to CategoryStyle(
+            iconRes = R.drawable.ic_laptop,
+            iconBgColor = "#EDE7F6".toColorInt(),
+            textColor = "#5E35B1".toColorInt()
         ),
     )
 

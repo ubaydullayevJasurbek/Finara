@@ -1,7 +1,6 @@
 package com.ubaydullayev.expensetracker.adapter.transactionadapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.databinding.ItemTransactionBinding
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import androidx.core.graphics.toColorInt
+import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.utils.DateFormatter
 
 class TransactionsAdapter(
@@ -35,7 +35,6 @@ class TransactionsAdapter(
         b.title.text = item.title
         b.dateTime.text = DateFormatter.formatTransactionDate(item.timestamp)
 
-        // Rang va icon endi CategoryStyleProvider orqali kategoriya nomidan aniqlanadi
         val style = CategoryStyleProvider.getStyle(item.category)
         b.icon.setImageResource(style.iconRes)
         b.iconBackground.setCardBackgroundColor(style.iconBgColor)
@@ -50,6 +49,21 @@ class TransactionsAdapter(
         b.amount.setTextColor(
             if (item.isIncome) "#2E7D32".toColorInt() else "#1A1A1A".toColorInt()
         )
+
+        // YANGI — status icon (recurring yoki attachment, ikkalasi bir vaqtda bo'lmaydi)
+        when {
+            item.isRecurring -> {
+                b.statusIcon.visibility = View.VISIBLE
+                b.statusIcon.setImageResource(R.drawable.ic_refresh)
+            }
+            item.hasAttachment -> {
+                b.statusIcon.visibility = View.VISIBLE
+                b.statusIcon.setImageResource(R.drawable.ic_attachment)
+            }
+            else -> {
+                b.statusIcon.visibility = View.GONE
+            }
+        }
 
         b.divider.visibility = if (position == items.size - 1) View.GONE else View.VISIBLE
     }

@@ -116,4 +116,14 @@
     <string name="track_spending">Track spending</string>
     <string name="add_new">Add New</string>
     <string name="choose_what_to_record">Choose what to record</string>
+    <string name="july_2026">July 2026</string>
+    <string name="search_transactions">Search transactions</string>
+    <string name="all">All</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="this_week">This Week</string>
+    <string name="this_month">This Month</string>
+    <string name="_2_960">-$2,960</string>
+    <string name="_5_240">+$5,240</string>
+    <string name="_252_69">-$252.69</string>
 </resources>

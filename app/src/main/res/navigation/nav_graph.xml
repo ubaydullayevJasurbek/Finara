@@ -132,7 +132,7 @@
 
             <action
                 android:id="@+id/action_homeScreen_to_savingGoalsScreen"
-                app:destination="@+id/savingGoalsScreen" />
+                app:destination="@id/savingGoalsScreen" />
 
         </fragment>
         <fragment

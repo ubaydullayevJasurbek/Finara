@@ -6,5 +6,7 @@ data class Transaction(
     val category: String,
     val amount: Double,
     val isIncome: Boolean,
-    val timestamp:Long
+    val timestamp:Long,
+    val isRecurring: Boolean = false,
+    val hasAttachment: Boolean = false
 )

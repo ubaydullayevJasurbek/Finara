@@ -19,12 +19,12 @@ object DateFormatter {
         }
     }
 
-    private fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
+     fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
     }
 
-    private fun isYesterday(now: Calendar, txDate: Calendar): Boolean {
+     fun isYesterday(now: Calendar, txDate: Calendar): Boolean {
         val yesterday = now.clone() as Calendar
         yesterday.add(Calendar.DAY_OF_YEAR, -1)
         return isSameDay(yesterday, txDate)
@@ -55,5 +55,43 @@ object DateFormatter {
         val monthStart = cal.timeInMillis
 
         return Pair(monthStart, monthEnd)
+    }
+
+    fun getDayLabel(timestamp: Long): String {
+        val now = Calendar.getInstance()
+        val txDate = Calendar.getInstance().apply { timeInMillis = timestamp }
+
+        return when {
+            isSameDay(now, txDate) -> "Today"
+            isYesterday(now, txDate) -> "Yesterday"
+            else -> SimpleDateFormat("MMM d", Locale.getDefault()).format(txDate.time)
+        }
+    }
+
+    fun isToday(timestamp: Long): Boolean {
+        val now = Calendar.getInstance()
+        val txDate = Calendar.getInstance().apply { timeInMillis = timestamp }
+        return isSameDay(now, txDate)
+    }
+
+    fun isYesterday(timestamp: Long): Boolean {
+        val now = Calendar.getInstance()
+        val txDate = Calendar.getInstance().apply { timeInMillis = timestamp }
+        return isYesterday(now, txDate)
+    }
+
+    fun isThisWeek(timestamp: Long): Boolean {
+        val now = Calendar.getInstance()
+        val weekStart = now.clone() as Calendar
+        weekStart.set(Calendar.DAY_OF_WEEK, weekStart.firstDayOfWeek)
+        weekStart.set(Calendar.HOUR_OF_DAY, 0)
+        weekStart.set(Calendar.MINUTE, 0)
+        weekStart.set(Calendar.SECOND, 0)
+        weekStart.set(Calendar.MILLISECOND, 0)
+        return timestamp >= weekStart.timeInMillis
+    }
+
+    fun isThisMonth(timestamp: Long): Boolean {
+        return timestamp >= getCurrentMonthStart()
     }
 }

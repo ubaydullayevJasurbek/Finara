@@ -185,14 +185,10 @@ class HomeScreen :
     }
 
     private fun setupGoalCardClickListener() {
-        // Kartaning o'ziga bosilganda -> to'liq Saving Goals screen'iga o'tish
+        // Kartaning o'ziga bosilganda -> to'liq Saving Goals screen'iga o'tish.
+        // "See all" tugmasi listener'i setupClickListeners() ichida bir joyda beriladi.
         binding.includeGoalCard.root.setOnClickListener {
-            // Masalan: findNavController().navigate(R.id.action_home_to_savingGoals)
-        }
-
-        // "See all" tugmasiga bosilganda ham xuddi shu screen'ga o'tish
-        binding.btnSeeAllSavingGoals.setOnClickListener {
-            // findNavController().navigate(R.id.action_home_to_savingGoals)
+            findNavController().navigate(R.id.action_homeScreen_to_savingGoalsScreen)
         }
     }
 

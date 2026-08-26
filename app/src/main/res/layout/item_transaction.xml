@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +20,7 @@
             android:id="@+id/iconBackground"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            app:cardCornerRadius="14dp"
+            app:cardCornerRadius="22dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,23 +30,45 @@
                 android:id="@+id/icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
 
         </androidx.cardview.widget.CardView>
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/title"
+        <!-- Title + kichik status icon (recurring/attachment) bir qatorda -->
+        <LinearLayout
+            android:id="@+id/titleRow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="8dp"
-            android:textColor="#1A1A1A"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toStartOf="@id/amount"
             app:layout_constraintStart_toEndOf="@id/iconBackground"
-            app:layout_constraintTop_toTopOf="@id/iconBackground" />
+            app:layout_constraintTop_toTopOf="@id/iconBackground"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="#1A1A1A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/statusIcon"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="5dp"
+                android:importantForAccessibility="no"
+                android:visibility="gone"
+                app:tint="#9E9E9E" />
+
+        </LinearLayout>
 
         <!-- Category badge + date bir qatorda -->
         <LinearLayout
@@ -55,7 +79,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintStart_toEndOf="@id/iconBackground"
-            app:layout_constraintTop_toBottomOf="@id/title">
+            app:layout_constraintTop_toBottomOf="@id/titleRow">
 
             <TextView
                 android:id="@+id/categoryBadge"

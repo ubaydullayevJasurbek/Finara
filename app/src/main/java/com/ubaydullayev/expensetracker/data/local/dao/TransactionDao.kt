@@ -16,10 +16,10 @@ interface TransactionDao {
     @Delete
     suspend fun delete(transaction: TransactionEntity)
 
-    @Query("SELECT*FROM transactions ORDER BY id DESC")
+    @Query("SELECT*FROM transactions ORDER BY timestamp  DESC")
     fun getAllTransactions(): Flow<List<TransactionEntity>>
 
-    @Query("SELECT*FROM transactions ORDER BY id DESC LIMIT :limit")
+    @Query("SELECT*FROM transactions ORDER BY timestamp  DESC LIMIT :limit")
     fun getRecentTransactions(limit: Int): Flow<List<TransactionEntity>>
 
     @Query("SELECT*FROM transactions WHERE id = :id")
