@@ -76,4 +76,8 @@ object CategoryStyleProvider {
     fun getStyle(category: String): CategoryStyle {
         return style[category] ?: default
     }
+
+    fun getAllCategories(): List<String> {
+        return style.keys.toList()
+    }
 }

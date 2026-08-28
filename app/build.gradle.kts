@@ -4,6 +4,7 @@ plugins {
     // Applied without a version — inherited from the buildscript classpath in the
     // root build.gradle.kts so KSP stays in lockstep with the bumped Kotlin plugin.
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin") version "2.9.8"
 }
 
 android {
@@ -17,6 +18,7 @@ android {
     defaultConfig {
         applicationId = "com.ubaydullayev.expensetracker"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -35,6 +37,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    //noinspection WrongGradleMethod
     kotlin {
         compilerOptions {
             jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11

@@ -126,4 +126,29 @@
     <string name="_2_960">-$2,960</string>
     <string name="_5_240">+$5,240</string>
     <string name="_252_69">-$252.69</string>
+    <string name="new_expense">New Expense</string>
+    <string name="dollar">$</string>
+    <string name="_0_00">0.00</string>
+    <string name="tap_to_enter_amount">Tap to enter amount</string>
+    <string name="select_category">Select category</string>
+    <string name="category">Category</string>
+    <string name="merchant">Merchant</string>
+    <string name="add_merchant">Add Merchant</string>
+
+    <string name="account">Account</string>
+    <string name="main_checking_placeholder">Main Checking · •• 6411</string>
+    <string name="date_time">Date &amp; Time</string>
+    <string name="today_placeholder">Today · 9:30 AM</string>
+    <string name="note">Note</string>
+    <string name="add_note_optional">Add a note (optional)</string>
+    <string name="recurring">Recurring</string>
+    <string name="attach_receipt">Attach receipt</string>
+    <string name="photo_or_pdf">Photo or PDF</string>
+    <string name="repeat_this_transaction">Repeat this transaction</string>
+
+    <string name="new_income">New Income</string>
+    <string name="new_transfer">New Transfer</string>
+    <string name="new_category">New Category</string>
+    <string name="category_name">Category name</string>
+    <string name="create_a_custom_category_for_your_transactions">Create a custom category for your transactions</string>
 </resources>

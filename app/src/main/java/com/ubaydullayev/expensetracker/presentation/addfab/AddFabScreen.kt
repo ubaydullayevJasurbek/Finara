@@ -82,7 +82,7 @@ class AddFabScreen : BottomSheetDialogFragment() {
         }
 
         binding.cardExpense.root.setOnClickListener {
-            // TODO: Add Transaction — Redesign screen (Expense tab)
+          findNavController().navigate(R.id.action_addFabScreen_to_addTransactionScreen)
         }
 
         binding.cardIncome.root.setOnClickListener {

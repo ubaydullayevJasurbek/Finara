@@ -6,10 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ubaydullayev.expensetracker.data.local.dao.BudgetDao
+import com.ubaydullayev.expensetracker.data.local.dao.CustomCategoryDao
 import com.ubaydullayev.expensetracker.data.local.dao.SavingGoalDao
 import com.ubaydullayev.expensetracker.data.local.dao.TransactionDao
 import com.ubaydullayev.expensetracker.data.local.dao.UpcomingBillDao
 import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
+import com.ubaydullayev.expensetracker.data.local.entity.CustomCategoryEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
@@ -23,7 +25,8 @@ import kotlinx.coroutines.launch
         TransactionEntity::class,
         UpcomingBillEntity::class,
         SavingGoalEntity::class,
-        BudgetEntity::class
+        BudgetEntity::class,
+        CustomCategoryEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -177,4 +180,6 @@ abstract class AppDatabase : RoomDatabase() {
             )
         }
     }
+
+    abstract fun customCategoryDao(): CustomCategoryDao
 }

@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.addTransaction.AddTransactionScreen">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/addTransactionScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- ==================== AMOUNT PANEL ==================== -->
+            <FrameLayout
+                android:id="@+id/amountPanel"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:elevation="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/panelBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_expense_panel" />
+
+                <View
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="-70dp"
+                    android:layout_marginEnd="-60dp"
+                    android:background="@drawable/bg_circle_white_translucent"
+                    android:importantForAccessibility="no" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="20dp">
+
+                    <FrameLayout
+                        android:id="@+id/btnClose"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_white_translucent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_closed"
+                            app:tint="@color/white" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvScreenTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_extra_bold"
+                        android:gravity="center"
+                        android:text="@string/new_expense"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@id/btnClose"
+                        app:layout_constraintEnd_toStartOf="@id/spacerView"
+                        app:layout_constraintStart_toEndOf="@id/btnClose"
+                        app:layout_constraintTop_toTopOf="@id/btnClose" />
+
+                    <View
+                        android:id="@+id/spacerView"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/btnClose" />
+
+                    <LinearLayout
+                        android:id="@+id/typeToggleContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/bg_segmented_control"
+                        android:orientation="horizontal"
+                        android:padding="4dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btnClose">
+
+                        <TextView
+                            android:id="@+id/tabExpense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="2dp"
+                            android:background="@drawable/bg_segment_selected"
+                            android:fontFamily="@font/inter_extra_bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="20dp"
+                            android:text="@string/expense"
+                            android:textColor="#B71C1C"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tabIncome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="2dp"
+                            android:fontFamily="@font/inter_extra_bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="20dp"
+                            android:text="@string/income"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tabTransfer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingHorizontal="20dp"
+                            android:text="@string/transfer"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/amountRow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/typeToggleContainer">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginEnd="4dp"
+                            android:fontFamily="@font/inter_extra_bold"
+                            android:text="@string/dollar"
+                            android:textColor="#FFCDD2"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/inter_extra_bold"
+                            android:gravity="center"
+                            android:hint="@string/_0_00"
+                            android:importantForAutofill="no"
+                            android:inputType="numberDecimal"
+                            android:maxLength="10"
+                            android:minWidth="140dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="#FFCDD2"
+                            android:textSize="44sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvAmountHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/inter_extra_bold"
+                        android:text="@string/tap_to_enter_amount"
+                        android:textColor="#FFCDD2"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/amountRow" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+
+            <!-- ==================== CATEGORY ==================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rowCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#E5E7EB"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/amountPanel">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <FrameLayout
+                        android:id="@+id/categoryIconBg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_category_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_grid"
+                            app:tint="#F9A825" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvCategoryLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/category"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/ivCategoryArrow"
+                        app:layout_constraintStart_toEndOf="@id/categoryIconBg"
+                        app:layout_constraintTop_toTopOf="@id/categoryIconBg" />
+
+                    <TextView
+                        android:id="@+id/tvCategoryValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/select_category"
+                        android:textColor="#1A1A1A"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivCategoryArrow"
+                        app:layout_constraintStart_toEndOf="@id/categoryIconBg"
+                        app:layout_constraintTop_toBottomOf="@id/tvCategoryLabel" />
+
+                    <ImageView
+                        android:id="@+id/ivCategoryArrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="#9E9E9E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ==================== MERCHANT ==================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rowMerchant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/rowCategory"
+                app:strokeColor="#E5E7EB"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <FrameLayout
+                        android:id="@+id/merchantIconBg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_merchant_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_cart"
+                            app:tint="#2E7D32" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvMerchantLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/merchant"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/ivMerchantArrow"
+                        app:layout_constraintStart_toEndOf="@id/merchantIconBg"
+                        app:layout_constraintTop_toTopOf="@id/merchantIconBg" />
+
+                    <TextView
+                        android:id="@+id/tvMerchantValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/add_merchant"
+                        android:textColor="#1A1A1A"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivMerchantArrow"
+                        app:layout_constraintStart_toEndOf="@id/merchantIconBg"
+                        app:layout_constraintTop_toBottomOf="@id/tvMerchantLabel" />
+
+                    <ImageView
+                        android:id="@+id/ivMerchantArrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#9E9E9E" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ==================== ACCOUNT ==================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rowAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/rowMerchant"
+                app:strokeColor="#E5E7EB"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <FrameLayout
+                        android:id="@+id/accountIconBg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_account_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_card"
+                            app:tint="#1E88E5" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvAccountLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/account"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/ivAccountArrow"
+                        app:layout_constraintStart_toEndOf="@id/accountIconBg"
+                        app:layout_constraintTop_toTopOf="@id/accountIconBg" />
+
+                    <TextView
+                        android:id="@+id/tvAccountValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/main_checking_placeholder"
+                        android:textColor="#1A1A1A"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivAccountArrow"
+                        app:layout_constraintStart_toEndOf="@id/accountIconBg"
+                        app:layout_constraintTop_toBottomOf="@id/tvAccountLabel" />
+
+                    <ImageView
+                        android:id="@+id/ivAccountArrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#9E9E9E" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ==================== DATE & TIME ==================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rowDateTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/rowAccount"
+                app:strokeColor="#E5E7EB"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <FrameLayout
+                        android:id="@+id/dateIconBg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_date_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="#7C3AED" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvDateLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/date_time"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/ivDateArrow"
+                        app:layout_constraintStart_toEndOf="@id/dateIconBg"
+                        app:layout_constraintTop_toTopOf="@id/dateIconBg" />
+
+                    <TextView
+                        android:id="@+id/tvDateValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/today_placeholder"
+                        android:textColor="#1A1A1A"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivDateArrow"
+                        app:layout_constraintStart_toEndOf="@id/dateIconBg"
+                        app:layout_constraintTop_toBottomOf="@id/tvDateLabel" />
+
+                    <ImageView
+                        android:id="@+id/ivDateArrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#9E9E9E" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ==================== NOTE ==================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rowNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/rowDateTime"
+                app:strokeColor="#E5E7EB"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp">
+
+                    <FrameLayout
+                        android:id="@+id/noteIconBg"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_circle_note_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_note"
+                            app:tint="#E53935" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvNoteLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/note"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toStartOf="@id/ivNoteArrow"
+                        app:layout_constraintStart_toEndOf="@id/noteIconBg"
+                        app:layout_constraintTop_toTopOf="@id/noteIconBg" />
+
+                    <TextView
+                        android:id="@+id/tvNoteValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/add_note_optional"
+                        android:textColor="#1A1A1A"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivNoteArrow"
+                        app:layout_constraintStart_toEndOf="@id/noteIconBg"
+                        app:layout_constraintTop_toBottomOf="@id/tvNoteLabel" />
+
+                    <ImageView
+                        android:id="@+id/ivNoteArrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_chevron_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#9E9E9E" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ==================== RECURRING / ATTACH RECEIPT ==================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/rowOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/rowNote"
+                app:strokeColor="#E5E7EB"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Recurring qatori -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="14dp">
+
+                        <FrameLayout
+                            android:id="@+id/recurringIconBg"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_circle_recurring_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_refresh"
+                                app:tint="#2E7D32" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvRecurringTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="@string/recurring"
+                            android:textColor="#1A1A1A"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/switchRecurring"
+                            app:layout_constraintStart_toEndOf="@id/recurringIconBg"
+                            app:layout_constraintTop_toTopOf="@id/recurringIconBg" />
+
+                        <TextView
+                            android:id="@+id/tvRecurringSubtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/repeat_this_transaction"
+                            android:textColor="#9E9E9E"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toStartOf="@id/switchRecurring"
+                            app:layout_constraintStart_toEndOf="@id/recurringIconBg"
+                            app:layout_constraintTop_toBottomOf="@id/tvRecurringTitle" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchRecurring"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:thumbTint="@color/white"
+                            app:trackTint="@drawable/switch_track_color" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:background="#EEEEEE" />
+
+                    <!-- Attach receipt qatori -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="14dp">
+
+                        <FrameLayout
+                            android:id="@+id/receiptIconBg"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_circle_receipt_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_attachment"
+                                app:tint="#7C3AED" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvReceiptTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="@string/attach_receipt"
+                            android:textColor="#1A1A1A"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/switchReceipt"
+                            app:layout_constraintStart_toEndOf="@id/receiptIconBg"
+                            app:layout_constraintTop_toTopOf="@id/receiptIconBg" />
+
+                        <TextView
+                            android:id="@+id/tvReceiptSubtitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/photo_or_pdf"
+                            android:textColor="#9E9E9E"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toStartOf="@id/switchReceipt"
+                            app:layout_constraintStart_toEndOf="@id/receiptIconBg"
+                            app:layout_constraintTop_toBottomOf="@id/tvReceiptTitle" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchReceipt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:thumbTint="@color/white"
+                            app:trackTint="@drawable/switch_track_color" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ==================== CTA TUGMA — endi rowOptions'dan TASHQARIDA ==================== -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/brand_green_dark"
+                android:fontFamily="@font/inter_extra_bold"
+                android:text="@string/add_transaction"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:cornerRadius="28dp"
+                app:icon="@drawable/ic_check"
+                app:iconGravity="textStart"
+                app:iconTint="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/rowOptions" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

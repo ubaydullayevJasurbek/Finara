@@ -127,8 +127,7 @@
 
             <action
                 android:id="@+id/action_homeScreen_to_addFabScreen"
-                app:destination="@id/addFabScreen"
-                />
+                app:destination="@id/addFabScreen" />
 
             <action
                 android:id="@+id/action_homeScreen_to_savingGoalsScreen"
@@ -154,13 +153,30 @@
             android:id="@+id/addFabScreen"
             android:name="com.ubaydullayev.expensetracker.presentation.addfab.AddFabScreen"
             android:label="screen_add_fab"
-            tools:layout="@layout/screen_add_fab" />
+            tools:layout="@layout/screen_add_fab">
+
+            <action
+                android:id="@+id/action_addFabScreen_to_addTransactionScreen"
+                app:destination="@id/addTransactionScreen" />
+        </dialog>
         <fragment
             android:id="@+id/savingGoalsScreen"
             android:name="com.ubaydullayev.expensetracker.presentation.savinggoals.SavingGoalsScreen"
             android:label="screen_saving_goals"
             tools:layout="@layout/screen_saving_goals" />
 
+        <fragment
+            android:id="@+id/addTransactionScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.addTransaction.AddTransactionScreen"
+            android:label="screen_add_transaction"
+            tools:layout="@layout/screen_add_transaction">
+
+            <argument
+                android:name="transactionType"
+                android:defaultValue="Expense"
+                app:argType="string" />
+
+        </fragment>
     </navigation>
 
 
