@@ -19,7 +19,8 @@ fun TransactionEntity.toDomainModel(): Transaction {
         isIncome = isIncome,
         timestamp = timestamp,
         isRecurring = isRecurring,
-        hasAttachment = hasAttachment
+        hasAttachment = hasAttachment,
+        note = note
     )
 }
 
@@ -33,7 +34,8 @@ fun Transaction.toEntity(): TransactionEntity {
         isIncome = isIncome,
         timestamp = timestamp,
         isRecurring = isRecurring,
-        hasAttachment = hasAttachment
+        hasAttachment = hasAttachment,
+        note = note
     )
 }
 

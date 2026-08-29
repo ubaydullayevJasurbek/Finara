@@ -1,12 +1,14 @@
 package com.ubaydullayev.expensetracker.presentation.addTransaction.categorysheet
 
-import android.R.attr.name
+import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,14 +21,14 @@ import com.ubaydullayev.expensetracker.adapter.listadapter.CategoryPickerAdapter
 import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
 import com.ubaydullayev.expensetracker.data.local.entity.CustomCategoryEntity
 import com.ubaydullayev.expensetracker.databinding.DialogAddCategoryBinding
+import com.ubaydullayev.expensetracker.databinding.DialogCategoryAddedBinding
 import com.ubaydullayev.expensetracker.databinding.SheetCategoryPickerBinding
 import com.ubaydullayev.expensetracker.utils.TransactionCategory
 import kotlinx.coroutines.launch
 import androidx.core.graphics.toColorInt
-import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.textfield.TextInputLayout
 
 class CategoryPickerSheet : BottomSheetDialogFragment() {
-
 
     companion object {
         const val REQUEST_KEY = "category_picker_request"
@@ -37,6 +39,10 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: CategoryPickerAdapter
+
+    private var successDialog: Dialog? = null
+    private val dismissHandler = Handler(Looper.getMainLooper())
+    private var dismissRunnable: Runnable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +56,6 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. AVVAL klass darajasidagi "adapter"ni to'ldiramiz
         adapter = CategoryPickerAdapter(TransactionCategory.ALL) { selectedCategory ->
             setFragmentResult(REQUEST_KEY, Bundle().apply {
                 putString(RESULT_CATEGORY, selectedCategory)
@@ -58,24 +63,15 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        // 2. Keyin RecyclerView'ga ulaymiz
         binding.rvCategories.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@CategoryPickerSheet.adapter
-
-            val divider = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-            divider.setDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.divider_thin)!!
-            )
-            addItemDecoration(divider)
-
         }
 
         binding.btnAddCategory.setOnClickListener {
             showAddCategoryDialog()
         }
 
-        // 3. Eng oxirida kuzatishni boshlaymiz (chunki bu "adapter"ni ishlatadi)
         observeCustomCategories()
     }
 
@@ -85,7 +81,6 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 dap.getAllCustomCategories().collect { customCategories ->
-
                     val allNames = customCategories.map { it.name } + TransactionCategory.ALL
                     adapter.updateCategories(allNames)
                 }
@@ -96,10 +91,7 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
     private fun showAddCategoryDialog() {
         val dialogBinding = DialogAddCategoryBinding.inflate(layoutInflater)
 
-        val dialog = MaterialAlertDialogBuilder(
-            requireContext(),
-            R.style.RoundedMaterialDialog
-        )
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.RoundedMaterialDialog)
             .setView(dialogBinding.root)
             .setPositiveButton("Add", null)
             .setNegativeButton("Cancel", null)
@@ -114,26 +106,85 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
 
             addButton.setOnClickListener {
                 val name = dialogBinding.etNewCategoryName.text.toString().trim()
-                if (name.isNotEmpty()) {
-                    saveNewCategory(name)
-                    dialog.dismiss()
-                } else {
-                    dialogBinding.tilCategoryName.error = "Please enter a category name"
+
+                when {
+                    name.isEmpty() -> {
+                        shakeAndError(dialogBinding.tilCategoryName, "Please enter a category name")
+                    }
+
+                    else -> checkAndSaveCategory(name, dialogBinding, dialog)
                 }
             }
         }
         dialog.show()
     }
 
-    private fun saveNewCategory(name: String) {
+    private fun checkAndSaveCategory(
+        name: String,
+        dialogBinding: DialogAddCategoryBinding,
+        dialog: Dialog
+    ) {
         val dao = AppDatabase.getInstance(requireContext()).customCategoryDao()
+
         viewLifecycleOwner.lifecycleScope.launch {
-            dao.insert(CustomCategoryEntity(name = name))
+            try {
+                val existsInDefaults =
+                    TransactionCategory.ALL.any { it.equals(name, ignoreCase = true) }
+                val existsInCustom = dao.categoryExists(name)
+
+                if (existsInDefaults || existsInCustom) {
+                    shakeAndError(dialogBinding.tilCategoryName, "This category already exists")
+                    return@launch
+                }
+
+                dao.insert(CustomCategoryEntity(name = name))
+                dialog.dismiss()
+                showSuccessDialog()
+
+            } catch (e: android.database.sqlite.SQLiteConstraintException) {
+                shakeAndError(dialogBinding.tilCategoryName, "This category already exists")
+            }
         }
+    }
+
+    private fun showSuccessDialog() {
+        val successBinding = DialogCategoryAddedBinding.inflate(layoutInflater)
+
+        // MUHIM: "val" emas — klass darajasidagi "successDialog"ga TO'G'RIDAN-TO'G'RI yozamiz
+        successDialog = Dialog(requireContext())
+        successDialog?.setContentView(successBinding.root)
+        successDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        successDialog?.setCancelable(false)
+        successDialog?.show()
+
+        // Lottie animatsiyasiga tayanmasdan, vaqt bo'yicha ISHONCHLI yopish
+        dismissRunnable = Runnable { dismissSuccessDialogSafely() }
+        dismissHandler.postDelayed(dismissRunnable!!, 2400)
+    }
+
+    private fun dismissSuccessDialogSafely() {
+        dismissRunnable?.let { dismissHandler.removeCallbacks(it) }
+        dismissRunnable = null
+
+        if (isAdded && successDialog?.isShowing == true) {
+            try {
+                successDialog?.dismiss()
+            } catch (e: IllegalArgumentException) {
+                // Oyna allaqachon yo'q bo'lib qolgan holatlar uchun xavfsizlik
+            }
+        }
+        successDialog = null
+    }
+
+    private fun shakeAndError(inputLayout: TextInputLayout, message: String) {
+        inputLayout.error = message
+        val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        inputLayout.startAnimation(shake)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        dismissSuccessDialogSafely()
         _binding = null
     }
 }

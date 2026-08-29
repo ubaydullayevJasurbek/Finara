@@ -9,30 +9,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingStart="20dp"
-        android:paddingTop="20dp"
         android:paddingEnd="20dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="20dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/select_category"
+            android:fontFamily="@font/inter_extra_bold"
+            android:text="Select category"
             android:textColor="#1A1A1A"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="22sp" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddCategory"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="4dp"
-            android:src="@drawable/ic_plus"
-            app:tint="@color/brand_green_dark" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            app:backgroundTint="#D7F2E3"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_plus"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="22dp"
+            app:iconTint="#1F8A5A" />
 
     </LinearLayout>
 
@@ -40,6 +50,8 @@
         android:id="@+id/rvCategories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:clipToPadding="false" />
 
 </LinearLayout>

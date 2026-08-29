@@ -224,4 +224,18 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24dp</item>
     </style>
+
+    <style name="RoundedDatePickerTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
+        <item name="colorPrimary">@color/brand_green_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">#1A1A1A</item>
+        <item name="dialogCornerRadius">28dp</item>
+        <item name="shapeAppearanceOverlay">@style/RoundedPickerShape</item>
+    </style>
+
+    <style name="RoundedPickerShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
 </resources>

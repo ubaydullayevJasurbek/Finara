@@ -28,27 +28,28 @@ class CategoryPickerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-
         val category = categories[position]
         val b = holder.binding
         val style = CategoryStyleProvider.getStyle(category)
 
-
         b.categoryItemName.text = category
         b.categoryItemIcon.setImageResource(style.iconRes)
 
-        val bg = GradientDrawable()
+        // Icon foni — to'q rangli doira
+        val iconBg = GradientDrawable()
+        iconBg.shape = GradientDrawable.OVAL
+        iconBg.setColor(style.textColor)
+        b.categoryItemIconBg.background = iconBg
 
-        bg.shape = GradientDrawable.OVAL
-        bg.setColor(style.iconBgColor)
-        b.categoryItemIconBg.background = bg
+        // Kartaning O'ZI ham och rangli fon oladi (M3 "tonal" uslubi)
+        (b.root)
+            .setCardBackgroundColor(style.iconBgColor)
 
         b.root.setOnClickListener {
             onCategoryClick(category)
         }
-
     }
+
     @SuppressLint("NotifyDataSetChanged")
     fun updateCategories(newCategories: List<String>) {
         categories = newCategories

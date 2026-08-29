@@ -96,5 +96,6 @@ dependencies {
     // Coroutines (Room so'rovlarini background thread'da bajarish uchun)
     implementation(libs.kotlinx.coroutines.android)
 
+    implementation(libs.lottie)
 
 }

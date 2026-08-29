@@ -15,5 +15,6 @@ data class TransactionEntity(
     val isIncome: Boolean,
     val timestamp: Long,
     val isRecurring: Boolean = false,
-    val hasAttachment: Boolean = false
+    val hasAttachment: Boolean = false,
+    val note: String = ""
 )

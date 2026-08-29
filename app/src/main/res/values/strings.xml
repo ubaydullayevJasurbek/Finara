@@ -151,4 +151,7 @@
     <string name="new_category">New Category</string>
     <string name="category_name">Category name</string>
     <string name="create_a_custom_category_for_your_transactions">Create a custom category for your transactions</string>
+    <string name="category_added">Category Added!</string>
+    <string name="who_did_you_pay_or_receive_from">Who did you pay or receive from?</string>
+    <string name="merchant_name">Merchant name</string>
 </resources>

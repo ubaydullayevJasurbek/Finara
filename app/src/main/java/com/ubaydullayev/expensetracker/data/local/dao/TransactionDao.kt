@@ -43,5 +43,7 @@ interface TransactionDao {
     @Query("SELECT COALESCE(SUM(amount), 0) FROM transactions WHERE isIncome = 0 AND timestamp >= :start AND timestamp < :end")
     fun getExpenseBetween(start: Long, end: Long): Flow<Double>
 
+    @Query("SELECT DISTINCT title FROM transactions ORDER BY title ASC")
+    fun getDistinctMerchantNames(): Flow<List<String>>
 }
 

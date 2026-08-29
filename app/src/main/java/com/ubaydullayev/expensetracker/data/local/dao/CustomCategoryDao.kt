@@ -14,4 +14,7 @@ interface CustomCategoryDao {
 
     @Query("SELECT * FROM custom_category ORDER BY id DESC")
     fun getAllCustomCategories(): Flow<List<CustomCategoryEntity>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM custom_category WHERE name = :name COLLATE NOCASE)")
+    suspend fun categoryExists(name: String): Boolean
 }
