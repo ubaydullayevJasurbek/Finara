@@ -154,4 +154,9 @@
     <string name="category_added">Category Added!</string>
     <string name="who_did_you_pay_or_receive_from">Who did you pay or receive from?</string>
     <string name="merchant_name">Merchant name</string>
+    <string name="whole_foods_market">Whole Foods Market</string>
+    <string name="_84_20">−$84.20</string>
+    <string name="groceries">Groceries</string>
+    <string name="completed">Completed</string>
+    <string name="edit">Edit</string>
 </resources>

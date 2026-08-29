@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.GroupedTransactionsAdapter
@@ -51,7 +52,14 @@ class TransactionScreen :
 
 
     private fun setupRecyclerView() {
-        transactionsAdapter = GroupedTransactionsAdapter(emptyList())
+        transactionsAdapter = GroupedTransactionsAdapter(emptyList()) { transactionId ->
+
+            val action =
+                TransactionScreenDirections.actionTransactionScreenToTransactionDetailScreen(
+                    transactionId
+                )
+            findNavController().navigate(action)
+        }
         binding.rvAllTransactions.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = transactionsAdapter

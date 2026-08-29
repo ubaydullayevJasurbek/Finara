@@ -15,7 +15,8 @@ import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import com.ubaydullayev.expensetracker.utils.DateFormatter
 
 class GroupedTransactionsAdapter(
-    private var items: List<TransactionListItem>
+    private var items: List<TransactionListItem>,
+    private val onTransactionClick: (Long) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -55,7 +56,11 @@ class GroupedTransactionsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
             is TransactionListItem.DateHeader -> bindHeader(holder as HeaderViewHolder, item)
-            is TransactionListItem.TransactionRow -> bindTransaction(holder as TransactionViewHolder, item, position)
+            is TransactionListItem.TransactionRow -> bindTransaction(
+                holder as TransactionViewHolder,
+                item,
+                position
+            )
         }
     }
 
@@ -69,7 +74,11 @@ class GroupedTransactionsAdapter(
     }
 
     @SuppressLint("DefaultLocale", "SetTextI18n")
-    private fun bindTransaction(holder: TransactionViewHolder, item: TransactionListItem.TransactionRow, position: Int) {
+    private fun bindTransaction(
+        holder: TransactionViewHolder,
+        item: TransactionListItem.TransactionRow,
+        position: Int
+    ) {
         val transaction = item.transaction
         val b = holder.binding
 
@@ -96,18 +105,24 @@ class GroupedTransactionsAdapter(
                 b.statusIcon.visibility = View.VISIBLE
                 b.statusIcon.setImageResource(R.drawable.ic_refresh)
             }
+
             transaction.hasAttachment -> {
                 b.statusIcon.visibility = View.VISIBLE
                 b.statusIcon.setImageResource(R.drawable.ic_attachment)
             }
+
             else -> {
                 b.statusIcon.visibility = View.GONE
             }
         }
 
+        b.root.setOnClickListener {
+            onTransactionClick(transaction.id)
+        }
         // Divider: keyingi element ham TransactionRow bo'lsagina ko'rsatamiz
         // (agar keyingisi DateHeader yoki oxiri bo'lsa, divider yashiriladi)
-        val isLastInGroup = position == items.size - 1 || items[position + 1] is TransactionListItem.DateHeader
+        val isLastInGroup =
+            position == items.size - 1 || items[position + 1] is TransactionListItem.DateHeader
         b.divider.visibility = if (isLastInGroup) View.GONE else View.VISIBLE
     }
 
