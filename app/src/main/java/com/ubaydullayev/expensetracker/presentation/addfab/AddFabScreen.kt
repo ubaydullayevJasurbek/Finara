@@ -94,7 +94,7 @@ class AddFabScreen : BottomSheetDialogFragment() {
         }
 
         binding.cardSavingGoal.root.setOnClickListener {
-            // TODO: hali screen yo'q
+            findNavController().navigate(R.id.action_addFabScreen_to_addMoneyToGoalScreen)
         }
 
         binding.cardBill.root.setOnClickListener {

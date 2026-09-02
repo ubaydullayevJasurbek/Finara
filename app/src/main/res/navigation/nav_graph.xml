@@ -162,6 +162,9 @@
             <action
                 android:id="@+id/action_addFabScreen_to_addTransactionScreen"
                 app:destination="@id/addTransactionScreen" />
+            <action
+                android:id="@+id/action_addFabScreen_to_addMoneyToGoalScreen"
+                app:destination="@id/addMoneyToGoalScreen" />
         </dialog>
         <fragment
             android:id="@+id/savingGoalsScreen"
@@ -193,6 +196,12 @@
                 app:argType="long" />
 
         </fragment>
+
+        <fragment
+            android:id="@+id/addMoneyToGoalScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.addmoney.AddMoneyToGoalScreen"
+            android:label="screen_add_money_to_goal"
+            tools:layout="@layout/screen_add_money_to_goal" />
     </navigation>
 
 

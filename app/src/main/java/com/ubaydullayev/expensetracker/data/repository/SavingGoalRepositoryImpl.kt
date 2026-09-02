@@ -3,6 +3,7 @@ package com.ubaydullayev.expensetracker.data.repository
 import com.ubaydullayev.expensetracker.data.local.dao.SavingGoalDao
 import com.ubaydullayev.expensetracker.data.local.mapper.toDomainModel
 import com.ubaydullayev.expensetracker.data.local.mapper.toEntity
+import com.ubaydullayev.expensetracker.domain.model.GoalStatus
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.domain.repository.SavingGoalRepository
 import kotlinx.coroutines.flow.Flow
@@ -27,4 +28,27 @@ class SavingGoalRepositoryImpl(private val dao: SavingGoalDao) : SavingGoalRepos
     override suspend fun deleteGoal(goal: SavingGoal) {
         dao.delete(goal.toEntity())
     }
+
+    override fun getActiveGoals(): Flow<List<SavingGoal>> {
+        return dao.getActiveGoals().map { entitiesList ->
+            entitiesList.map { it.toDomainModel() }
+        }
+    }
+
+    override suspend fun getGoalById(id: Long): SavingGoal? {
+        return dao.getGoalById(id)?.toDomainModel()
+    }
+
+    override suspend fun addToCurrentAmount(goalId: Long, amount: Double) {
+        dao.addToCurrentAmount(goalId, amount)
+    }
+
+    override suspend fun updateStatus(
+        goalId: Long,
+        status: GoalStatus
+    ) {
+        dao.updateStatus(goalId, status.name)
+    }
+
+
 }

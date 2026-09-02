@@ -1,10 +1,13 @@
 package com.ubaydullayev.expensetracker.data.local.mapper
 
 import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
+import com.ubaydullayev.expensetracker.data.local.entity.ContributionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
 import com.ubaydullayev.expensetracker.domain.model.Budget
+import com.ubaydullayev.expensetracker.domain.model.Contribution
+import com.ubaydullayev.expensetracker.domain.model.GoalStatus
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
@@ -73,7 +76,12 @@ fun SavingGoalEntity.toDomainModel(): SavingGoal {
         priority = priority,
         targetDate = targetDate,
         currentAmount = currentAmount,
-        targetAmount = targetAmount
+        targetAmount = targetAmount,
+        status = try {
+            GoalStatus.valueOf(status)
+        } catch (e: IllegalArgumentException) {
+            GoalStatus.ACTIVE
+        }
     )
 }
 
@@ -86,7 +94,8 @@ fun SavingGoal.toEntity(): SavingGoalEntity {
         priority = priority,
         targetDate = targetDate,
         currentAmount = currentAmount,
-        targetAmount = targetAmount
+        targetAmount = targetAmount,
+        status = status.name
     )
 }
 
@@ -107,5 +116,23 @@ fun Budget.toEntity(): BudgetEntity {
         category = category,
         spentAmount = spentAmount,
         limitAmount = limitAmount
+    )
+}
+
+fun ContributionEntity.toDomainModel(): Contribution {
+    return Contribution(
+        id = id,
+        goalId = goalId,
+        amount = amount,
+        timestamp = timestamp
+    )
+}
+
+fun Contribution.toEntity(): ContributionEntity {
+    return ContributionEntity(
+        id = id,
+        goalId = goalId,
+        amount = amount,
+        timestamp = timestamp
     )
 }

@@ -8,5 +8,6 @@ data class SavingGoal(
     val priority: String,
     val targetDate: String,
     val currentAmount: Double,
-    val targetAmount: Double
+    val targetAmount: Double,
+    val status: GoalStatus = GoalStatus.ACTIVE
 )

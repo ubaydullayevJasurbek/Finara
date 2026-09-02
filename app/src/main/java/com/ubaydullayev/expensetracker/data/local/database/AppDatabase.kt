@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ubaydullayev.expensetracker.data.local.dao.BudgetDao
+import com.ubaydullayev.expensetracker.data.local.dao.ContributionDao
 import com.ubaydullayev.expensetracker.data.local.dao.CustomCategoryDao
 import com.ubaydullayev.expensetracker.data.local.dao.SavingGoalDao
 import com.ubaydullayev.expensetracker.data.local.dao.TransactionDao
 import com.ubaydullayev.expensetracker.data.local.dao.UpcomingBillDao
 import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
+import com.ubaydullayev.expensetracker.data.local.entity.ContributionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.CustomCategoryEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
@@ -26,7 +28,8 @@ import kotlinx.coroutines.launch
         UpcomingBillEntity::class,
         SavingGoalEntity::class,
         BudgetEntity::class,
-        CustomCategoryEntity::class
+        CustomCategoryEntity::class,
+        ContributionEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -36,8 +39,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
     abstract fun upcomingBillDao(): UpcomingBillDao
     abstract fun savingGoalDao(): SavingGoalDao
-
     abstract fun budgetDao(): BudgetDao
+    abstract fun contributionDao(): ContributionDao
 
     companion object {
         @Volatile
@@ -63,6 +66,8 @@ abstract class AppDatabase : RoomDatabase() {
                                 seedTransactions(instanceRef.transactionDao())
                                 seedUpcomingBills(instanceRef.upcomingBillDao())
                                 seedSavingGoals(instanceRef.savingGoalDao())
+                                seedContributions(instanceRef.contributionDao(), goalId = 1L)
+
                             }
                         }
                     })
@@ -72,6 +77,49 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE = instance
                 instance
             }
+        }
+
+        private suspend fun seedContributions(dao: ContributionDao, goalId: Long) {
+            val now = System.currentTimeMillis()
+            val oneMonthMs = 30L * 24 * 60 * 60 * 1000
+
+            // Oxirgi 6 oy uchun, turli summalar bilan namuna ma'lumot
+            dao.insert(
+                ContributionEntity(
+                    goalId = goalId,
+                    amount = 320.0,
+                    timestamp = now - oneMonthMs * 5
+                )
+            )
+            dao.insert(
+                ContributionEntity(
+                    goalId = goalId,
+                    amount = 450.0,
+                    timestamp = now - oneMonthMs * 4
+                )
+            )
+            dao.insert(
+                ContributionEntity(
+                    goalId = goalId,
+                    amount = 210.0,
+                    timestamp = now - oneMonthMs * 3
+                )
+            )
+            dao.insert(
+                ContributionEntity(
+                    goalId = goalId,
+                    amount = 580.0,
+                    timestamp = now - oneMonthMs * 2
+                )
+            )
+            dao.insert(
+                ContributionEntity(
+                    goalId = goalId,
+                    amount = 820.0,
+                    timestamp = now - oneMonthMs
+                )
+            )
+            dao.insert(ContributionEntity(goalId = goalId, amount = 440.0, timestamp = now))
         }
 
         private suspend fun seedBudgets(dao: BudgetDao) {
@@ -175,7 +223,8 @@ abstract class AppDatabase : RoomDatabase() {
                     priority = "HIGH",
                     targetDate = "Dec 2026",
                     currentAmount = 4080.0,
-                    targetAmount = 6000.0
+                    targetAmount = 6000.0,
+                    status = "ACTIVE"
                 )
             )
         }

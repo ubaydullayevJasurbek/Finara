@@ -159,4 +159,7 @@
     <string name="groceries">Groceries</string>
     <string name="completed">Completed</string>
     <string name="edit">Edit</string>
+    <string name="_4_active_2_completed">4 active * 2 completed</string>
+    <string name="_3_active_1_completed">3 active · 1 completed</string>
+    <string name="total_saved">Total saved</string>
 </resources>
