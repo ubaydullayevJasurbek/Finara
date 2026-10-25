@@ -162,4 +162,18 @@
     <string name="_4_active_2_completed">4 active * 2 completed</string>
     <string name="_3_active_1_completed">3 active · 1 completed</string>
     <string name="total_saved">Total saved</string>
+    <string name="budget">Budget</string>
+    <string name="march_2026">March 2026</string>
+    <string name="categories">Categories</string>
+    <string name="on_track_68_used">On track · 68% used</string>
+
+    <string name="monthly_budget">Monthly budget</string>
+    <string name="spent">Spent</string>
+    <string name="remaining">Remaining</string>
+    <string name="daily_left">Daily left</string>
+    <string name="add_budget">Add budget</string>
+    <string name="_96">$96</string>
+    <string name="_2_650">$2,650</string>
+    <string name="of_3_900">of $3,900</string>
+    <string name="_1_250">$1,250</string>
 </resources>
