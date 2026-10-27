@@ -176,4 +176,15 @@
     <string name="_2_650">$2,650</string>
     <string name="of_3_900">of $3,900</string>
     <string name="_1_250">$1,250</string>
+    <string name="smart_tip">Smart tip</string>
+
+    <string name="budget_history">Budget History</string>
+    <string name="six_months">6 months</string>
+    <string name="avg_monthly_spend">Avg. monthly spend</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
 </resources>

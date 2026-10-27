@@ -1,13 +1,11 @@
 package com.ubaydullayev.expensetracker.adapter.budgetsadapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.play.core.integrity.v
 import com.ubaydullayev.expensetracker.databinding.ItemBudgetCardsBinding
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
