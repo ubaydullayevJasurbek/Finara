@@ -1,99 +1,190 @@
 package com.ubaydullayev.expensetracker.presentation.budget
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ubaydullayev.expensetracker.R
-import com.ubaydullayev.expensetracker.adapter.budgetsadapter.CategoryAdapter
+import com.ubaydullayev.expensetracker.adapter.budgetadapter.BudgetCategoryAdapter
+import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
+import com.ubaydullayev.expensetracker.data.repository.BudgetRepositoryImpl
+import com.ubaydullayev.expensetracker.databinding.DialogAddBudgetBinding
 import com.ubaydullayev.expensetracker.databinding.ScreenBudgetBinding
+import com.ubaydullayev.expensetracker.presentation.addTransaction.categorysheet.CategoryPickerSheet
+import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
+import kotlinx.coroutines.launch
+import androidx.core.graphics.toColorInt
+import com.ubaydullayev.expensetracker.domain.model.Budget
 
-class BudgetScreen : Fragment() {
+class BudgetScreen :
+    BaseViewModelFragment<ScreenBudgetBinding, BudgetsViewModel>(BudgetsViewModel::class.java) {
 
-    private var _binding: ScreenBudgetBinding? = null
-    private val binding get() = _binding!!
+    override val viewModelFactory: ViewModelProvider.Factory
+        get() {
+            val database = AppDatabase.getInstance(requireContext())
+            return BudgetsViewModelFactory(
+                budgetRepository = BudgetRepositoryImpl(database.budgetDao())
+            )
+        }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = ScreenBudgetBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private lateinit var categoryAdapter: BudgetCategoryAdapter
+
+    override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        ScreenBudgetBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupOverview()
-        setupCategories()
-        setupHistory()
+        setupEditButton()
+        setupAddBudgetButton()
+        setupRecyclerView()
+        observeData()
+    }
 
+    private fun setupAddBudgetButton() {
         binding.btnBudget.setOnClickListener {
-            // TODO: yangi budget qo'shish ekraniga o'tish
-        }
-        binding.btnEditCategories.setOnClickListener {
-            // TODO: kategoriyalarni tahrirlash
+            showAddBudgetDialog()
         }
     }
 
-    private fun setupOverview() = with(binding) {
-        progressSpent.setProgressCompat(68, true)
-        tvSpentAmount.text = "$2,650"
-        tvTotalAmount.text = "of $3,900"
-        tvRemaining.text = "$1,250"
-        tvDailyLeft.text = "$96"
-        chipStatus.text = "On track · 68% used"
-        tvSmartTip.text = "Reduce Dining by $80 to stay under budget this month."
-    }
+    private fun showAddBudgetDialog() {
+        val dialogBinding = DialogAddBudgetBinding.inflate(layoutInflater)
+        var selectedCategory: String? = null
 
-    private fun setupCategories() {
-        val items = listOf(
-            BudgetCategory(
-                "Housing", "Est. $1,420 by month end", 900, 1500, 60, "$600 left",
-                BudgetStatus.SAFE, false,
-                R.drawable.ic_home, 0xFFDDF5E8.toInt(), 0xFF0F7B55.toInt()
-            ),
-            BudgetCategory(
-                "Groceries", "Est. $640 by month end", 530, 600, 88, "$70 left",
-                BudgetStatus.WARNING, true,
-                R.drawable.ic_cart, 0xFFDCEAFE.toInt(), 0xFF2563EB.toInt()
-            ),
-            BudgetCategory(
-                "Dining", "Est. $520 by month end", 450, 400, 112, "$50 over",
-                BudgetStatus.OVERSPENT, true,
-                R.drawable.ic_restaurant, 0xFFFEE4E2.toInt(), 0xFFD92D20.toInt()
-            ),
-            BudgetCategory(
-                "Transport", "Budget complete", 300, 300, 100, "Fully used",
-                BudgetStatus.COMPLETED, false,
-                R.drawable.ic_car, 0xFFEEF0F3.toInt(), 0xFF4B5563.toInt()
-            )
-        )
-        binding.rvCategories.adapter = CategoryAdapter(items)
-    }
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.RoundedMaterialDialog)
+            .setView(dialogBinding.root)
+            .setPositiveButton("Add", null)
+            .setNegativeButton("Cancel", null)
+            .create()
 
-    private fun setupHistory() {
-        val h = binding.budgetHistory           // include'ning binding'i
-        val data = listOf(
-            h.barOct to 3100, h.barNov to 3600, h.barDec to 4300,
-            h.barJan to 2800, h.barFeb to 3400, h.barMar to 3240
-        )
-        val maxBarDp = 92                        // eng baland ustun balandligi (dp)
-        val maxValue = data.maxOf { it.second }
-        val density = resources.displayMetrics.density
+        dialogBinding.rowSelectBudgetCategory.setOnClickListener {
+            CategoryPickerSheet().show(childFragmentManager, "CategoryPickerSheet")
 
-        data.forEach { (bar, value) ->
-            bar.layoutParams = bar.layoutParams.apply {
-                height = ((value.toFloat() / maxValue) * maxBarDp * density).toInt()
+        }
+        childFragmentManager.setFragmentResultListener(
+            CategoryPickerSheet.REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val category = bundle.getString(CategoryPickerSheet.RESULT_CATEGORY)
+                ?: return@setFragmentResultListener
+            selectedCategory = category
+            dialogBinding.tvSelectedBudgetCategory.text = category
+            dialogBinding.tvSelectedBudgetCategory.setTextColor("#1A1A1A".toColorInt())
+        }
+
+        dialog.setOnShowListener {
+            val addButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            addButton.setTextColor("#0F7B55".toColorInt())
+
+            val cancelButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            cancelButton.setTextColor("#9E9E9E".toColorInt())
+
+            addButton.setOnClickListener {
+                val category = selectedCategory
+                val limitText = dialogBinding.etBudgetLimit.text.toString()
+                val limit = limitText.toDoubleOrNull()
+
+                when {
+                    category == null -> {
+                        shakeView(dialogBinding.rowSelectBudgetCategory)
+                    }
+
+                    limit == null || limit <= 0.0 -> {
+                        dialogBinding.tilBudgetLimit.error = "Enter a valid amount"
+                        shakeView(dialogBinding.tilBudgetLimit)
+                    }
+
+                    else -> {
+                        viewModel.addBudget(category, limit)
+                        dialog.dismiss()
+                    }
+                }
             }
         }
-        h.tvAvgSpend.text = "$3,240"
+        dialog.show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null // xotira oqishining oldini oladi
+    private fun shakeView(view: View) {
+        val shake =
+            android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        view.startAnimation(shake)
     }
+
+    private fun setupRecyclerView() {
+        categoryAdapter = BudgetCategoryAdapter(emptyList()) { budget ->
+            showDeleteConfirmation(budget)
+        }
+        binding.rvCategories.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = categoryAdapter
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    private fun showDeleteConfirmation(budget: Budget) {
+        MaterialAlertDialogBuilder(requireContext(), R.style.RoundedMaterialDialog)
+            .setTitle("Delete Budget")
+            .setMessage("Are you sure you want to delete \"${budget.title}\"? This cannot be undone.")
+            .setPositiveButton("Delete") { _, _ ->
+                viewModel.deleteBudget(budget)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private var isEditMode = false
+
+    private fun setupEditButton() {
+        binding.btnEditCategories.setOnClickListener {
+            isEditMode = !isEditMode
+            categoryAdapter.setEditMode(isEditMode)
+            binding.btnEditCategories.text = if (isEditMode) "Done" else "Edit"
+        }
+    }
+
+    private fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.uiState.collect { state ->
+                        bindUiState(state)
+                    }
+                }
+            }
+        }
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun bindUiState(state: BudgetUiState) {
+        // Header
+        binding.bgHeaderSubtitle.text = state.monthLabel
+
+        // Overview hero
+        binding.tvSpentAmount.text = "$${formatAmount(state.totalSpent)}"
+        binding.tvTotalAmount.text = "of $${formatAmount(state.totalLimit)}"
+        binding.progressSpent.progress = state.spentPercent.coerceAtMost(100)
+
+        binding.tvRemaining.text = "$${formatAmount(state.remaining)}"
+        binding.tvDailyLeft.text = "$${formatAmount(state.dailyLeft)}"
+
+        binding.chipStatus.text = state.statusText
+
+        // Smart Tip
+        binding.tvSmartTip.text = state.smartTipText
+
+        // Categories
+        categoryAdapter.updateData(state.categories)
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun formatAmount(amount: Double) = String.format("%,.0f", amount)
 }

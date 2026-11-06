@@ -20,6 +20,6 @@ interface BudgetDao {
     @Delete
     suspend fun delete(budget: BudgetEntity)
 
-    @Query("SELECT*FROM budgets ORDER BY id ASC")
+    @Query("SELECT * FROM budgets ORDER BY id DESC")
     fun getAllBudgets(): Flow<List<BudgetEntity>>
 }
