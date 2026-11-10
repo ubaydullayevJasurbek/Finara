@@ -41,12 +41,13 @@ class UserPreferences(context: Context) {
         email = prefs.getString(KEY_EMAIL, "") ?: ""
     )
 
-    private companion object {
-        const val KEY_NAME = "name"
-        const val KEY_EMAIL = "email"
-        const val KEY_NOTIF = "notifications"
-        const val KEY_CURRENCY = "currency"
+    companion object {
+        private const val KEY_NAME = "name"
+        private const val KEY_EMAIL = "email"
+        private const val KEY_NOTIF = "notifications"
+        private const val KEY_CURRENCY = "currency"
 
+        @Volatile
         private var INSTANCE: UserPreferences? = null
 
         fun getInstance(context: Context): UserPreferences =

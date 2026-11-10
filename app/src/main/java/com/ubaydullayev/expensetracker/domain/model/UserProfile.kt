@@ -7,7 +7,7 @@ class UserProfile(
 
     val initials: String
         get() = name.trim()
-            .split("")
+            .split(Regex("\\s+"))
             .filter { it.isNotBlank() }
             .take(2)
             .joinToString("") { it.first().uppercase() }
