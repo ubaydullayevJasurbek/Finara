@@ -1,6 +1,5 @@
 package com.ubaydullayev.expensetracker.presentation.budget
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ubaydullayev.expensetracker.domain.model.Budget
@@ -37,6 +36,7 @@ class BudgetsViewModel(
         val dailyLeft = calculateDailyLeft(remaining)
         val statusText = buildStatusText(spentPercent)
         val smartTip = buildSmartTip(budgets)
+        val reduceTarget = findReduceTarget(budgets)
         val monthLabel = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
             .format(System.currentTimeMillis())
 
@@ -49,6 +49,8 @@ class BudgetsViewModel(
             spentPercent = spentPercent,
             statusText = statusText,
             smartTipText = smartTip,
+            smartTipCategory = reduceTarget?.first,
+            smartTipReduceBy = reduceTarget?.second ?: 0.0,
             categories = budgets
         )
     }
@@ -84,25 +86,20 @@ class BudgetsViewModel(
         }
     }
 
-    @SuppressLint("DefaultLocale")
+    /** Pulsiz tiplar uchun matn. Summali "Reduce ..." tipi [findReduceTarget] orqali UI da quriladi. */
     private fun buildSmartTip(budgets: List<Budget>): String {
         if (budgets.isEmpty()) return "Add a budget to get personalized tips."
+        if (findReduceTarget(budgets) != null) return ""
+        return "You're doing great! All categories are within budget."
+    }
 
-        val riskiest = budgets.maxByOrNull { it.spentAmount / it.limitAmount }
-            ?: return ""
-
+    /** Eng xavfli kategoriya va 80% chegaradan oshgan summa (home valyutada), yoki null */
+    private fun findReduceTarget(budgets: List<Budget>): Pair<String, Double>? {
+        val riskiest = budgets
+            .filter { it.limitAmount > 0 }
+            .maxByOrNull { it.spentAmount / it.limitAmount } ?: return null
         val overAmount = riskiest.spentAmount - (riskiest.limitAmount * 0.8)
-
-        return if (overAmount > 0) {
-            "Reduce ${riskiest.title} by $${
-                String.format(
-                    "%,.0f",
-                    overAmount
-                )
-            } to stay under budget this month."
-        } else {
-            "You're doing great! All categories are within budget."
-        }
+        return if (overAmount > 0) riskiest.title to overAmount else null
     }
     fun deleteBudget(budget: Budget) {
         viewModelScope.launch {

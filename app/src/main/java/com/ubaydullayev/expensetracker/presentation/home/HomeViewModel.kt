@@ -79,7 +79,7 @@ class HomeViewModel(
             val trend = if (previousMonthBalance != 0.0) {
                 ((currentMonthBalance - previousMonthBalance) / kotlin.math.abs(previousMonthBalance)) * 100
             } else {
-                0.0
+                null
             }
             BalanceSummary(
                 totalBalance = totalBalance,

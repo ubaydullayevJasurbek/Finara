@@ -20,6 +20,7 @@ import com.ubaydullayev.expensetracker.databinding.ScreenTransactionBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
 import kotlinx.coroutines.launch
 import kotlin.jvm.java
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class TransactionScreen :
     BaseViewModelFragment<ScreenTransactionBinding, TransactionViewModel>(TransactionViewModel::class.java) {
@@ -78,12 +79,12 @@ class TransactionScreen :
                 }
                 launch {
                     viewModel.monthlyIncome.collect { income ->
-                        binding.tvTotalIncome.text = "+$${formatAmount(income)}"
+                        binding.tvTotalIncome.text = "+${formatAmount(income)}"
                     }
                 }
                 launch {
                     viewModel.monthlyExpense.collect { expense ->
-                        binding.tvTotalExpense.text = "−$${formatAmount(expense)}"
+                        binding.tvTotalExpense.text = "−${formatAmount(expense)}"
                     }
                 }
                 launch {
@@ -123,8 +124,4 @@ class TransactionScreen :
         }
     }
 
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double): String {
-        return String.format("%,.0f", amount)
-    }
 }

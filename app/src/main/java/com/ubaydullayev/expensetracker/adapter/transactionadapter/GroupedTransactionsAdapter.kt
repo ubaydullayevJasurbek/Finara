@@ -13,6 +13,7 @@ import com.ubaydullayev.expensetracker.databinding.ItemTransactionBinding
 import com.ubaydullayev.expensetracker.presentation.transaction.TransactionListItem
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import com.ubaydullayev.expensetracker.utils.DateFormatter
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class GroupedTransactionsAdapter(
     private var items: List<TransactionListItem>,
@@ -70,7 +71,7 @@ class GroupedTransactionsAdapter(
         b.dayLabel.text = item.label
 
         val sign = if (item.totalAmount >= 0) "+" else "−"
-        b.dayTotal.text = "$sign$${String.format("%,.2f", kotlin.math.abs(item.totalAmount))}"
+        b.dayTotal.text = "$sign${formatAmount(kotlin.math.abs(item.totalAmount))}"
     }
 
     @SuppressLint("DefaultLocale", "SetTextI18n")
@@ -95,7 +96,7 @@ class GroupedTransactionsAdapter(
         badgeBg.setColor(style.iconBgColor)
 
         val sign = if (transaction.isIncome) "+" else "−"
-        b.amount.text = "$sign$${String.format("%,.2f", transaction.amount)}"
+        b.amount.text = "$sign${formatAmount(transaction.amount)}"
         b.amount.setTextColor(
             if (transaction.isIncome) "#2E7D32".toColorInt() else "#1A1A1A".toColorInt()
         )

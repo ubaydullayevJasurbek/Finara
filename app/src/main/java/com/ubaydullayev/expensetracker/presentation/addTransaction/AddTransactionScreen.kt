@@ -32,6 +32,7 @@ import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.presentation.addTransaction.categorysheet.CategoryPickerSheet
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
 import com.ubaydullayev.expensetracker.presentation.common.applySystemBarInsetsAsPadding
+import com.ubaydullayev.expensetracker.utils.CurrencyFormatter
 import com.ubaydullayev.expensetracker.utils.DateFormatter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -61,6 +62,7 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         selectedType = args.transactionType
+        binding.tvCurrencySymbol.text = CurrencyFormatter.current.symbol
 
         applyEdgeToEdgeInsets()
         setupTypeTabs()
@@ -134,7 +136,7 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
             title = merchantName,
             category = categoryName,
             timestamp = selectedTimestamp,
-            amount = amount,
+            amount = CurrencyFormatter.toHome(amount),
             isIncome = selectedType == "Income",
             isRecurring = binding.switchRecurring.isChecked,
             hasAttachment = binding.switchReceipt.isChecked,
@@ -290,6 +292,7 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
     }
 
     private fun applyTypeSelection(type: String) {
+        selectedType = type // aks holda Income/Transfer tab tanlansa ham tranzaksiya "Expense" bo'lib saqlanardi
 
         binding.tabExpense.background = null
         binding.tabIncome.background = null
@@ -352,7 +355,7 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
                 dialogBinding.etMerchantName.setText(currentValue, false)
             }
 
-            val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(
+            val dialog = MaterialAlertDialogBuilder(
                 requireContext(), R.style.RoundedMaterialDialog
             )
                 .setView(dialogBinding.root)

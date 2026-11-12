@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import com.ubaydullayev.expensetracker.data.local.mapper.toDomainModel
 import com.ubaydullayev.expensetracker.data.local.mapper.toEntity
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 
 class TransactionDetailScreen : BaseFragment<ScreenTransactionDetailBinding>() {
@@ -66,7 +67,7 @@ class TransactionDetailScreen : BaseFragment<ScreenTransactionDetailBinding>() {
         binding.tvHeroCategory.text = transaction.category
 
         val sign = if (transaction.isIncome) "+" else "−"
-        binding.tvHeroAmount.text = "$sign$${String.format("%,.2f", transaction.amount)}"
+        binding.tvHeroAmount.text = "$sign${formatAmount(transaction.amount)}"
 
         // Details
         val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())

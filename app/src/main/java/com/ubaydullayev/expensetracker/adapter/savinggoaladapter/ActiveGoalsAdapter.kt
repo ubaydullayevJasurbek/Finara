@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ubaydullayev.expensetracker.databinding.ItemActiveSavingGoalBinding
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.utils.GoalColorProvider
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class ActiveGoalsAdapter(
     private var items: List<SavingGoal>
@@ -44,20 +45,17 @@ class ActiveGoalsAdapter(
         b.goalProgressRing.progress = percent
         b.goalProgressRing.setIndicatorColor(scheme.progressColor)
 
-        b.tvSaved.text = "$${formatAmount(item.currentAmount)}"
-        b.tvTargetAmount.text = "/ $${formatAmount(item.targetAmount)}"
+        b.tvSaved.text = formatAmount(item.currentAmount)
+        b.tvTargetAmount.text = "/ ${formatAmount(item.targetAmount)}"
 
         val remaining = item.targetAmount - item.currentAmount
-        b.tvToGo.text = "$${formatAmount(remaining)} to go"
+        b.tvToGo.text = "${formatAmount(remaining)} to go"
 
         val fillParams = b.goalProgressFill.layoutParams as ConstraintLayout.LayoutParams
         fillParams.matchConstraintPercentWidth = percent / 100f
         b.goalProgressFill.layoutParams = fillParams
         b.goalProgressFill.setBackgroundColor(scheme.progressColor)
     }
-
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double) = String.format("%,.0f", amount)
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newItems: List<SavingGoal>) {

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaydullayev.expensetracker.databinding.ItemPlannedSavingGoalBinding
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class PlannedGoalsAdapter(
     private var items: List<SavingGoal>
@@ -27,7 +28,7 @@ class PlannedGoalsAdapter(
         val b = holder.binding
 
         b.tvPlannedName.text = item.title
-        b.tvPlannedTarget.text = "Target: $${String.format("%,.0f", item.targetAmount)}"
+        b.tvPlannedTarget.text = "Target: ${formatAmount(item.targetAmount)}"
     }
 
     fun updateData(newItems: List<SavingGoal>) {

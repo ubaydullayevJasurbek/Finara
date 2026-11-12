@@ -21,6 +21,7 @@ import com.ubaydullayev.expensetracker.domain.model.Contribution
 import com.ubaydullayev.expensetracker.domain.model.GoalStatus
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
+import com.ubaydullayev.expensetracker.utils.CurrencyFormatter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -102,7 +103,7 @@ class AddMoneyToGoalScreen : BaseFragment<ScreenAddMoneyToGoalBinding>() {
                 return@setOnClickListener
             }
 
-            saveContribution(goal, amount)
+            saveContribution(goal, CurrencyFormatter.toHome(amount))
         }
     }
 
@@ -136,7 +137,8 @@ class AddMoneyToGoalScreen : BaseFragment<ScreenAddMoneyToGoalBinding>() {
     }
 
     private fun shakeView(view: View) {
-        val shake = android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        val shake =
+            android.view.animation.AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
         view.startAnimation(shake)
     }
 }

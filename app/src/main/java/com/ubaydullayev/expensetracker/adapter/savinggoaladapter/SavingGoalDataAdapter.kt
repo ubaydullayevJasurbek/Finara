@@ -9,6 +9,7 @@ import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.databinding.ItemGoalCardBinding
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class SavingGoalDataAdapter(private var items: List<SavingGoal>) :
     RecyclerView.Adapter<SavingGoalDataAdapter.ViewHolder>() {
@@ -39,15 +40,15 @@ class SavingGoalDataAdapter(private var items: List<SavingGoal>) :
         val style = CategoryStyleProvider.getStyle(item.category)
         b.ivGoalIcon.setImageResource(style.iconRes)
 
-        b.tvSaved.text = "$${formatAmount(item.currentAmount)}"
-        b.tvTargetAmount.text = "/ $${formatAmount(item.targetAmount)}"
+        b.tvSaved.text = formatAmount(item.currentAmount)
+        b.tvTargetAmount.text = "/ ${formatAmount(item.targetAmount)}"
 
         val percent = ((item.currentAmount / item.targetAmount) * 100).toInt()
         b.tvPercent.text = "$percent%"
         b.goalProgressRing.progress = percent
 
         val remaining = item.targetAmount - item.currentAmount
-        b.tvToGo.text = "$${formatAmount(remaining)} to go"
+        b.tvToGo.text = "${formatAmount(remaining)} to go"
 
         val fillParams = b.goalProgressFill.layoutParams as ConstraintLayout.LayoutParams
         fillParams.matchConstraintPercentWidth = percent / 100f
@@ -60,10 +61,6 @@ class SavingGoalDataAdapter(private var items: List<SavingGoal>) :
         notifyDataSetChanged()
     }
 
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double): String {
-        return String.format("%,.0f", amount)
-    }
 
     override fun getItemCount() = items.size
 

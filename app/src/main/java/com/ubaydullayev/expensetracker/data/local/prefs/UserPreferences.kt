@@ -1,11 +1,13 @@
 package com.ubaydullayev.expensetracker.data.local.prefs
 
 import android.content.Context
+import com.ubaydullayev.expensetracker.domain.model.AppCurrency
 import com.ubaydullayev.expensetracker.domain.model.UserProfile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import androidx.core.content.edit
+import com.ubaydullayev.expensetracker.utils.CurrencyFormatter
 
 class UserPreferences(context: Context) {
 
@@ -21,6 +23,10 @@ class UserPreferences(context: Context) {
     private val _currencyCode = MutableStateFlow(prefs.getString(KEY_CURRENCY, "USD") ?: "USD")
     val currencyCode: StateFlow<String> = _currencyCode.asStateFlow()
 
+    init {
+        CurrencyFormatter.current = AppCurrency.fromCode(_currencyCode.value)
+    }
+
     fun updateProfile(name: String, email: String) {
         prefs.edit { putString(KEY_NAME, name).putString(KEY_EMAIL, email) }
         _profile.value = UserProfile(name, email)
@@ -33,6 +39,7 @@ class UserPreferences(context: Context) {
 
     fun setCurrencyCode(code: String) {
         prefs.edit { putString(KEY_CURRENCY, code) }
+        CurrencyFormatter.current = AppCurrency.fromCode(code)
         _currencyCode.value = code
     }
 

@@ -8,6 +8,7 @@ import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.databinding.ItemBudgetCategoryBinding
 import com.ubaydullayev.expensetracker.presentation.budget.BudgetCategory
 import com.ubaydullayev.expensetracker.presentation.budget.BudgetStatus
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class CategoryAdapter(private val items: List<BudgetCategory>) :
     RecyclerView.Adapter<CategoryAdapter.VH>() {
@@ -25,8 +26,8 @@ class CategoryAdapter(private val items: List<BudgetCategory>) :
         val s = item.status
         tvCategoryName.text = item.name
         tvForecast.text = item.forecastText
-        tvSpent.text = "$${item.spent}"
-        tvLimit.text = "/ $${item.limit}"
+        tvSpent.text = formatAmount(item.spent.toDouble())
+        tvLimit.text = "/ ${formatAmount(item.limit.toDouble())}"
         tvLeft.text = item.leftText
         tvPercent.text = "${item.percent}%"
         tvStatus.text = s.label

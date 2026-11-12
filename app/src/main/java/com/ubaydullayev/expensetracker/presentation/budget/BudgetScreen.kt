@@ -23,6 +23,8 @@ import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
 import kotlinx.coroutines.launch
 import androidx.core.graphics.toColorInt
 import com.ubaydullayev.expensetracker.domain.model.Budget
+import com.ubaydullayev.expensetracker.utils.CurrencyFormatter
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class BudgetScreen :
     BaseViewModelFragment<ScreenBudgetBinding, BudgetsViewModel>(BudgetsViewModel::class.java) {
@@ -103,7 +105,7 @@ class BudgetScreen :
                     }
 
                     else -> {
-                        viewModel.addBudget(category, limit)
+                        viewModel.addBudget(category, CurrencyFormatter.toHome(limit))
                         dialog.dismiss()
                     }
                 }
@@ -162,29 +164,27 @@ class BudgetScreen :
         }
     }
 
-
     @SuppressLint("SetTextI18n")
     private fun bindUiState(state: BudgetUiState) {
         // Header
         binding.bgHeaderSubtitle.text = state.monthLabel
 
         // Overview hero
-        binding.tvSpentAmount.text = "$${formatAmount(state.totalSpent)}"
-        binding.tvTotalAmount.text = "of $${formatAmount(state.totalLimit)}"
+        binding.tvSpentAmount.text = formatAmount(state.totalSpent)
+        binding.tvTotalAmount.text = "of ${formatAmount(state.totalLimit)}"
         binding.progressSpent.progress = state.spentPercent.coerceAtMost(100)
 
-        binding.tvRemaining.text = "$${formatAmount(state.remaining)}"
-        binding.tvDailyLeft.text = "$${formatAmount(state.dailyLeft)}"
+        binding.tvRemaining.text = formatAmount(state.remaining)
+        binding.tvDailyLeft.text = formatAmount(state.dailyLeft)
 
         binding.chipStatus.text = state.statusText
 
         // Smart Tip
-        binding.tvSmartTip.text = state.smartTipText
+        binding.tvSmartTip.text = state.smartTipCategory?.let { category ->
+            "Reduce $category by ${formatAmount(state.smartTipReduceBy)} to stay under budget this month."
+        } ?: state.smartTipText
 
         // Categories
         categoryAdapter.updateData(state.categories)
     }
-
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double) = String.format("%,.0f", amount)
 }
