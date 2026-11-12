@@ -5,8 +5,6 @@ import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +41,10 @@ import androidx.core.net.toUri
 class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewModel>(
     ProfileViewModel::class.java
 ) {
+
+    override val insetTop: Boolean = false          // gradient status bar tagiga cho'zilsin
+    override val lightStatusBars: Boolean = false   // soat va batareya oq bo'lsin
+
 
     // ↓ BudgetScreen'dagi bilan bir xil shaklda
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =

@@ -12,6 +12,7 @@ import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import androidx.core.graphics.toColorInt
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.utils.DateFormatter
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class TransactionsAdapter(
     private var items: List<Transaction>
@@ -45,7 +46,7 @@ class TransactionsAdapter(
         badgeBg.setColor(style.iconBgColor)
 
         val sign = if (item.isIncome) "+" else "−"
-        b.amount.text = "$sign$${String.format("%,.2f", item.amount)}"
+        b.amount.text = "$sign${formatAmount(item.amount)}"
         b.amount.setTextColor(
             if (item.isIncome) "#2E7D32".toColorInt() else "#1A1A1A".toColorInt()
         )

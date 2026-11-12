@@ -2,6 +2,7 @@ package com.ubaydullayev.expensetracker.app
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.ubaydullayev.expensetracker.data.local.prefs.UserPreferences
 
 /**
  * Application entry point.
@@ -15,5 +16,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        // Saqlangan valyutani CurrencyFormatter.current ga yuklaydi (UserPreferences init ichida)
+        UserPreferences.getInstance(this)
     }
 }

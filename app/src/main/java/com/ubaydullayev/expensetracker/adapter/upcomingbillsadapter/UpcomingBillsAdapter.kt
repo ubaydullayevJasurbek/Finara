@@ -9,6 +9,7 @@ import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.databinding.ItemUpcomingBillsCardBinding
 import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class UpcomingBillsAdapter(
     private var items: List<UpcomingBill>
@@ -31,7 +32,7 @@ class UpcomingBillsAdapter(
 
         b.title.text = item.title
         b.subtitle.text = "${item.frequency} · ${item.category}"
-        b.price.text = "$${String.format("%,.2f", item.price)}"
+        b.price.text = formatAmount(item.price)
         b.dueBadge.text = item.dueText
 
         val style = CategoryStyleProvider.getStyle(item.category)

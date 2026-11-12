@@ -20,6 +20,7 @@ import com.ubaydullayev.expensetracker.databinding.ScreenSavingGoalsBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
 import com.ubaydullayev.expensetracker.utils.MonthlyContribution
 import kotlinx.coroutines.launch
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class SavingGoalsScreen :
     BaseViewModelFragment<ScreenSavingGoalsBinding, SavingGoalsViewModel>(SavingGoalsViewModel::class.java) {
@@ -85,7 +86,7 @@ class SavingGoalsScreen :
                 }
                 launch {
                     viewModel.averageMonthlyContribution.collect { avg ->
-                        binding.tvAvgContribution.text = "$${String.format("%,.0f", avg)}"
+                        binding.tvAvgContribution.text = formatAmount(avg)
                     }
                 }
             }
@@ -96,18 +97,13 @@ class SavingGoalsScreen :
         binding.tvHeaderSubtitle.text =
             "${state.activeCount} active · ${state.completedCount} completed"
 
-        binding.tvTotalSavedAmount.text = "$${String.format("%,.0f", state.totalSaved)}"
-        binding.tvTargetSubtitle.text = "of $${String.format("%,.0f", state.totalTarget)} target"
+        binding.tvTotalSavedAmount.text = formatAmount(state.totalSaved)
+        binding.tvTargetSubtitle.text = "of ${formatAmount(state.totalTarget)} target"
         binding.overallProgressIndicator.progress = state.overallPercent
         binding.tvOverallPercent.text = "${state.overallPercent}%"
 
         binding.tvMilestoneValue.text =
-            "$${
-                String.format(
-                    "%,.0f",
-                    state.milestoneRemaining
-                )
-            } more to reach $${state.nextMilestoneTarget} saved"
+            "${formatAmount(state.milestoneRemaining)} more to reach ${formatAmount(state.nextMilestoneTarget.toDouble())} saved"
 
         activeAdapter.updateData(state.activeGoals)
         completedAdapter.updateData(state.completedGoals)

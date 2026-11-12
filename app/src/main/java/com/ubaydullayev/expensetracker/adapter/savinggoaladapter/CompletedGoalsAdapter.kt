@@ -8,6 +8,7 @@ import com.ubaydullayev.expensetracker.databinding.ItemCompletedSavingGoalBindin
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import java.text.SimpleDateFormat
 import java.util.Locale
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class CompletedGoalsAdapter(
     private var items: List<SavingGoal>
@@ -30,7 +31,7 @@ class CompletedGoalsAdapter(
 
         b.tvCompletedName.text = item.title
         b.tvCompletedDate.text = "Target: ${item.targetDate}"
-        b.tvCompletedAmount.text = "$${String.format("%,.0f", item.targetAmount)}"
+        b.tvCompletedAmount.text = formatAmount(item.targetAmount)
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -238,6 +238,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvTotalBalance">
 
                         <ImageView
+                            android:id="@+id/ivTrendArrow"
                             android:layout_width="12dp"
                             android:layout_height="12dp"
                             android:importantForAccessibility="no"

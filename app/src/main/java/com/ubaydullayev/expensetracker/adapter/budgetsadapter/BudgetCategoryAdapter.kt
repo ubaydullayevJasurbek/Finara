@@ -9,6 +9,7 @@ import com.ubaydullayev.expensetracker.databinding.ItemBudgetCategoryBinding
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import androidx.core.graphics.toColorInt
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class BudgetCategoryAdapter(
     private var items: List<Budget>,
@@ -43,20 +44,20 @@ class BudgetCategoryAdapter(
         }
 
         b.progressCategory.progress = percent.coerceAtMost(100)
-        b.tvSpent.text = "$${formatAmount(item.spentAmount)}"
-        b.tvLimit.text = "/ $${formatAmount(item.limitAmount)}"
+        b.tvSpent.text = formatAmount(item.spentAmount)
+        b.tvLimit.text = "/ ${formatAmount(item.limitAmount)}"
 
         val leftAmount = item.limitAmount - item.spentAmount
         b.tvLeft.text = if (leftAmount >= 0) {
-            "$${formatAmount(leftAmount)} left"
+            "${formatAmount(leftAmount)} left"
         } else {
-            "$${formatAmount(-leftAmount)} over"
+            "${formatAmount(-leftAmount)} over"
         }
 
         b.tvPercent.text = "$percent%"
         applyStatusColors(b, percent)
 
-        b.tvForecast.text = "Spent $${formatAmount(item.spentAmount)} so far"
+        b.tvForecast.text = "Spent ${formatAmount(item.spentAmount)} so far"
         b.ivTrend.setImageResource(
             if (percent < 80) R.drawable.ic_trend_down else R.drawable.ic_trend_up
         )
@@ -91,9 +92,6 @@ class BudgetCategoryAdapter(
         b.cardIcon.setCardBackgroundColor(bgColor)
         b.ivCategoryIcon.setColorFilter(textColor)
     }
-
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double) = String.format("%,.0f", amount)
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newItems: List<Budget>) {

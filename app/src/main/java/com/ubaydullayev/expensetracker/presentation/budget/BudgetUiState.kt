@@ -11,5 +11,8 @@ data class BudgetUiState(
     val spentPercent: Int = 0,
     val statusText: String = "",
     val smartTipText: String = "",
+    // "Reduce X by <amount>" tip uchun — summa raqam holida saqlanadi, UI valyutada formatlaydi
+    val smartTipCategory: String? = null,
+    val smartTipReduceBy: Double = 0.0,
     val categories: List<Budget> = emptyList()
 )

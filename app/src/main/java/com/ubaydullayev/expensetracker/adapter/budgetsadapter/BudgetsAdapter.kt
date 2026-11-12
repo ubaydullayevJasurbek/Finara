@@ -10,6 +10,7 @@ import com.ubaydullayev.expensetracker.databinding.ItemBudgetCardsBinding
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.utils.CategoryStyleProvider
 import androidx.core.graphics.toColorInt
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class BudgetsAdapter(private var items: List<Budget>) :
     RecyclerView.Adapter<BudgetsAdapter.ViewHolder>() {
@@ -33,8 +34,8 @@ class BudgetsAdapter(private var items: List<Budget>) :
         val b = holder.binding
 
         b.tvCategoryName.text = item.title
-        b.tvSpent.text = "$${formatAmount(item.spentAmount)}"
-        b.tvLimit.text = "/ $${formatAmount(item.limitAmount)}"
+        b.tvSpent.text = formatAmount(item.spentAmount)
+        b.tvLimit.text = "/ ${formatAmount(item.limitAmount)}"
 
         val style = CategoryStyleProvider.getStyle(item.category)
         b.iconImage.setImageResource(style.iconRes)
@@ -80,8 +81,4 @@ class BudgetsAdapter(private var items: List<Budget>) :
 
     override fun getItemCount() = items.size
 
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double): String {
-        return String.format("%,.0f", amount)
-    }
 }

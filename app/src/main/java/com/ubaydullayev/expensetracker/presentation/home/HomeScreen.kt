@@ -1,11 +1,13 @@
 package com.ubaydullayev.expensetracker.presentation.home
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +28,7 @@ import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
 import com.ubaydullayev.expensetracker.utils.HorizontalSpaceDecoration
 import kotlinx.coroutines.launch
+import com.ubaydullayev.expensetracker.utils.formatAmount
 
 class HomeScreen :
     BaseViewModelFragment<ScreenHomeBinding, HomeViewModel>(HomeViewModel::class.java) {
@@ -138,13 +141,24 @@ class HomeScreen :
 
     @SuppressLint("DefaultLocale", "SetTextI18n")
     private fun bindBalanceCard(summary: BalanceSummary) {
-        binding.tvTotalBalance.text = "$${formatAmount(summary.totalBalance)}"
-        binding.tvIncome.text = "$${formatAmount(summary.monthlyIncome)}"
-        binding.tvExpense.text = "$${formatAmount(summary.monthlyExpense)}"
+        binding.tvTotalBalance.text = formatAmount(summary.totalBalance)
+        binding.tvIncome.text = formatAmount(summary.monthlyIncome)
+        binding.tvExpense.text = formatAmount(summary.monthlyExpense)
 
-        val sign = if (summary.trendPercent >= 0) "+" else ""
-        binding.tvMonthlyChange.text =
-            "$sign${String.format("%.1f", summary.trendPercent)}% this month"
+        val trend = summary.trendPercent
+        if (trend == null || trend.isNaN() || trend.isInfinite()) {
+            // O'tgan oyda ma'lumot yo'q — "-100%" o'rniga badge'ni yashiramiz
+            binding.trendBadge.visibility = View.INVISIBLE // INVISIBLE: karta balandligi o'zgarmasin
+        } else {
+            binding.trendBadge.visibility = View.VISIBLE
+            val isUp = trend >= 0
+            binding.ivTrendArrow.setImageResource(if (isUp) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
+            binding.ivTrendArrow.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(requireContext(), if (isUp) R.color.income_green else R.color.expense_red)
+            )
+            val sign = if (isUp) "+" else ""
+            binding.tvMonthlyChange.text = "$sign${String.format("%.1f", trend)}% this month"
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -168,21 +182,17 @@ class HomeScreen :
         cardBinding.tvPercent.text = "$percent%"
         cardBinding.goalProgressRing.progress = percent
 
-        cardBinding.tvSaved.text = "$${formatAmount(goal.currentAmount)}"
-        cardBinding.tvTargetAmount.text = "/ $${formatAmount(goal.targetAmount)}"
+        cardBinding.tvSaved.text = formatAmount(goal.currentAmount)
+        cardBinding.tvTargetAmount.text = "/ ${formatAmount(goal.targetAmount)}"
 
         val remaining = goal.targetAmount - goal.currentAmount
-        cardBinding.tvToGo.text = "$${formatAmount(remaining)} to go"
+        cardBinding.tvToGo.text = "${formatAmount(remaining)} to go"
 
         val fillParams = cardBinding.goalProgressFill.layoutParams as ConstraintLayout.LayoutParams
         fillParams.matchConstraintPercentWidth = percent / 100f
         cardBinding.goalProgressFill.layoutParams = fillParams
     }
 
-    @SuppressLint("DefaultLocale")
-    private fun formatAmount(amount: Double): String {
-        return String.format("%,.0f", amount)
-    }
 
     private fun setupGoalCardClickListener() {
         // Kartaning o'ziga bosilganda -> to'liq Saving Goals screen'iga o'tish.
