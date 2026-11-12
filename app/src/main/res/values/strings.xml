@@ -187,4 +187,21 @@
     <string name="jan">Jan</string>
     <string name="feb">Feb</string>
     <string name="mar">Mar</string>
+
+    <string name="notifications_title">Notifications</string>
+    <string name="mark_all_read">Mark all as read</string>
+    <string name="filter_all">All</string>
+    <string name="filter_unread">Unread</string>
+    <string name="filter_budget">Budget</string>
+    <string name="filter_bills">Bills</string>
+    <string name="filter_goals">Goals</string>
+    <string name="empty_notifications_title">You\'re all caught up</string>
+    <string name="empty_notifications_message">New alerts about your budgets, bills and goals will show up here.</string>
+
+    <string name="type_income">Income</string>
+    <string name="section_new_count">%1$d new</string>
+
+    <string name="filter_unread_count">Unread (%1$d)</string>
+    <string name="notifications_unread_subtitle">%1$d unread</string>
+    <string name="notifications_all_read">All caught up</string>
 </resources>

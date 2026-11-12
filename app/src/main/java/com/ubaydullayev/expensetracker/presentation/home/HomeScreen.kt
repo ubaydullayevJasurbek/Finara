@@ -148,13 +148,17 @@ class HomeScreen :
         val trend = summary.trendPercent
         if (trend == null || trend.isNaN() || trend.isInfinite()) {
             // O'tgan oyda ma'lumot yo'q — "-100%" o'rniga badge'ni yashiramiz
-            binding.trendBadge.visibility = View.INVISIBLE // INVISIBLE: karta balandligi o'zgarmasin
+            binding.trendBadge.visibility =
+                View.INVISIBLE // INVISIBLE: karta balandligi o'zgarmasin
         } else {
             binding.trendBadge.visibility = View.VISIBLE
             val isUp = trend >= 0
             binding.ivTrendArrow.setImageResource(if (isUp) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down)
             binding.ivTrendArrow.imageTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(requireContext(), if (isUp) R.color.income_green else R.color.expense_red)
+                ContextCompat.getColor(
+                    requireContext(),
+                    if (isUp) R.color.income_green else R.color.expense_red
+                )
             )
             val sign = if (isUp) "+" else ""
             binding.tvMonthlyChange.text = "$sign${String.format("%.1f", trend)}% this month"
@@ -225,6 +229,10 @@ class HomeScreen :
         // SavingGoals "See all"
         binding.btnSeeAllSavingGoals.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreen_to_savingGoalsScreen)
+        }
+
+        binding.btnNotification.setOnClickListener {
+            findNavController().navigate(R.id.notificationsScreen)
         }
     }
 
