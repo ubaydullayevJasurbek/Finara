@@ -2,12 +2,15 @@ package com.ubaydullayev.expensetracker.data.local.mapper
 
 import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
 import com.ubaydullayev.expensetracker.data.local.entity.ContributionEntity
+import com.ubaydullayev.expensetracker.data.local.entity.NotificationEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.domain.model.Contribution
 import com.ubaydullayev.expensetracker.domain.model.GoalStatus
+import com.ubaydullayev.expensetracker.domain.model.Notification
+import com.ubaydullayev.expensetracker.domain.model.NotificationType
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
@@ -136,3 +139,25 @@ fun Contribution.toEntity(): ContributionEntity {
         timestamp = timestamp
     )
 }
+
+fun NotificationEntity.toDomainModel() = Notification(
+    id = id,
+    title = title,
+    message = message,
+    type = try {
+        NotificationType.valueOf(type)
+    } catch (e: IllegalArgumentException) {
+        NotificationType.BUDGET
+    },
+    timestamp = timestamp,
+    isRead = isRead
+)
+
+fun Notification.toEntity() = NotificationEntity(
+    id = id,
+    title = title,
+    message = message,
+    type = type.name,
+    timestamp = timestamp,
+    isRead = isRead
+)

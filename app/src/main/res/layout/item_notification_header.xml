@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="16dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/tvSectionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/inter_extra_bold"
+        android:textColor="#0B0F14"
+        android:textSize="18sp"
+        tools:text="Today" />
+
+    <TextView
+        android:id="@+id/tvSectionCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="#6B7280"
+        android:textSize="13sp"
+        tools:text="3 new" />
+</LinearLayout>

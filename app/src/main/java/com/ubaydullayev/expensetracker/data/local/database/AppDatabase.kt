@@ -8,12 +8,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ubaydullayev.expensetracker.data.local.dao.BudgetDao
 import com.ubaydullayev.expensetracker.data.local.dao.ContributionDao
 import com.ubaydullayev.expensetracker.data.local.dao.CustomCategoryDao
+import com.ubaydullayev.expensetracker.data.local.dao.NotificationDao
 import com.ubaydullayev.expensetracker.data.local.dao.SavingGoalDao
 import com.ubaydullayev.expensetracker.data.local.dao.TransactionDao
 import com.ubaydullayev.expensetracker.data.local.dao.UpcomingBillDao
 import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
 import com.ubaydullayev.expensetracker.data.local.entity.ContributionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.CustomCategoryEntity
+import com.ubaydullayev.expensetracker.data.local.entity.NotificationEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
@@ -29,7 +31,8 @@ import kotlinx.coroutines.launch
         SavingGoalEntity::class,
         BudgetEntity::class,
         CustomCategoryEntity::class,
-        ContributionEntity::class
+        ContributionEntity::class,
+        NotificationEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -41,6 +44,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun savingGoalDao(): SavingGoalDao
     abstract fun budgetDao(): BudgetDao
     abstract fun contributionDao(): ContributionDao
+
+    abstract fun notificationDao(): NotificationDao
 
     companion object {
         @Volatile
@@ -67,6 +72,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 seedUpcomingBills(instanceRef.upcomingBillDao())
                                 seedSavingGoals(instanceRef.savingGoalDao())
                                 seedContributions(instanceRef.contributionDao(), goalId = 1L)
+                                seedNotifications(instanceRef.notificationDao())
 
                             }
                         }
@@ -77,6 +83,58 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE = instance
                 instance
             }
+        }
+
+        private suspend fun seedNotifications(dao: NotificationDao) {
+            val now = System.currentTimeMillis()
+            val hour = 60 * 60 * 1000L
+            val day = 24 * hour
+
+            dao.insert(
+                NotificationEntity(
+                    title = "Dining budget at 92%",
+                    message = "You've used 92% of your Dining budget with 9 days left this month.",
+                    type = "BUDGET",
+                    timestamp = now - 1 * hour,
+                    isRead = false
+                )
+            )
+            dao.insert(
+                NotificationEntity(
+                    title = "Netflix due in 2 days",
+                    message = "Your Netflix subscription will be charged soon.",
+                    type = "BILL",
+                    timestamp = now - 2 * hour,
+                    isRead = false
+                )
+            )
+            dao.insert(
+                NotificationEntity(
+                    title = "Japan Trip reached 68%",
+                    message = "Great progress! You're getting closer to your goal.",
+                    type = "GOAL",
+                    timestamp = now - 1 * day,
+                    isRead = false
+                )
+            )
+            dao.insert(
+                NotificationEntity(
+                    title = "Salary received",
+                    message = "Your salary was deposited into Main Checking.",
+                    type = "INCOME",
+                    timestamp = now - 5 * day,
+                    isRead = true
+                )
+            )
+            dao.insert(
+                NotificationEntity(
+                    title = "Emergency Fund milestone",
+                    message = "You crossed 80% of your target. Keep going!",
+                    type = "GOAL",
+                    timestamp = now - 7 * day,
+                    isRead = true
+                )
+            )
         }
 
         private suspend fun seedContributions(dao: ContributionDao, goalId: Long) {

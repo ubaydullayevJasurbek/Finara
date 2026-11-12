@@ -202,6 +202,10 @@
             android:name="com.ubaydullayev.expensetracker.presentation.addmoney.AddMoneyToGoalScreen"
             android:label="screen_add_money_to_goal"
             tools:layout="@layout/screen_add_money_to_goal" />
+        <fragment
+            android:id="@+id/notificationsScreen"
+            android:name="com.ubaydullayev.expensetracker.presentation.notifications.NotificationsScreen"
+            android:label="NotificationsScreen" />
     </navigation>
 
 
