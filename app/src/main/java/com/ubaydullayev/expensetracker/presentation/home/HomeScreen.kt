@@ -19,6 +19,7 @@ import com.ubaydullayev.expensetracker.adapter.budgetsadapter.BudgetsAdapter
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
 import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBillsAdapter
 import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
+import com.ubaydullayev.expensetracker.data.local.prefs.UserPreferences
 import com.ubaydullayev.expensetracker.data.repository.BudgetRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.SavingGoalRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.TransactionRepositoryImpl
@@ -26,9 +27,11 @@ import com.ubaydullayev.expensetracker.data.repository.UpcomingBillRepositoryImp
 import com.ubaydullayev.expensetracker.databinding.ScreenHomeBinding
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
+import com.ubaydullayev.expensetracker.presentation.common.applySystemBarInsetsAsPadding
 import com.ubaydullayev.expensetracker.utils.HorizontalSpaceDecoration
-import kotlinx.coroutines.launch
 import com.ubaydullayev.expensetracker.utils.formatAmount
+import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class HomeScreen :
     BaseViewModelFragment<ScreenHomeBinding, HomeViewModel>(HomeViewModel::class.java) {
@@ -36,6 +39,12 @@ class HomeScreen :
     // The bottom bar now lives in the activity shell (below this fragment) and consumes the
     // navigation-bar inset itself, so Home must not add that inset again or a gap appears above the bar.
     override val insetBottom: Boolean = false
+
+    // Yashil hero status bar ostiga ham cho'ziladi: root'ga tepa inset qo'shilmaydi,
+    // u faqat heroContainer'ning paddingTop'iga qo'shiladi (setupHeroInsets).
+    // Fon to'q yashil bo'lgani uchun status bar ikonkalari oq.
+    override val insetTop: Boolean = false
+    override val lightStatusBars: Boolean = false
 
     override val viewModelFactory: ViewModelProvider.Factory
         get() {
@@ -59,6 +68,8 @@ class HomeScreen :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupHeroInsets()
+        binding.tvGreeting.setText(greetingRes())
         setupRecyclerViews()
         observeData()
         setupClickListeners()
@@ -135,6 +146,18 @@ class HomeScreen :
                         bindFinancialHealth(health)
                     }
                 }
+                // Ism, initsiallar va valyuta Profile ekranidagi bilan bir manbadan
+                launch {
+                    UserPreferences.getInstance(requireContext()).profile.collect { profile ->
+                        binding.tvUserName.text = profile.name
+                        binding.ivProfile.text = profile.initials
+                    }
+                }
+                launch {
+                    UserPreferences.getInstance(requireContext()).currencyCode.collect { code ->
+                        binding.btnCurrency.text = code
+                    }
+                }
             }
         }
     }
@@ -147,9 +170,9 @@ class HomeScreen :
 
         val trend = summary.trendPercent
         if (trend == null || trend.isNaN() || trend.isInfinite()) {
-            // O'tgan oyda ma'lumot yo'q — "-100%" o'rniga badge'ni yashiramiz
-            binding.trendBadge.visibility =
-                View.INVISIBLE // INVISIBLE: karta balandligi o'zgarmasin
+            // O'tgan oyda ma'lumot yo'q — "-100%" o'rniga badge'ni yashiramiz.
+            // GONE: yangi hero'da badge'lar markazda, yonidagi "Saving" yorlig'i bo'sh joy qoldirmasin.
+            binding.trendBadge.visibility = View.GONE
         } else {
             binding.trendBadge.visibility = View.VISIBLE
             val isUp = trend >= 0
@@ -165,13 +188,29 @@ class HomeScreen :
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    // Eski Financial Health kartasi olib tashlandi: score aslida tejash foizi,
+    // shuning uchun u hero'dagi "Saving 24%" yorlig'ida ko'rsatiladi.
     private fun bindFinancialHealth(health: FinancialHealth) {
-        binding.tvFinancialScore.text = health.score.toString()
-        binding.healthProgress.progress = health.score
-        binding.tvFinancialHealthDescription.text = health.message
-        binding.tvFinancialHealthStatus.text = health.label
+        val hasData = health.label != "No Data"
+        binding.savingBadge.visibility = if (hasData) View.VISIBLE else View.GONE
+        binding.tvSavingRate.text = getString(R.string.home_saving_rate, health.score)
     }
+
+    private fun setupHeroInsets() {
+        binding.heroContainer.applySystemBarInsetsAsPadding(
+            applyLeft = false,
+            applyTop = true,
+            applyRight = false,
+            applyBottom = false,
+        )
+    }
+
+    private fun greetingRes(): Int =
+        when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            in 5..11 -> R.string.good_morning
+            in 12..17 -> R.string.good_afternoon
+            else -> R.string.good_evening
+        }
 
     @SuppressLint("SetTextI18n")
     private fun bindGoalCard(goal: SavingGoal) {
@@ -221,10 +260,18 @@ class HomeScreen :
         binding.ivProfile.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreen_to_profileScreen)
         }
-        // Quick Action — Add
-        binding.btnAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_homeScreen_to_addFabScreen)
+        // Valyuta Profile ekranida o'zgartiriladi
+        binding.btnCurrency.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_profileScreen)
         }
+        // Quick Action — Add to goal (Add endi bottom bar'dagi "+" da)
+        binding.btnAddToGoal.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_savingGoalsScreen)
+        }
+
+        // Upcoming Bills uchun alohida ekran hali yo'q: bosilsa hech narsa
+        // bo'lmaydigan "See all" ko'rsatmaymiz. Ekran qo'shilgach shu yerda ulang.
+        binding.btnSeeUpcomingBills.visibility = View.GONE
 
         // SavingGoals "See all"
         binding.btnSeeAllSavingGoals.setOnClickListener {

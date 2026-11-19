@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainRoot"
     android:layout_width="match_parent"
@@ -13,44 +12,215 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomBarContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <!-- Bottom-bar chrome lives at the activity level so it persists across the tab
-         destinations. The container carries the navigation-bar inset as bottom padding
-         (applied in code) while the bar itself keeps its fixed drawing height. -->
+    <!-- Bottom bar activity darajasida: tab ekranlari orasida saqlanadi.
+         Konteyner shaffof va kontent USTIDA suzadi: ekranlar bar ostidan
+         oqib o'tadi. Ularning pastki bo'shlig'i MainActivity'da avtomatik
+         qo'shiladi. Navigation-bar inset'i kodda paddingBottom'ga QO'SHILADI. -->
     <LinearLayout
         android:id="@+id/bottomBarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:clipChildren="false"
+        android:elevation="16dp"
+        android:outlineProvider="none"
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <me.ibrahimsn.lib.NiceBottomBar
-            android:id="@+id/bottomNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:activeItem="0"
-            app:backgroundColor="@color/white"
-            app:badgeColor="@color/error"
-            app:iconMargin="4dp"
-            app:iconSize="24dp"
-            app:indicatorColor="#4CAF50"
-            app:indicatorEnabled="true"
-            app:indicatorGravity="top"
-            app:indicatorInterpolator="anticipateOvershoot"
-            app:indicatorWidth="64dp"
-            app:itemFontFamily="@font/inter_medium"
-            app:menu="@menu/bottom_nav_menu"
-            app:textColor="@color/text_secondary"
-            app:textColorActive="@color/black"
-            app:textSize="12sp" />
+        <!-- Tablar paneli (to'liq yumaloq). Ichida: suzuvchi indikator + tablar qatori -->
+        <FrameLayout
+            android:id="@+id/bottomBar"
+            android:layout_width="0dp"
+            android:layout_height="74dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_glass_nav"
+            android:elevation="10dp"
+            android:padding="6dp">
+
+            <!-- Faol tab orqasidagi pill: o'lchami va joyi MainActivity'da,
+                 tab almashganda yangi tab ostiga suzib o'tadi -->
+            <View
+                android:id="@+id/navIndicator"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_nav_active_pill"
+                android:importantForAccessibility="no"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/tabsRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!-- Home -->
+                <LinearLayout
+                    android:id="@+id/tabHome"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iconHome"
+                        android:layout_width="48dp"
+                        android:layout_height="28dp"
+                        android:importantForAccessibility="no"
+                        android:paddingVertical="2dp"
+                        android:src="@drawable/ic_home"
+                        app:tint="@color/nav_inactive" />
+
+                    <TextView
+                        android:id="@+id/labelHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:maxLines="1"
+                        android:text="@string/nav_home"
+                        android:textColor="@color/nav_inactive"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <!-- Transactions -->
+                <LinearLayout
+                    android:id="@+id/tabTransactions"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iconTransactions"
+                        android:layout_width="48dp"
+                        android:layout_height="28dp"
+                        android:importantForAccessibility="no"
+                        android:paddingVertical="2dp"
+                        android:src="@drawable/ic_transcations"
+                        app:tint="@color/nav_inactive" />
+
+                    <!-- "Transactions" tor ekranda sig'ishi uchun 11sp -> 8sp gacha kichrayadi -->
+                    <TextView
+                        android:id="@+id/labelTransactions"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:gravity="center"
+                        app:autoSizeMaxTextSize="11sp"
+                        app:autoSizeMinTextSize="8sp"
+                        app:autoSizeTextType="uniform"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:maxLines="1"
+                        android:text="@string/nav_transactions"
+                        android:textColor="@color/nav_inactive"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <!-- Budget -->
+                <LinearLayout
+                    android:id="@+id/tabBudget"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iconBudget"
+                        android:layout_width="48dp"
+                        android:layout_height="28dp"
+                        android:importantForAccessibility="no"
+                        android:paddingVertical="2dp"
+                        android:src="@drawable/ic_statics"
+                        app:tint="@color/nav_inactive" />
+
+                    <TextView
+                        android:id="@+id/labelBudget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:maxLines="1"
+                        android:text="@string/nav_budget"
+                        android:textColor="@color/nav_inactive"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <!-- Profile -->
+                <LinearLayout
+                    android:id="@+id/tabProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iconProfile"
+                        android:layout_width="48dp"
+                        android:layout_height="28dp"
+                        android:importantForAccessibility="no"
+                        android:paddingVertical="2dp"
+                        android:src="@drawable/ic_profile"
+                        app:tint="@color/nav_inactive" />
+
+                    <TextView
+                        android:id="@+id/labelProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:maxLines="1"
+                        android:text="@string/nav_profile"
+                        android:textColor="@color/nav_inactive"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- Add: paneldan alohida, yashil glass dumaloq tugma (bg_glass_add) -->
+        <ImageButton
+            android:id="@+id/btnNavAdd"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_glass_add"
+            android:contentDescription="@string/add_transaction"
+            android:elevation="10dp"
+            android:padding="22dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_plus"
+            android:stateListAnimator="@null"
+            app:tint="@color/white" />
 
     </LinearLayout>
 
