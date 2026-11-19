@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Home hero: brand gradient (#12A372 -> #084533 -> #0A261F),
+     faqat pastki burchaklari yumaloq (30dp). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:centerColor="#FF084533"
+        android:endColor="#FF0A261F"
+        android:startColor="#FF12A372"
+        android:type="linear" />
+    <corners
+        android:bottomLeftRadius="30dp"
+        android:bottomRightRadius="30dp"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp" />
+</shape>

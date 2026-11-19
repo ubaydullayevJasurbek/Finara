@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "+" tugmasi uchun yashil glass:
+     1) yarim shaffof yashil gradient (tepasi och, pasti to'q),
+     2) tepa yarmida oq yaltirash (shisha yorug'ligi),
+     3) nozik oq hoshiya.
+     Bosilganda oq ripple. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#40FFFFFF">
+
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:angle="270"
+                android:endColor="#E6057A55"
+                android:startColor="#E614B880"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <item android:bottom="30dp">
+        <shape android:shape="oval">
+            <gradient
+                android:angle="270"
+                android:endColor="#00FFFFFF"
+                android:startColor="#47FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="1.5dp"
+                android:color="#73FFFFFF" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+</ripple>

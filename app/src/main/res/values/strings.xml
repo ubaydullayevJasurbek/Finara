@@ -204,4 +204,17 @@
     <string name="filter_unread_count">Unread (%1$d)</string>
     <string name="notifications_unread_subtitle">%1$d unread</string>
     <string name="notifications_all_read">All caught up</string>
+
+    <color name="home_bg">#FFF4F6F5</color>
+
+    <string name="good_afternoon">Good afternoon</string>
+    <string name="good_evening">Good evening</string>
+
+    <string name="home_add_to_goal">Add to goal</string>
+    <string name="home_safe_to_spend">Safe to spend today</string>
+    <string name="home_upcoming_bills">Upcoming bills</string>
+    <string name="home_insight">Insight</string>
+    <string name="home_saving_rate">Saving %1$d%%</string>
+    <string name="home_cd_currency">Change currency</string>
+    <string name="home_currency_placeholder" translatable="false">USD</string>
 </resources>
