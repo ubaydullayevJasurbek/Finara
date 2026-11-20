@@ -48,7 +48,12 @@ class MainActivity : AppCompatActivity() {
     private val tabs: List<Tab> by lazy {
         listOf(
             Tab(binding.tabHome, binding.iconHome, binding.labelHome, R.id.homeScreen),
-            Tab(binding.tabTransactions, binding.iconTransactions, binding.labelTransactions, R.id.transactionScreen),
+            Tab(
+                binding.tabTransactions,
+                binding.iconTransactions,
+                binding.labelTransactions,
+                R.id.transactionScreen
+            ),
             Tab(binding.tabBudget, binding.iconBudget, binding.labelBudget, R.id.budgetScreen),
             Tab(binding.tabProfile, binding.iconProfile, binding.labelProfile, R.id.profileScreen),
         )
@@ -86,8 +91,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun selectTab(destinationId: Int) {
-        val activeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.brand_green_dark))
-        val inactiveColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.nav_inactive))
+        val activeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.accent_dark))
+        val inactiveColor =
+            ColorStateList.valueOf(ContextCompat.getColor(this, R.color.nav_inactive))
         val medium = ResourcesCompat.getFont(this, R.font.inter_medium)
 
         tabs.forEach { tab ->
@@ -149,7 +155,8 @@ class MainActivity : AppCompatActivity() {
      * o'zgartirish shart emas.
      */
     private fun reserveSpaceUnderBottomBar() {
-        val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navHost.childFragmentManager.registerFragmentLifecycleCallbacks(
             object : FragmentManager.FragmentLifecycleCallbacks() {
                 override fun onFragmentViewCreated(
@@ -170,7 +177,9 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomBarContainer.requestLayout()
 
                     f.viewLifecycleOwnerLiveData.observe(f) { owner ->
-                        if (owner == null) binding.bottomBarContainer.removeOnLayoutChangeListener(listener)
+                        if (owner == null) binding.bottomBarContainer.removeOnLayoutChangeListener(
+                            listener
+                        )
                     }
                 }
             },

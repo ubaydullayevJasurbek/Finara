@@ -16,10 +16,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.map
+import java.util.Calendar
+import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 /**
- * Starting point for the Home screen's UI state/logic. Empty for now — add StateFlow/LiveData and
- * use-cases here as the feature grows.
+ * Home ekranining holati: balans, tejash foizi, Safe to spend, Insight va ro'yxatlar.
  */
 class HomeViewModel(
     private val transactionRepository: TransactionRepository,
@@ -77,7 +80,7 @@ class HomeViewModel(
             val previousMonthBalance = prevIncome - prevExpense
 
             val trend = if (previousMonthBalance != 0.0) {
-                ((currentMonthBalance - previousMonthBalance) / kotlin.math.abs(previousMonthBalance)) * 100
+                ((currentMonthBalance - previousMonthBalance) / abs(previousMonthBalance)) * 100
             } else {
                 null
             }
@@ -95,6 +98,72 @@ class HomeViewModel(
             calculateFinancialHealth(summary.monthlyIncome, summary.monthlyExpense)
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FinancialHealth())
+
+    /** null -> karta yashiriladi (na budjet, na daromad bor). */
+    val safeToSpend: StateFlow<SafeToSpend?> =
+        combine(budgets, balanceSummary) { budgetList, summary ->
+            calculateSafeToSpend(budgetList, summary)
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    /** null -> karta yashiriladi (shu oy xarajat yo'q). */
+    val insight: StateFlow<SpendingInsight?> =
+        transactionRepository.getAllTransactions()
+            .map { calculateInsight(it) }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    private fun calculateSafeToSpend(budgetList: List<Budget>, summary: BalanceSummary): SafeToSpend? {
+        val totalBudget = budgetList.sumOf { it.limitAmount }
+        val basedOnBudget = totalBudget > 0.0
+        val limit = if (basedOnBudget) totalBudget else summary.monthlyIncome
+        if (limit <= 0.0) return null
+
+        val cal = Calendar.getInstance()
+        val daysLeft = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - cal.get(Calendar.DAY_OF_MONTH) + 1
+        val spent = summary.monthlyExpense
+        val perDay = ((limit - spent) / daysLeft).coerceAtLeast(0.0)
+
+        return SafeToSpend(perDay, spent, limit, daysLeft, basedOnBudget)
+    }
+
+    private fun calculateInsight(transactions: List<Transaction>): SpendingInsight? {
+        val monthStart = DateFormatter.getCurrentMonthStart()
+        val (prevStart, prevEnd) = DateFormatter.getPreviousMonthRange()
+        val expenses = transactions.filter { !it.isIncome }
+
+        val current = expenses.filter { it.timestamp >= monthStart }
+            .groupBy { it.category }.mapValues { (_, list) -> list.sumOf { it.amount } }
+        if (current.isEmpty()) return null
+
+        val previous = expenses.filter { it.timestamp in prevStart..prevEnd }
+            .groupBy { it.category }.mapValues { (_, list) -> list.sumOf { it.amount } }
+
+        // 1) O'tgan oyga nisbatan eng ko'p o'zgargan kategoriya (kamida 10%)
+        val change = current.mapNotNull { (category, amount) ->
+            val before = previous[category] ?: return@mapNotNull null
+            if (before <= 0.0) return@mapNotNull null
+            category to ((amount - before) / before) * 100
+        }.filter { abs(it.second) >= 10 }.maxByOrNull { abs(it.second) }
+
+        if (change != null) {
+            val (category, percent) = change
+            val p = abs(percent).roundToInt()
+            val text = if (percent > 0) "You spent $p% more on $category than last month."
+            else "You spent $p% less on $category than last month. Nice!"
+            return SpendingInsight(text, "vs ${previousMonthName()}")
+        }
+
+        // 2) O'tgan oy bilan solishtirib bo'lmasa: eng katta xarajat kategoriyasi ulushi
+        val total = current.values.sum()
+        val (topCategory, topAmount) = current.maxByOrNull { it.value } ?: return null
+        val share = ((topAmount / total) * 100).roundToInt()
+        return SpendingInsight("$topCategory is $share% of your spending this month.", "This month")
+    }
+
+    private fun previousMonthName(): String {
+        val cal = Calendar.getInstance().apply { add(Calendar.MONTH, -1) }
+        return cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) ?: ""
+    }
+
     private fun calculateFinancialHealth(income: Double, expense: Double): FinancialHealth {
         if (income <= 0.0) {
             return FinancialHealth(score = 0, label = "No Data", message = "Add income to see your financial health.")

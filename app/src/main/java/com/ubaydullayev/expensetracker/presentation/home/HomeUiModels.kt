@@ -13,3 +13,24 @@ data class FinancialHealth(
     val label: String = "",
     val message: String = ""
 )
+
+/**
+ * "Safe to spend today": oy oxirigacha har kuni qancha sarflash mumkin.
+ * limit = budjetlar yig'indisi; budjet bo'lmasa shu oygi daromad.
+ */
+data class SafeToSpend(
+    val perDay: Double,
+    val spent: Double,
+    val limit: Double,
+    val daysLeft: Int,
+    val basedOnBudget: Boolean
+) {
+    val isOverLimit: Boolean get() = spent >= limit
+    val progressPercent: Int get() = ((spent / limit) * 100).toInt().coerceIn(0, 100)
+}
+
+/** Shu oy xarajatlaridan hisoblangan bitta xulosa (soxta matn emas). */
+data class SpendingInsight(
+    val text: String,
+    val period: String
+)

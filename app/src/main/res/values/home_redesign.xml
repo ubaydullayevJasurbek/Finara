@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home redizayn uchun yangi resurslar. Alohida fayl: strings.xml/colors.xml'ga tegmaydi. -->
+<resources>
+    <color name="home_bg">@color/fin_bg</color>
+
+    <!-- Home + bottom navigation urg'u ranglari -> finara_colors.xml palitrasiga bog'langan. -->
+    <color name="accent">@color/fin_blue</color>
+    <color name="accent_dark">@color/fin_blue</color>
+    <color name="accent_tint">@color/fin_blue_tint</color>
+
+    <string name="good_afternoon">Good afternoon</string>
+    <string name="good_evening">Good evening</string>
+
+    <string name="home_add_to_goal">Add to goal</string>
+    <string name="home_safe_to_spend">Safe to spend today</string>
+    <string name="home_upcoming_bills">Upcoming bills</string>
+    <string name="home_insight">Insight</string>
+    <string name="home_saving_rate">Saving %1$d%%</string>
+    <string name="home_cd_currency">Change currency</string>
+    <string name="home_currency_placeholder" translatable="false">USD</string>
+    <string name="home_per_day">%1$s / day</string>
+    <string name="home_on_track">On track</string>
+    <string name="home_limit_reached">Limit reached</string>
+    <string name="home_safe_meta_budget">%1$s of %2$s monthly budget · %3$s</string>
+    <string name="home_safe_meta_income">%1$s of %2$s income this month · %3$s</string>
+    <string name="home_see_transactions">See transactions →</string>
+    <plurals name="home_days_left">
+        <item quantity="one">%d day left</item>
+        <item quantity="other">%d days left</item>
+    </plurals>
+</resources>

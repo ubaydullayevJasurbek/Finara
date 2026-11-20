@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Transactions redizayni uchun resurslar. strings.xml'ga tegmaydi. -->
+<resources>
+    <string name="tx_net_for_month">Net for the month</string>
+    <string name="tx_empty">No transactions found</string>
+    <string name="tx_cd_prev_month">Previous month</string>
+    <string name="tx_cd_next_month">Next month</string>
+
+    <!-- Filtr chipi: 40dp balandlik, Finara palitrasi. Tanlanganining fon/rangini kod beradi. -->
+    <style name="FinaraFilterChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:background">@drawable/bg_fin_chip_unselected</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:textColor">@color/fin_navy</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

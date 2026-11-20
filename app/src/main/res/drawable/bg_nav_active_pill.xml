@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Faol tab orqasidagi suzuvchi pill. Bar burchagiga parallel bo'lishi uchun:
-     radius = bar radiusi (37dp) - bar padding'i (6dp) = 31dp
-     (pill balandligi 74 - 12 = 62dp, ya'ni u ham to'liq yumaloq). -->
+     radius = bar radiusi (37dp) - bar padding'i (6dp) = 31dp. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#240E9F6E" />
+    <solid android:color="@color/fin_blue_tint" />
     <corners android:radius="31dp" />
 </shape>

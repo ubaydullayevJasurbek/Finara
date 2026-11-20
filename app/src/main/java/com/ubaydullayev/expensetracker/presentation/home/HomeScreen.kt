@@ -2,10 +2,12 @@ package com.ubaydullayev.expensetracker.presentation.home
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.graphics.Outline
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
@@ -14,6 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.adapter.budgetsadapter.BudgetsAdapter
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
@@ -61,6 +65,9 @@ class HomeScreen :
     private lateinit var upcomingBillsAdapter: UpcomingBillsAdapter
     private lateinit var budgetsAdapter: BudgetsAdapter
 
+    // Ko'z tugmasi: summalarni yashirish. Oxirgi summary saqlanadi, toggle'da qayta chiziladi.
+    private var isBalanceHidden = false
+    private var lastSummary: BalanceSummary? = null
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ScreenHomeBinding.inflate(inflater, container, false)
@@ -68,7 +75,9 @@ class HomeScreen :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        isBalanceHidden = savedInstanceState?.getBoolean(KEY_BALANCE_HIDDEN) ?: isBalanceHidden
         setupHeroInsets()
+        updateBalanceToggleIcon()
         binding.tvGreeting.setText(greetingRes())
         setupRecyclerViews()
         observeData()
@@ -146,9 +155,24 @@ class HomeScreen :
                         bindFinancialHealth(health)
                     }
                 }
+                launch {
+                    viewModel.safeToSpend.collect { bindSafeToSpend(it) }
+                }
+                launch {
+                    viewModel.insight.collect { bindInsight(it) }
+                }
                 // Ism, initsiallar va valyuta Profile ekranidagi bilan bir manbadan
                 launch {
-                    UserPreferences.getInstance(requireContext()).profile.collect { profile ->
+                    val prefs = UserPreferences.getInstance(requireContext())
+                    prefs.profile.collect { profile ->
+                        // Ro'yxatdan o'tishda ism faqat Firebase'ga yozilgan bo'lishi mumkin:
+                        // prefs'da hali standart qiymat bo'lsa, Firebase'dagisini ko'chiramiz.
+                        val firebaseUser = Firebase.auth.currentUser
+                        val firebaseName = firebaseUser?.displayName.orEmpty().trim()
+                        if (profile.name == DEFAULT_PROFILE_NAME && firebaseName.isNotEmpty()) {
+                            prefs.updateProfile(firebaseName, firebaseUser?.email.orEmpty())
+                            return@collect // yangilangan profil shu collect'ga qayta keladi
+                        }
                         binding.tvUserName.text = profile.name
                         binding.ivProfile.text = profile.initials
                     }
@@ -164,9 +188,10 @@ class HomeScreen :
 
     @SuppressLint("DefaultLocale", "SetTextI18n")
     private fun bindBalanceCard(summary: BalanceSummary) {
-        binding.tvTotalBalance.text = formatAmount(summary.totalBalance)
-        binding.tvIncome.text = formatAmount(summary.monthlyIncome)
-        binding.tvExpense.text = formatAmount(summary.monthlyExpense)
+        lastSummary = summary
+        binding.tvTotalBalance.text = maskedOr(formatAmount(summary.totalBalance))
+        binding.tvIncome.text = maskedOr(formatAmount(summary.monthlyIncome))
+        binding.tvExpense.text = maskedOr(formatAmount(summary.monthlyExpense))
 
         val trend = summary.trendPercent
         if (trend == null || trend.isNaN() || trend.isInfinite()) {
@@ -188,6 +213,25 @@ class HomeScreen :
         }
     }
 
+    private fun maskedOr(amount: String): String = if (isBalanceHidden) BALANCE_MASK else amount
+
+    private fun toggleBalanceVisibility() {
+        isBalanceHidden = !isBalanceHidden
+        updateBalanceToggleIcon()
+        lastSummary?.let { bindBalanceCard(it) }
+    }
+
+    private fun updateBalanceToggleIcon() {
+        binding.btnToggleBalance.setIconResource(
+            if (isBalanceHidden) R.drawable.ic_eye_off else R.drawable.ic_eye
+        )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(KEY_BALANCE_HIDDEN, isBalanceHidden)
+    }
+
     // Eski Financial Health kartasi olib tashlandi: score aslida tejash foizi,
     // shuning uchun u hero'dagi "Saving 24%" yorlig'ida ko'rsatiladi.
     private fun bindFinancialHealth(health: FinancialHealth) {
@@ -196,7 +240,48 @@ class HomeScreen :
         binding.tvSavingRate.text = getString(R.string.home_saving_rate, health.score)
     }
 
+    private fun bindSafeToSpend(safe: SafeToSpend?) {
+        binding.cardSafeToSpend.visibility = if (safe == null) View.GONE else View.VISIBLE
+        if (safe == null) return
+
+        binding.tvSafeToSpend.text = getString(R.string.home_per_day, formatAmount(safe.perDay))
+        binding.tvSafeStatus.setText(if (safe.isOverLimit) R.string.home_limit_reached else R.string.home_on_track)
+        // Holat rangi: limit oshgan bo'lsa qizil, aks holda yashil (finara_colors.xml)
+        binding.tvSafeStatus.setTextColor(
+            ContextCompat.getColor(requireContext(), if (safe.isOverLimit) R.color.fin_error else R.color.fin_success)
+        )
+        binding.tvSafeStatus.backgroundTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(requireContext(), if (safe.isOverLimit) R.color.fin_error_tint else R.color.fin_success_tint)
+        )
+        binding.progressMonthlyBudget.setProgressCompat(safe.progressPercent, false)
+        binding.tvSafeToSpendMeta.text = getString(
+            if (safe.basedOnBudget) R.string.home_safe_meta_budget else R.string.home_safe_meta_income,
+            formatAmount(safe.spent),
+            formatAmount(safe.limit),
+            resources.getQuantityString(R.plurals.home_days_left, safe.daysLeft, safe.daysLeft)
+        )
+    }
+
+    private fun bindInsight(insight: SpendingInsight?) {
+        binding.cardInsight.visibility = if (insight == null) View.GONE else View.VISIBLE
+        if (insight == null) return
+        binding.tvInsightText.text = insight.text
+        binding.tvInsightPeriod.text = insight.period
+        binding.btnInsightAction.setText(R.string.home_see_transactions)
+    }
+
     private fun setupHeroInsets() {
+        // Girih naqshi hero'ning pastki yumaloq burchaklaridan chiqmasligi uchun kesamiz.
+        // Tepasi ekran chetida, shuning uchun outline yuqoriga cho'zilgan: faqat pastki
+        // burchaklar yumaloq bo'ladi (roundRect barcha Android versiyalarida kesa oladi).
+        val radius = 30f * resources.displayMetrics.density
+        binding.heroContainer.outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                outline.setRoundRect(0, -radius.toInt(), view.width, view.height, radius)
+            }
+        }
+        binding.heroContainer.clipToOutline = true
+
         binding.heroContainer.applySystemBarInsetsAsPadding(
             applyLeft = false,
             applyTop = true,
@@ -256,6 +341,9 @@ class HomeScreen :
             findNavController().navigate(R.id.action_homeScreen_to_budgetScreen)
         }
 
+        // Balansni yashirish / ko'rsatish
+        binding.btnToggleBalance.setOnClickListener { toggleBalanceVisibility() }
+
         // Profile avatar
         binding.ivProfile.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreen_to_profileScreen)
@@ -267,6 +355,11 @@ class HomeScreen :
         // Quick Action — Add to goal (Add endi bottom bar'dagi "+" da)
         binding.btnAddToGoal.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreen_to_savingGoalsScreen)
+        }
+
+        // Insight -> tranzaksiyalar ro'yxati
+        binding.btnInsightAction.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_transactionScreen)
         }
 
         // Upcoming Bills uchun alohida ekran hali yo'q: bosilsa hech narsa
@@ -283,4 +376,10 @@ class HomeScreen :
         }
     }
 
+    private companion object {
+        /** UserPreferences'dagi standart ism (foydalanuvchi hali ism kiritmagan). */
+        const val DEFAULT_PROFILE_NAME = "Your Name"
+        const val KEY_BALANCE_HIDDEN = "home_balance_hidden"
+        const val BALANCE_MASK = "••••••"
+    }
 }

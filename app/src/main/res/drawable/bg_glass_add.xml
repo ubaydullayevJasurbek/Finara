@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- "+" tugmasi uchun yashil glass:
-     1) yarim shaffof yashil gradient (tepasi och, pasti to'q),
+<!-- "+" tugmasi uchun to'q sariq glass:
+     1) deyarli to'liq to'q sariq gradient (tepasi och, pasti to'q),
      2) tepa yarmida oq yaltirash (shisha yorug'ligi),
      3) nozik oq hoshiya.
      Bosilganda oq ripple. -->
@@ -11,8 +11,8 @@
         <shape android:shape="oval">
             <gradient
                 android:angle="270"
-                android:endColor="#E6057A55"
-                android:startColor="#E614B880"
+                android:endColor="#F2F2551F"
+                android:startColor="#F2FF7A52"
                 android:type="linear" />
         </shape>
     </item>

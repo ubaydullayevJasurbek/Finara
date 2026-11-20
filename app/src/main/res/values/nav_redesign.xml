@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Yangi bottom bar uchun resurslar. home_bg home_redesign.xml'da. -->
 <resources>
-    <color name="nav_inactive">#FF4B5563</color>
+    <color name="nav_inactive">@color/fin_text_secondary</color>
 
     <string name="nav_transactions">Transactions</string>
 </resources>
