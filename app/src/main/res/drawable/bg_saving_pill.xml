@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hero'dagi "Saving 91%" yorlig'i: to'q sariq urg'u, 20% shaffof -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#33FF6E42" />
+    <corners android:radius="100dp" />
+</shape>

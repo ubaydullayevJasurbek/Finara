@@ -207,7 +207,7 @@
 
         </FrameLayout>
 
-        <!-- Add: paneldan alohida, yashil glass dumaloq tugma (bg_glass_add) -->
+        <!-- Add: paneldan alohida, to'q sariq glass tugma. Belgi navy: oq to'q sariqda o'qilmaydi -->
         <ImageButton
             android:id="@+id/btnNavAdd"
             android:layout_width="74dp"
@@ -220,7 +220,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_plus"
             android:stateListAnimator="@null"
-            app:tint="@color/white" />
+            app:tint="@color/fin_navy" />
 
     </LinearLayout>
 

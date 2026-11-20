@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hero foni: lojuvard gradient + ustida oltin girih naqshi.
+     Naqsh o'z o'lchamida, tepaga va markazga tekislanadi (cho'zilmaydi).
+     HomeScreen'da heroContainer pastki yumaloq burchaklar bo'yicha kesiladi (clipToOutline). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_home_hero" />
+    <item
+        android:drawable="@drawable/bg_hero_girih"
+        android:gravity="top|center_horizontal" />
+</layer-list>

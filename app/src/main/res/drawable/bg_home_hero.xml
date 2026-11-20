@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Home hero: brand gradient (#12A372 -> #084533 -> #0A261F),
-     faqat pastki burchaklari yumaloq (30dp). -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home hero: ko'k -> navy gradient (Finara palitrasi),
+     faqat pastki burchaklari yumaloq (30dp). Ustiga bg_hero_girih chiziladi. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient
         android:angle="315"
-        android:centerColor="#FF084533"
-        android:endColor="#FF0A261F"
-        android:startColor="#FF12A372"
+        android:centerColor="@color/fin_hero_mid"
+        android:endColor="@color/fin_navy"
+        android:startColor="@color/fin_blue"
         android:type="linear" />
     <corners
         android:bottomLeftRadius="30dp"

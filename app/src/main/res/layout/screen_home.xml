@@ -34,13 +34,13 @@
 
             <!-- ==================== 1. HERO ====================
                  Header + balans + Income/Expense + quick actions bitta
-                 gradient blokda. Status bar ostiga ham cho'ziladi: tepa
+                 lojuvard gradient + oltin girih naqshi blokida. Status bar ostiga ham cho'ziladi: tepa
                  inset kodda (HomeScreen) paddingTop'ga qo'shiladi. -->
             <LinearLayout
                 android:id="@+id/heroContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_home_hero"
+                android:background="@drawable/bg_home_hero_layers"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp"
                 android:paddingTop="12dp"
@@ -135,6 +135,7 @@
                         app:iconPadding="2dp"
                         app:iconSize="14dp"
                         app:iconTint="@color/white"
+                        app:elevation="0dp"
                         app:rippleColor="@color/onb_white_20" />
 
                     <com.google.android.material.button.MaterialButton
@@ -178,23 +179,29 @@
                         android:textColor="@color/white_70"
                         android:textSize="13sp" />
 
-                    <FrameLayout
+                    <!-- 48dp touch target; inset'lar ko'rinadigan qismini 32dp qoldiradi.
+                         Bosilganda balans/income/expense yashiriladi (HomeScreen). -->
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnToggleBalance"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="4dp"
-                        android:background="@drawable/bg_eye_toggle"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:contentDescription="@string/cd_toggle_balance"
-                        android:focusable="true">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_eye"
-                            app:tint="@color/white_70" />
-                    </FrameLayout>
+                        android:insetLeft="8dp"
+                        android:insetTop="8dp"
+                        android:insetRight="8dp"
+                        android:insetBottom="8dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="0dp"
+                        app:backgroundTint="@color/white_12"
+                        app:cornerRadius="16dp"
+                        app:elevation="0dp"
+                        app:icon="@drawable/ic_eye"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        app:iconSize="16dp"
+                        app:iconTint="@color/white_70"
+                        app:rippleColor="@color/onb_white_20" />
                 </LinearLayout>
 
                 <TextView
@@ -255,7 +262,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
-                        android:background="@drawable/bg_trend_pill"
+                        android:background="@drawable/bg_saving_pill"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
@@ -268,7 +275,7 @@
                             android:layout_height="12dp"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_heart"
-                            app:tint="@color/white" />
+                            app:tint="@color/fin_orange_on_dark" />
 
                         <TextView
                             android:id="@+id/tvSavingRate"
@@ -276,7 +283,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:fontFamily="@font/inter_medium"
-                            android:textColor="@color/white_95"
+                            android:textColor="@color/fin_orange_on_dark"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             tools:text="Saving 24%" />
@@ -482,17 +489,17 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/inter_medium"
                             android:text="@string/home_safe_to_spend"
-                            android:textColor="@color/text_secondary"
+                            android:textColor="@color/fin_text_secondary"
                             android:textSize="13sp" />
 
                         <TextView
                             android:id="@+id/tvSafeStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/bg_health_status"
+                            android:background="@drawable/bg_success_chip"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="3dp"
-                            android:textColor="@color/brand_green_dark"
+                            android:textColor="@color/fin_success"
                             android:textSize="11sp"
                             android:textStyle="bold"
                             tools:text="On track" />
@@ -506,7 +513,7 @@
                         android:fontFamily="@font/inter_extra_bold"
                         android:includeFontPadding="false"
                         android:letterSpacing="-0.02"
-                        android:textColor="@color/black"
+                        android:textColor="@color/fin_navy"
                         android:textSize="26sp"
                         tools:text="$84 / day" />
 
@@ -515,8 +522,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        app:indicatorColor="@color/brand_green"
-                        app:trackColor="@color/onb_surface_container"
+                        app:indicatorColor="@color/accent"
+                        app:trackColor="@color/fin_blue_tint"
                         app:trackCornerRadius="3dp"
                         app:trackThickness="6dp"
                         tools:progress="78" />
@@ -526,7 +533,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="@color/fin_text_secondary"
                         android:textSize="12sp"
                         tools:text="$2,960 of $3,800 monthly budget · 10 days left" />
                 </LinearLayout>
@@ -554,7 +561,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/home_upcoming_bills"
-                        android:textColor="@color/black"
+                        android:textColor="@color/fin_navy"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -566,7 +573,7 @@
                         android:minWidth="48dp"
                         android:minHeight="48dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/brand_green_dark"
+                        android:textColor="@color/accent_dark"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -602,7 +609,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/budgets"
-                        android:textColor="@color/black"
+                        android:textColor="@color/fin_navy"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -614,7 +621,7 @@
                         android:minWidth="48dp"
                         android:minHeight="48dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/brand_green_dark"
+                        android:textColor="@color/accent_dark"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -642,7 +649,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/surface_border"
+                app:strokeColor="@color/fin_border"
                 app:strokeWidth="1dp"
                 tools:visibility="visible">
 
@@ -679,7 +686,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/home_insight"
-                                android:textColor="@color/black"
+                                android:textColor="@color/fin_navy"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -687,7 +694,7 @@
                                 android:id="@+id/tvInsightPeriod"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/text_secondary"
+                                android:textColor="@color/fin_text_secondary"
                                 android:textSize="11sp"
                                 tools:text="vs October" />
                         </LinearLayout>
@@ -698,7 +705,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:lineSpacingExtra="2dp"
-                            android:textColor="@color/social_pill_text"
+                            android:textColor="@color/fin_navy"
                             android:textSize="13sp"
                             tools:text="You spent 18% more on Food this month." />
 
@@ -709,7 +716,7 @@
                             android:layout_marginTop="2dp"
                             android:gravity="center_vertical"
                             android:minHeight="48dp"
-                            android:textColor="@color/brand_green_dark"
+                            android:textColor="@color/accent_dark"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             tools:text="See Food spending →" />
@@ -738,7 +745,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/saving_goals"
-                        android:textColor="@color/black"
+                        android:textColor="@color/fin_navy"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -750,7 +757,7 @@
                         android:minWidth="48dp"
                         android:minHeight="48dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/brand_green_dark"
+                        android:textColor="@color/accent_dark"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -782,7 +789,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/recent_transactions"
-                        android:textColor="@color/black"
+                        android:textColor="@color/fin_navy"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -794,7 +801,7 @@
                         android:minWidth="48dp"
                         android:minHeight="48dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/brand_green_dark"
+                        android:textColor="@color/accent_dark"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -805,7 +812,7 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/surface_border"
+                    app:strokeColor="@color/fin_border"
                     app:strokeWidth="1dp">
 
                     <androidx.recyclerview.widget.RecyclerView

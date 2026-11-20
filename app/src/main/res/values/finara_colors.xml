@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  FINARA RANG PALITRASI — yagona manba.
+  Yangi ekran yoki komponentda rangni to'g'ridan-to'g'ri HEX bilan yozmang,
+  shu fayldagi nomlardan foydalaning.
+
+  Qoidalar:
+  1. fin_orange ustida oq matn YO'Q (o'qilish 2.78:1). Ikonka/matn = fin_navy.
+  2. Och fonda to'q sariq matn kerak bo'lsa -> fin_orange_text.
+  3. fin_orange'ni kam ishlating: ekranda bitta asosiy amal uchun.
+-->
+<resources>
+    <!-- Brend -->
+    <color name="fin_navy">#FF092634</color>          <!-- hero, sarlavhalar, asosiy matn -->
+    <color name="fin_blue">#FF004E72</color>          <!-- tugmalar, havolalar, faol tab -->
+    <color name="fin_orange">#FFFF6E42</color>        <!-- asosiy amal ("+") -->
+    <color name="fin_bg">#FFF9F9F9</color>            <!-- ekran foni -->
+
+    <!-- Yordamchi -->
+    <color name="fin_surface">#FFFFFFFF</color>       <!-- kartalar -->
+    <color name="fin_text_secondary">#FF5B6B75</color>
+    <color name="fin_border">#FFE3E8EB</color>
+    <color name="fin_blue_tint">#FFE1EEF4</color>
+    <color name="fin_orange_tint">#FFFFEDE6</color>
+    <color name="fin_orange_text">#FFC2410C</color>   <!-- och fondagi to'q sariq matn -->
+    <color name="fin_hero_mid">#FF0A3A55</color>      <!-- hero gradient o'rtasi -->
+    <color name="fin_orange_on_dark">#FFFFB59E</color> <!-- navy/ko'k fondagi to'q sariq matn -->
+
+    <!-- Holat ranglari -->
+    <color name="fin_success">#FF067647</color>
+    <color name="fin_success_tint">#FFDCFAE6</color>
+    <color name="fin_error">#FFD92D20</color>
+    <color name="fin_error_tint">#FFFEE4E2</color>
+    <color name="fin_warning">#FFB54708</color>
+    <color name="fin_warning_tint">#FFFEF0C7</color>
+</resources>
