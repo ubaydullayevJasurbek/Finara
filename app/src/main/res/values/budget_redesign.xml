@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Budget (Mozaika) redizayni uchun resurslar -->
+<resources>
+    <string name="budget_left_to_spend">Left to spend</string>
+    <string name="budget_over_by">Over budget by</string>
+    <string name="budget_daily">Daily</string>
+    <string name="budget_left_segment">Left</string>
+    <string name="budget_new">New budget</string>
+    <string name="budget_cd_delete">Delete budget</string>
+    <string name="budget_already_exists">%1$s already has a budget</string>
+    <string name="budget_tip_no_budgets">Add a budget to get personalized tips.</string>
+    <string name="budget_tip_all_good">You\'re doing great! All categories are within budget.</string>
+    <string name="budget_tip_over">%1$s is %2$s over budget. Consider raising the limit or cutting back next month.</string>
+    <string name="budget_tip_near_limit">You have %1$s left in %2$s — about %3$s/day until the end of the month.</string>
+</resources>
