@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import com.ubaydullayev.expensetracker.utils.BudgetCalculator
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
 import java.util.Locale
@@ -111,16 +112,21 @@ class HomeViewModel(
             .map { calculateInsight(it) }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
-    private fun calculateSafeToSpend(budgetList: List<Budget>, summary: BalanceSummary): SafeToSpend? {
+    private fun calculateSafeToSpend(
+        budgetList: List<Budget>,
+        summary: BalanceSummary
+    ): SafeToSpend? {
         val totalBudget = budgetList.sumOf { it.limitAmount }
         val basedOnBudget = totalBudget > 0.0
         val limit = if (basedOnBudget) totalBudget else summary.monthlyIncome
         if (limit <= 0.0) return null
 
-        val cal = Calendar.getInstance()
-        val daysLeft = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - cal.get(Calendar.DAY_OF_MONTH) + 1
-        val spent = summary.monthlyExpense
-        val perDay = ((limit - spent) / daysLeft).coerceAtLeast(0.0)
+        // Budjet bo'lsa: Budget ekranidagi bilan aynan bir xil raqam (budjetli kategoriyalar xarajati).
+        // Budjet bo'lmasa: shu oygi daromad va barcha xarajatlar asosida.
+        val spent =
+            if (basedOnBudget) budgetList.sumOf { it.spentAmount } else summary.monthlyExpense
+        val daysLeft = BudgetCalculator.daysLeftInMonth()
+        val perDay = BudgetCalculator.dailyAllowance(limit, spent, daysLeft)
 
         return SafeToSpend(perDay, spent, limit, daysLeft, basedOnBudget)
     }
@@ -166,7 +172,11 @@ class HomeViewModel(
 
     private fun calculateFinancialHealth(income: Double, expense: Double): FinancialHealth {
         if (income <= 0.0) {
-            return FinancialHealth(score = 0, label = "No Data", message = "Add income to see your financial health.")
+            return FinancialHealth(
+                score = 0,
+                label = "No Data",
+                message = "Add income to see your financial health."
+            )
         }
 
         val savingsRate = ((income - expense) / income) * 100
