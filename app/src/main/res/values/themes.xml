@@ -7,6 +7,23 @@
     <style name="Base.Theme.ExpenseTracker" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
+        <!-- Finara palitrasi (finara_colors.xml). Bular bo'lmasa Material 3 standart
+             binafsha (#6750A4) ishlatiladi: switch, matn maydoni, dialog tugmalari va h.k. -->
+        <item name="colorPrimary">@color/fin_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/fin_blue_tint</item>
+        <item name="colorOnPrimaryContainer">@color/fin_navy</item>
+        <item name="colorSecondary">@color/fin_navy</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/fin_blue_tint</item>
+        <item name="colorOnSecondaryContainer">@color/fin_navy</item>
+        <!-- To'q sariq ustida oq matn o'qilmaydi (2.78:1), shuning uchun navy -->
+        <item name="colorTertiary">@color/fin_orange</item>
+        <item name="colorOnTertiary">@color/fin_navy</item>
+        <item name="colorError">@color/fin_error</item>
+        <item name="colorOnError">@color/white</item>
+        <!-- Soyali kartalar (masalan Home "Safe to spend") binafsha tus olmasin -->
+        <item name="elevationOverlayEnabled">false</item>
         <!-- Light-only UI: opt out of platform/OEM Force Dark auto-inversion (API 29+). -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
@@ -27,6 +44,14 @@
 
     <style name="AppBottomSheetDialogTheme" parent="Theme.Material3.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppBottomSheetStyle</item>
+        <!-- Bottom sheet'lar alohida mavzuda: Finara ranglarini bu yerga ham beramiz -->
+        <item name="colorPrimary">@color/fin_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/fin_blue_tint</item>
+        <item name="colorOnPrimaryContainer">@color/fin_navy</item>
+        <item name="colorSecondaryContainer">@color/fin_blue_tint</item>
+        <item name="colorOnSecondaryContainer">@color/fin_navy</item>
+        <item name="colorError">@color/fin_error</item>
     </style>
 
     <style name="AppBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
