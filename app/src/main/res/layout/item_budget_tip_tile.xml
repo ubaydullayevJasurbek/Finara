@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Smart tip plitkasi: to'rning oxirida -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/fin_orange_tint"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_lightbulb"
+            app:tint="@color/fin_orange_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_extra_bold"
+            android:text="@string/smart_tip"
+            android:textColor="@color/fin_navy"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvSmartTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineSpacingExtra="2dp"
+            android:textColor="@color/fin_navy"
+            android:textSize="12sp"
+            tools:text="Reduce Transport by $60 to stay under budget." />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

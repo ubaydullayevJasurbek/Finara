@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F8FA"
+    android:background="@color/fin_bg"
     tools:context=".presentation.budget.BudgetScreen">
 
     <androidx.core.widget.NestedScrollView
@@ -24,346 +24,159 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingBottom="32dp">
+            android:paddingBottom="24dp">
 
-            <!-- 1. Header -->
-            <LinearLayout
-                android:id="@+id/budgetsHeader"
-                android:layout_width="match_parent"
+            <!-- ==================== 1. SARLAVHA ==================== -->
+            <TextView
+                android:id="@+id/bgHeaderTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:baselineAligned="false"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:fontFamily="@font/inter_extra_bold"
+                android:text="@string/budget"
+                android:textColor="@color/fin_navy"
+                android:textSize="26sp" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/bgHeaderSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="@color/fin_text_secondary"
+                android:textSize="13sp"
+                tools:text="November 2026" />
 
-                    <TextView
-                        android:id="@+id/bgHeaderTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_extra_bold"
-                        android:text="@string/budget"
-                        android:textColor="#0B0F14"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/bgHeaderSubtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:drawableEnd="@drawable/ic_expand_more"
-                        android:drawablePadding="4dp"
-                        android:fontFamily="@font/inter_medium"
-                        android:gravity="center_vertical"
-                        android:text="@string/march_2026"
-                        android:textColor="#6B7280"
-                        android:textSize="13sp"
-                        app:drawableTint="#6B7280"
-                        tools:ignore="UseCompatTextViewDrawableXml" />
-                </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/btnBudget"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_circle_green_solid"
-                    android:clickable="true"
-                    android:contentDescription="@string/add_budget"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_add"
-                        app:tint="@color/white" />
-
-                </FrameLayout>
-            </LinearLayout>
-
-            <!-- 2. Budget overview (hero) kartasi -->
+            <!-- ==================== 2. UMUMIY KARTA ====================
+                 "Qancha qoldi" asosiy raqam, kunlik limit yonida, ostida
+                 budjet taqsimoti chizig'i va legenda (kodda quriladi). -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/budgetOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="28dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false"
-                app:strokeColor="#E3F0E7"
-                app:strokeWidth="1dp">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/bg_budget_hero"
-                        android:importantForAccessibility="no" />
-
-                    <!-- Dekorativ yumshoq doiralar (och ranglarda, zich emas) -->
-                    <View
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_gravity="top|end"
-                        android:layout_marginTop="-60dp"
-                        android:layout_marginEnd="-50dp"
-                        android:background="@drawable/bg_circle_green_translucent"
-                        android:importantForAccessibility="no" />
-
-                    <View
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="bottom|start"
-                        android:layout_marginStart="-24dp"
-                        android:layout_marginBottom="-16dp"
-                        android:background="@drawable/bg_circle_green_translucent"
-                        android:importantForAccessibility="no" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <com.google.android.material.progressindicator.CircularProgressIndicator
-                                android:id="@+id/progressSpent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:indeterminate="false"
-                                android:progress="68"
-                                app:indicatorColor="#0F7B55"
-                                app:indicatorDirectionCircular="clockwise"
-                                app:indicatorSize="168dp"
-                                app:trackColor="#D9ECE1"
-                                app:trackCornerRadius="12dp"
-                                app:trackThickness="14dp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/inter_medium"
-                                    android:text="@string/spent"
-                                    android:textColor="#6B7280"
-                                    android:textSize="12sp" />
-
-                                <TextView
-                                    android:id="@+id/tvSpentAmount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/inter_extra_bold"
-                                    android:text="$2,650"
-                                    android:textColor="#0B0F14"
-                                    android:textSize="30sp" />
-
-                                <TextView
-                                    android:id="@+id/tvTotalAmount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/inter_medium"
-                                    android:text="of $3,900"
-                                    android:textColor="#6B7280"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </FrameLayout>
-
-                        <!-- Shaffof "shisha" kartalar -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="22dp"
-                            android:baselineAligned="false"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="6dp"
-                                android:layout_weight="1"
-                                app:cardBackgroundColor="#A6FFFFFF"
-                                app:cardCornerRadius="18dp"
-                                app:cardElevation="0dp"
-                                app:strokeColor="#FFFFFF"
-                                app:strokeWidth="1dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="14dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/inter_medium"
-                                        android:text="@string/remaining"
-                                        android:textColor="#6B7280"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:id="@+id/tvRemaining"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="4dp"
-                                        android:fontFamily="@font/inter_extra_bold"
-                                        android:text="$1,250"
-                                        android:textColor="#0B0F14"
-                                        android:textSize="20sp" />
-                                </LinearLayout>
-                            </com.google.android.material.card.MaterialCardView>
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:layout_weight="1"
-                                app:cardBackgroundColor="#A6FFFFFF"
-                                app:cardCornerRadius="18dp"
-                                app:cardElevation="0dp"
-                                app:strokeColor="#FFFFFF"
-                                app:strokeWidth="1dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="14dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/inter_medium"
-                                        android:text="@string/daily_left"
-                                        android:textColor="#6B7280"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:id="@+id/tvDailyLeft"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="4dp"
-                                        android:fontFamily="@font/inter_extra_bold"
-                                        android:text="$96"
-                                        android:textColor="#0F7B55"
-                                        android:textSize="20sp" />
-                                </LinearLayout>
-                            </com.google.android.material.card.MaterialCardView>
-                        </LinearLayout>
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipStatus"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:clickable="false"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="On track · 68% used"
-                            android:textColor="#0F7B55"
-                            android:textSize="13sp"
-                            app:chipBackgroundColor="#DDF5E8"
-                            app:chipCornerRadius="20dp"
-                            app:chipIcon="@drawable/ic_check"
-                            app:chipIconSize="16dp"
-                            app:chipIconTint="#0F7B55"
-                            app:chipStrokeWidth="0dp" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 3. Smart tip -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardSmartTip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#FFF0C2"
-                app:cardCornerRadius="18dp"
+                app:cardBackgroundColor="@color/fin_surface"
+                app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                app:strokeColor="@color/fin_border"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="14dp"
-                        app:cardElevation="0dp">
-
-                        <ImageView
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:layout_gravity="center"
-                            android:importantForAccessibility="no"
-                            android:src="@drawable/ic_lightbulb"
-                            app:tint="#B7791F" />
-                    </com.google.android.material.card.MaterialCardView>
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:baselineAligned="false"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvRemainingLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="@string/budget_left_to_spend"
+                                android:textColor="@color/fin_text_secondary"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tvRemaining"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_extra_bold"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="-0.02"
+                                android:textColor="@color/fin_navy"
+                                android:textSize="36sp"
+                                tools:text="$330" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_extra_bold"
-                            android:text="@string/smart_tip"
-                            android:textColor="#0B0F14"
-                            android:textSize="15sp" />
+                            android:gravity="end"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvSmartTip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="Reduce Dining by $80 to stay under budget this month."
-                            android:textColor="#5B5F66"
-                            android:textSize="13sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="@string/budget_daily"
+                                android:textColor="@color/fin_text_secondary"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvDailyLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_extra_bold"
+                                android:textColor="@color/fin_blue"
+                                android:textSize="18sp"
+                                tools:text="$33" />
+                        </LinearLayout>
                     </LinearLayout>
+
+                    <!-- Taqsimot chizig'i: segmentlar kodda qo'shiladi (har bir kategoriya + qolgan) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="14dp"
+                        app:cardBackgroundColor="@color/fin_blue_tint"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:id="@+id/shareBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Legenda: "● Housing $1,200" (kodda), qatorlarga o'zi bo'linadi -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/legendGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:chipSpacingHorizontal="14dp"
+                        app:chipSpacingVertical="6dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipStatus"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:clickable="false"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="@color/fin_success"
+                        android:textSize="13sp"
+                        app:chipBackgroundColor="@color/fin_success_tint"
+                        app:chipCornerRadius="20dp"
+                        app:chipIcon="@drawable/ic_check"
+                        app:chipIconSize="16dp"
+                        app:chipIconTint="@color/fin_success"
+                        app:chipStrokeWidth="0dp"
+                        tools:text="Near limit · 83% used" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 4. Categories sarlavhasi + Edit -->
+            <!-- ==================== 3. KATEGORIYALAR (2 ustunli to'r) ==================== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -374,8 +187,8 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_extra_bold"
                     android:text="@string/categories"
-                    android:textColor="#0B0F14"
-                    android:textSize="18sp" />
+                    android:textColor="@color/fin_navy"
+                    android:textSize="17sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditCategories"
@@ -390,10 +203,11 @@
                     android:paddingHorizontal="4dp"
                     android:paddingVertical="0dp"
                     android:text="@string/edit"
-                    android:textColor="#0F7B55"
+                    android:textColor="@color/fin_blue"
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- Budjet plitkalari + "New budget" + "Smart tip" plitkalari -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategories"
                 android:layout_width="match_parent"
@@ -401,13 +215,19 @@
                 android:layout_marginTop="4dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_budget_category" />
+                tools:itemCount="4"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_budget_tile"
+                tools:spanCount="2" />
 
+            <!-- Budjet tarixi: hozircha yashirin. Undagi oylar va summalar layout'da
+                 qotirib yozilgan (haqiqiy ma'lumot emas). Ma'lumotga ulangach VISIBLE qiling. -->
             <include
                 android:id="@+id/budgetHistory"
-                layout="@layout/layout_budget_history" />
+                layout="@layout/layout_budget_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

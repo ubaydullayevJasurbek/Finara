@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.domain.repository.BudgetRepository
+import com.ubaydullayev.expensetracker.utils.BudgetCalculator
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
 class BudgetsViewModel(
@@ -33,10 +33,15 @@ class BudgetsViewModel(
             0
         }
 
-        val dailyLeft = calculateDailyLeft(remaining)
-        val statusText = buildStatusText(spentPercent)
+        val dailyLeft = BudgetCalculator.dailyAllowance(
+            totalLimit,
+            totalSpent,
+            BudgetCalculator.daysLeftInMonth()
+        )
+        val overBudgetCount =
+            budgets.count { it.limitAmount > 0 && it.spentAmount > it.limitAmount }
+        val statusText = buildStatusText(spentPercent, overBudgetCount)
         val smartTip = buildSmartTip(budgets)
-        val reduceTarget = findReduceTarget(budgets)
         val monthLabel = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
             .format(System.currentTimeMillis())
 
@@ -48,23 +53,18 @@ class BudgetsViewModel(
             dailyLeft = dailyLeft,
             spentPercent = spentPercent,
             statusText = statusText,
-            smartTipText = smartTip,
-            smartTipCategory = reduceTarget?.first,
-            smartTipReduceBy = reduceTarget?.second ?: 0.0,
-            categories = budgets
+            smartTip = smartTip,
+            categories = budgets,
+            overBudgetCount = overBudgetCount
         )
     }
 
-    private fun calculateDailyLeft(remaining: Double): Double {
-        val calendar = Calendar.getInstance()
-        val totalDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-        val daysLeft = (totalDaysInMonth - currentDay + 1).coerceAtLeast(1)
-
-        return remaining / daysLeft
-    }
+    /** Bir kategoriyaga faqat bitta budjet (aks holda bitta xarajat ikki marta hisoblanadi). */
+    fun hasBudgetFor(category: String): Boolean =
+        uiState.value.categories.any { it.category.equals(category, ignoreCase = true) }
 
     fun addBudget(category: String, limitAmount: Double) {
+        if (hasBudgetFor(category)) return
         viewModelScope.launch {
             budgetRepository.addBudget(
                 Budget(
@@ -78,7 +78,12 @@ class BudgetsViewModel(
         }
     }
 
-    private fun buildStatusText(percent: Int): String {
+    private fun buildStatusText(percent: Int, overBudgetCount: Int): String {
+        // Biror kategoriya limitdan oshgan bo'lsa, umumiy foiz past bo'lsa ham ogohlantiramiz
+        if (overBudgetCount > 0) {
+            val noun = if (overBudgetCount == 1) "category" else "categories"
+            return "$overBudgetCount $noun over budget · $percent% used"
+        }
         return when {
             percent < 80 -> "On track · $percent% used"
             percent < 100 -> "Near limit · $percent% used"
@@ -86,21 +91,27 @@ class BudgetsViewModel(
         }
     }
 
-    /** Pulsiz tiplar uchun matn. Summali "Reduce ..." tipi [findReduceTarget] orqali UI da quriladi. */
-    private fun buildSmartTip(budgets: List<Budget>): String {
-        if (budgets.isEmpty()) return "Add a budget to get personalized tips."
-        if (findReduceTarget(budgets) != null) return ""
-        return "You're doing great! All categories are within budget."
-    }
-
-    /** Eng xavfli kategoriya va 80% chegaradan oshgan summa (home valyutada), yoki null */
-    private fun findReduceTarget(budgets: List<Budget>): Pair<String, Double>? {
+    /** Eng xavfli budjet (spent/limit eng katta) asosida tip. Summalar home valyutada. */
+    private fun buildSmartTip(budgets: List<Budget>): SmartTip {
+        if (budgets.isEmpty()) return SmartTip.NoBudgets
         val riskiest = budgets
             .filter { it.limitAmount > 0 }
-            .maxByOrNull { it.spentAmount / it.limitAmount } ?: return null
-        val overAmount = riskiest.spentAmount - (riskiest.limitAmount * 0.8)
-        return if (overAmount > 0) riskiest.title to overAmount else null
+            .maxByOrNull { it.spentAmount / it.limitAmount } ?: return SmartTip.AllGood
+        val spent = riskiest.spentAmount
+        val limit = riskiest.limitAmount
+        return when {
+            spent > limit -> SmartTip.OverBudget(riskiest.title, spent - limit)
+            spent >= limit * 0.8 -> SmartTip.NearLimit(
+                category = riskiest.title,
+                left = limit - spent,
+                perDay = BudgetCalculator.dailyAllowance(
+                    limit, spent, BudgetCalculator.daysLeftInMonth()
+                )
+            )
+            else -> SmartTip.AllGood
+        }
     }
+
     fun deleteBudget(budget: Budget) {
         viewModelScope.launch {
             budgetRepository.deleteBudget(budget)
