@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Profile avatari: och ko'k doira, oq hoshiya (navy hero ustida ajralib turadi). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/fin_blue_tint" />
+    <stroke
+        android:width="2dp"
+        android:color="#33FFFFFF" />
+</shape>

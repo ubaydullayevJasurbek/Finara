@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Profile ekrani matnlari -->
+<resources>
+    <string name="profile_title">Profile</string>
+    <string name="profile_edit">Edit</string>
+    <string name="profile_edit_cd">Edit profile</string>
+    <string name="profile_stat_transactions">Transactions</string>
+    <string name="profile_stat_goals">Goals</string>
+    <string name="profile_stat_since">Member since</string>
+
+    <string name="profile_section_preferences">Preferences</string>
+    <string name="profile_section_data">Data</string>
+    <string name="profile_section_support">Support</string>
+    <string name="profile_section_account">Account</string>
+
+    <string name="profile_currency">Currency</string>
+    <string name="profile_hide_balance">Hide balance on start</string>
+    <string name="profile_hide_balance_sub">Home opens with amounts hidden</string>
+    <string name="profile_export">Export to CSV</string>
+    <string name="profile_export_sub">All transactions in one file</string>
+    <string name="profile_reset">Reset app data</string>
+    <string name="profile_reset_sub">Start fresh, keep your account</string>
+    <string name="profile_support">Contact support</string>
+    <string name="profile_support_sub">Questions, bugs, ideas</string>
+    <string name="profile_privacy">Privacy policy</string>
+    <string name="profile_about">About Finara</string>
+    <string name="profile_sign_out">Sign out</string>
+    <string name="profile_delete_account">Delete account</string>
+    <string name="profile_local_note">Your data is stored only on this device</string>
+
+    <!-- Dialoglar -->
+    <string name="profile_edit_title">Edit profile</string>
+    <string name="profile_name_required">Enter your name</string>
+    <string name="profile_save">Save</string>
+    <string name="profile_cancel">Cancel</string>
+
+    <string name="profile_sign_out_title">Sign out?</string>
+    <string name="profile_sign_out_message">Your data stays on this device. Sign in with the same account to see it again.</string>
+
+    <string name="profile_reset_title">Reset app data?</string>
+    <string name="profile_reset_message">All transactions, budgets, saving goals and bills on this device will be deleted. Your account stays. This can\'t be undone.</string>
+    <string name="profile_reset_confirm">Reset</string>
+    <string name="profile_reset_done">App data cleared</string>
+
+    <string name="profile_delete_title">Delete your account?</string>
+    <string name="profile_delete_message">Your Finara account and all data on this device will be permanently deleted. This can\'t be undone.</string>
+    <string name="profile_delete_confirm">Delete</string>
+    <string name="profile_delete_password_title">Confirm it\'s you</string>
+    <string name="profile_delete_password_message">Enter the password for %1$s to delete your account.</string>
+    <string name="profile_password_hint">Password</string>
+    <string name="profile_password_required">Enter your password</string>
+    <string name="profile_delete_done">Your account has been deleted</string>
+
+    <string name="profile_error_wrong_password">Wrong password. Try again.</string>
+    <string name="profile_error_wrong_account">Choose the same Google account you signed in with.</string>
+    <string name="profile_error_network">No internet connection. Try again.</string>
+    <string name="profile_error_generic">Something went wrong. Try again.</string>
+
+    <string name="profile_export_empty">No transactions to export</string>
+    <string name="profile_export_chooser">Export data</string>
+    <string name="profile_no_email_app">No email app found</string>
+    <string name="profile_no_browser">No browser found</string>
+    <string name="profile_about_message">Version %1$s\n\nPersonal finance manager. Your transactions, budgets and goals are stored only on this device.</string>
+    <string name="profile_ok">OK</string>
+    <string name="profile_version_short">v%1$s</string>
+    <string name="profile_currency_value">%1$s %2$s</string>
+</resources>
