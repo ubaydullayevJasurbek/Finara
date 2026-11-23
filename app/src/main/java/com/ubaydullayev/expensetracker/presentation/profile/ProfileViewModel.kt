@@ -1,18 +1,27 @@
 package com.ubaydullayev.expensetracker.presentation.profile
 
-import android.util.Patterns
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.ubaydullayev.expensetracker.R
+import com.ubaydullayev.expensetracker.core.auth.SessionManager
 import com.ubaydullayev.expensetracker.data.local.prefs.UserPreferences
 import com.ubaydullayev.expensetracker.domain.model.Transaction
+import com.ubaydullayev.expensetracker.domain.repository.SavingGoalRepository
 import com.ubaydullayev.expensetracker.domain.repository.TransactionRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -23,49 +32,94 @@ import java.util.Locale
 
 class ProfileViewModel(
     private val prefs: UserPreferences,
-    private val transactionRepository: TransactionRepository
+    private val session: SessionManager,
+    private val transactionRepository: TransactionRepository,
+    savingGoalRepository: SavingGoalRepository
 ) : ViewModel() {
 
-    /** One-shot results of [exportData]. */
-    sealed interface ExportEvent {
-        data object Empty : ExportEvent
-        data class Ready(val csv: String) : ExportEvent
+    /** Bir martalik natijalar (toast, ulashish, Login'ga o'tish). */
+    sealed interface ProfileEvent {
+        data object ExportEmpty : ProfileEvent
+        data class ExportReady(val csv: String) : ProfileEvent
+        data object DataReset : ProfileEvent
+        data object SignedOut : ProfileEvent
+        data object AccountDeleted : ProfileEvent
+        data class Error(@StringRes val messageRes: Int) : ProfileEvent
     }
 
-    val uiState: StateFlow<ProfileUiState> = combine(
-        prefs.profile,
-        prefs.notificationsEnabled,
-        prefs.currencyCode
-    ) { profile, notifications, currency ->
+    private val busy = MutableStateFlow(false)
 
+    /**
+     * Har safar joriy foydalanuvchidan o'qiladi: tab holati saqlanib qolgani uchun
+     * ViewModel boshqa akkaunt kirgandan keyin ham ishlatilishi mumkin.
+     */
+    private fun memberSince(): String? = session.currentUser?.metadata?.creationTimestamp
+        ?.takeIf { it > 0 }
+        ?.let { SimpleDateFormat("MMM yyyy", Locale.US).format(Date(it)) }
+
+    private val settings = combine(
+        prefs.profile,
+        prefs.currencyCode,
+        prefs.hideBalanceOnStart
+    ) { profile, currency, hideBalance -> Triple(profile, currency, hideBalance) }
+
+    val uiState: StateFlow<ProfileUiState> = combine(
+        settings,
+        transactionRepository.getAllTransactions().map { it.size },
+        savingGoalRepository.getAllGoals().map { it.size },
+        busy
+    ) { (profile, currency, hideBalance), transactions, goals, isBusy ->
         ProfileUiState(
-            name = profile.name,
+            name = profile.displayName,
             email = profile.email,
             initials = profile.initials,
-            notificationsEnabled = notifications,
-            currencyCode = currency
+            currencyCode = currency,
+            hideBalanceOnStart = hideBalance,
+            transactionCount = transactions,
+            goalCount = goals,
+            memberSince = memberSince(),
+            busy = isBusy
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProfileUiState())
 
     // Channel (not SharedFlow) so an event emitted while the screen is stopped is delivered once on return.
-    private val _exportEvents = Channel<ExportEvent>(Channel.BUFFERED)
-    val exportEvents: Flow<ExportEvent> = _exportEvents.receiveAsFlow()
+    private val _events = Channel<ProfileEvent>(Channel.BUFFERED)
+    val events: Flow<ProfileEvent> = _events.receiveAsFlow()
 
     private var exportInProgress = false
 
-    fun updateProfile(name: String, email: String): Boolean {
+    val accountEmail: String
+        get() = session.currentUser?.email.orEmpty()
+
+    fun isGoogleAccount(): Boolean = session.isGoogleAccount()
+
+    /** false - ism bo'sh. */
+    fun updateName(name: String): Boolean {
         val cleanName = name.trim()
-        val cleanEmail = email.trim()
         if (cleanName.isEmpty()) return false
-        if (cleanEmail.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(cleanEmail).matches()) {
-            return false
-        }
-        prefs.updateProfile(cleanName, cleanEmail)
+        prefs.updateProfile(cleanName, prefs.profile.value.email)
         return true
     }
-    fun setNotificationsEnabled(enabled: Boolean) = prefs.setNotificationsEnabled(enabled)
 
     fun setCurrency(code: String) = prefs.setCurrencyCode(code)
+
+    fun setHideBalanceOnStart(hide: Boolean) = prefs.setHideBalanceOnStart(hide)
+
+    fun signOut() = runBusy {
+        session.signOut()
+        _events.send(ProfileEvent.SignedOut)
+    }
+
+    fun resetAppData() = runBusy {
+        session.resetAppData()
+        _events.send(ProfileEvent.DataReset)
+    }
+
+    /** [credential] - qayta tasdiqlash uchun (parol yoki Google). */
+    fun deleteAccount(credential: AuthCredential) = runBusy {
+        session.deleteAccount(credential)
+        _events.send(ProfileEvent.AccountDeleted)
+    }
 
     fun exportData() {
         if (exportInProgress) return
@@ -74,15 +128,39 @@ class ProfileViewModel(
             try {
                 val transactions = transactionRepository.getAllTransactions().first()
                 val event = if (transactions.isEmpty()) {
-                    ExportEvent.Empty
+                    ProfileEvent.ExportEmpty
                 } else {
-                    ExportEvent.Ready(withContext(Dispatchers.Default) { buildCsv(transactions) })
+                    ProfileEvent.ExportReady(withContext(Dispatchers.Default) { buildCsv(transactions) })
                 }
-                _exportEvents.send(event)
+                _events.send(event)
             } finally {
                 exportInProgress = false
             }
         }
+    }
+
+    /** Bir vaqtda faqat bitta og'ir amal; xato bo'lsa tushunarli xabar yuboriladi. */
+    private fun runBusy(block: suspend () -> Unit) {
+        if (busy.value) return
+        busy.value = true
+        viewModelScope.launch {
+            try {
+                block()
+            } catch (e: Exception) {
+                _events.send(ProfileEvent.Error(errorMessage(e)))
+            } finally {
+                busy.value = false
+            }
+        }
+    }
+
+    @StringRes
+    private fun errorMessage(e: Exception): Int = when {
+        e is FirebaseNetworkException -> R.string.profile_error_network
+        e is FirebaseAuthException && e.errorCode == "ERROR_USER_MISMATCH" ->
+            R.string.profile_error_wrong_account
+        e is FirebaseAuthInvalidCredentialsException -> R.string.profile_error_wrong_password
+        else -> R.string.profile_error_generic
     }
 
     private fun buildCsv(transactions: List<Transaction>): String {

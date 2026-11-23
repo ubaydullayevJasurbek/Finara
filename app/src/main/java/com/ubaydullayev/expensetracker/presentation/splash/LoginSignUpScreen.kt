@@ -19,6 +19,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.userProfileChangeRequest
 import com.ubaydullayev.expensetracker.R
+import com.ubaydullayev.expensetracker.core.auth.SessionManager
 import com.ubaydullayev.expensetracker.databinding.ScreenLoginSignUpBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
 import com.ubaydullayev.expensetracker.presentation.common.applySystemBarInsetsAsPadding
@@ -114,7 +115,9 @@ class LoginSignUpScreen : BaseFragment<ScreenLoginSignUpBinding>() {
                     .createFrom(credential.data).idToken
 
                 val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
-                auth.signInWithCredential(firebaseCredential).await()
+                val user = auth.signInWithCredential(firebaseCredential).await().user
+                    ?: error("Google sign-in returned no user")
+                SessionManager.getInstance(requireContext()).onSignedIn(user, rememberMe = true)
                 findNavController().navigate(R.id.action_loginSignUpScreen_to_homeScreen)
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
@@ -134,7 +137,10 @@ class LoginSignUpScreen : BaseFragment<ScreenLoginSignUpBinding>() {
                 val profileUpdate = userProfileChangeRequest {
                     displayName = name
                 }
-                result.user?.updateProfile(profileUpdate)?.await()
+                val user = result.user ?: error("Sign-up returned no user")
+                user.updateProfile(profileUpdate).await()
+                SessionManager.getInstance(requireContext())
+                    .onSignedIn(user, rememberMe = true, newName = name)
                 findNavController().navigate(R.id.action_loginSignUpScreen_to_homeScreen)
             } catch (e: Exception) {
                 createAccountBtn.isEnabled = true

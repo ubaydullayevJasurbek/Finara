@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Profile ekranidagi bitta qator: ikonka, sarlavha, ixtiyoriy izoh, qiymat va chevron yoki switch.
+     Ranglar ProfileScreen.setupRow() da beriladi (oddiy yoki xavfli qator). -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,16 +10,16 @@
     android:clickable="true"
     android:focusable="true"
     android:gravity="center_vertical"
-    android:minHeight="64dp"
+    android:minHeight="60dp"
     android:orientation="horizontal"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="12dp">
+    android:paddingVertical="10dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardRowIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:cardBackgroundColor="#DDF5E8"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        app:cardBackgroundColor="@color/fin_blue_tint"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
         app:strokeWidth="0dp">
@@ -28,8 +30,8 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:importantForAccessibility="no"
-            app:tint="#0F7B55"
-            tools:src="@drawable/ic_notifications" />
+            app:tint="@color/fin_blue"
+            tools:src="@drawable/ic_currency" />
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
@@ -43,8 +45,8 @@
             android:id="@+id/tvRowTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_extra_bold"
-            android:textColor="#0B0F14"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/fin_navy"
             android:textSize="15sp"
             tools:text="Currency" />
 
@@ -54,10 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/inter_medium"
-            android:textColor="#6B7280"
+            android:textColor="@color/fin_text_secondary"
             android:textSize="12sp"
             android:visibility="gone"
-            tools:text="Push, email, alerts"
+            tools:text="Home opens with amounts hidden"
             tools:visibility="visible" />
     </LinearLayout>
 
@@ -67,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/inter_medium"
-        android:textColor="#6B7280"
+        android:textColor="@color/fin_text_secondary"
         android:textSize="13sp"
         android:visibility="gone"
         tools:text="USD $"
@@ -80,7 +82,7 @@
         android:layout_marginStart="6dp"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_chevron_right"
-        app:tint="#9CA3AF" />
+        app:tint="@color/fin_text_secondary" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/switchRow"

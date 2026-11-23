@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainGraph">
+    app:startDestination="@id/splashScreen">
+
+    <!-- Sign out / Delete account: butun back stack tozalanadi, Login ochiladi. -->
+    <action
+        android:id="@+id/action_global_loginScreen"
+        app:destination="@id/loginScreen"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/splashScreen"
@@ -14,6 +21,15 @@
         <action
             android:id="@+id/action_splashScreen_to_onboardingScreen"
             app:destination="@id/onboardingScreen"
+            app:enterAnim="@anim/splash_fade_in"
+            app:exitAnim="@anim/splash_fade_out"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true" />
+
+        <!-- Kirgan foydalanuvchi ("Remember me"): Login'siz asosiy grafga. -->
+        <action
+            android:id="@+id/action_splashScreen_to_mainGraph"
+            app:destination="@id/mainGraph"
             app:enterAnim="@anim/splash_fade_in"
             app:exitAnim="@anim/splash_fade_out"
             app:popUpTo="@id/splashScreen"
