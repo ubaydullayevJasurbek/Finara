@@ -15,7 +15,10 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.ubaydullayev.expensetracker.R
+import com.ubaydullayev.expensetracker.core.auth.SessionManager
 import com.ubaydullayev.expensetracker.databinding.ScreenSplashBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
 import kotlinx.coroutines.Dispatchers
@@ -105,11 +108,21 @@ class SplashScreen : BaseFragment<ScreenSplashBinding>() {
         // Guard against navigating twice / from the wrong destination (would throw with popUpToInclusive).
         if (navController.currentDestination?.id != R.id.splashScreen) return
 
+        val session = SessionManager.getInstance(requireContext())
+        val destination = when {
+            !onboardingDone -> R.id.action_splashScreen_to_onboardingScreen
+            // Kirgan va "Remember me" yoqilgan: Login'siz to'g'ri Home'ga.
+            session.hasActiveSession() -> R.id.action_splashScreen_to_mainGraph
+            else -> {
+                // "Remember me" o'chirilgan bo'lsa, eski sessiya yopiladi.
+                if (session.currentUser != null) {
+                    Firebase.auth.signOut()
+                }
+                R.id.action_splashScreen_to_loginScreen
+            }
+        }
         // The fade in/out crossfade is declared on the actions in nav_graph.xml.
-        navController.navigate(
-            if (onboardingDone) R.id.action_splashScreen_to_loginScreen
-            else R.id.action_splashScreen_to_onboardingScreen
-        )
+        navController.navigate(destination)
     }
 
     override fun onDestroyView() {

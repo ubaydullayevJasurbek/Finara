@@ -16,8 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.adapter.budgetsadapter.BudgetsAdapter
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
@@ -71,6 +69,15 @@ class HomeScreen :
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ScreenHomeBinding.inflate(inflater, container, false)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Ekran birinchi marta yaratilganda Profile'dagi "Hide balance on start" sozlamasi olinadi.
+        // Keyin ko'z tugmasidagi tanlov ekran qayta chizilganda ham saqlanadi.
+        if (savedInstanceState == null) {
+            isBalanceHidden = UserPreferences.getInstance(requireContext()).hideBalanceOnStart.value
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -161,19 +168,11 @@ class HomeScreen :
                 launch {
                     viewModel.insight.collect { bindInsight(it) }
                 }
-                // Ism, initsiallar va valyuta Profile ekranidagi bilan bir manbadan
+                // Ism, initsiallar va valyuta Profile ekranidagi bilan bir manbadan.
+                // Ism kirish paytida SessionManager tomonidan Firebase'dan olinadi.
                 launch {
-                    val prefs = UserPreferences.getInstance(requireContext())
-                    prefs.profile.collect { profile ->
-                        // Ro'yxatdan o'tishda ism faqat Firebase'ga yozilgan bo'lishi mumkin:
-                        // prefs'da hali standart qiymat bo'lsa, Firebase'dagisini ko'chiramiz.
-                        val firebaseUser = Firebase.auth.currentUser
-                        val firebaseName = firebaseUser?.displayName.orEmpty().trim()
-                        if (profile.name == DEFAULT_PROFILE_NAME && firebaseName.isNotEmpty()) {
-                            prefs.updateProfile(firebaseName, firebaseUser?.email.orEmpty())
-                            return@collect // yangilangan profil shu collect'ga qayta keladi
-                        }
-                        binding.tvUserName.text = profile.name
+                    UserPreferences.getInstance(requireContext()).profile.collect { profile ->
+                        binding.tvUserName.text = profile.displayName
                         binding.ivProfile.text = profile.initials
                     }
                 }
@@ -377,8 +376,6 @@ class HomeScreen :
     }
 
     private companion object {
-        /** UserPreferences'dagi standart ism (foydalanuvchi hali ism kiritmagan). */
-        const val DEFAULT_PROFILE_NAME = "Your Name"
         const val KEY_BALANCE_HIDDEN = "home_balance_hidden"
         const val BALANCE_MASK = "••••••"
     }

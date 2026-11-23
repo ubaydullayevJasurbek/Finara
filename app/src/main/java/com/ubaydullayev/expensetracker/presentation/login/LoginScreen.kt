@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.auth
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.core.auth.GoogleSignInHelper
+import com.ubaydullayev.expensetracker.core.auth.SessionManager
 import com.ubaydullayev.expensetracker.databinding.ScreenLoginBinding
 import com.ubaydullayev.expensetracker.presentation.common.BaseFragment
 import com.ubaydullayev.expensetracker.presentation.common.applySystemBarInsetsAsPadding
@@ -92,7 +93,9 @@ class LoginScreen : BaseFragment<ScreenLoginBinding>() {
 
             viewLifecycleOwner.lifecycleScope.launch {
                 val signedIn = try {
-                    auth.signInWithEmailAndPassword(email, password).await()
+                    val user = auth.signInWithEmailAndPassword(email, password).await().user
+                        ?: error("Sign-in returned no user")
+                    SessionManager.getInstance(requireContext()).onSignedIn(user, isRememberMe)
                     true
                 } catch (e: Exception) {
                     signInBtn.isEnabled = true
@@ -121,23 +124,24 @@ class LoginScreen : BaseFragment<ScreenLoginBinding>() {
         googleBtn.setOnClickListener { signInWithGoogle() }
     }
 
-    private fun signInWithGoogle() = with(binding) {
+    private fun signInWithGoogle() {
+        binding.googleBtn.isEnabled = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            val signedIn = try {
+                val user = googleHelper.signIn()
+                // Google'da "Remember me" belgisi yo'q: sessiya saqlanadi.
+                SessionManager.getInstance(requireContext()).onSignedIn(user, rememberMe = true)
+                true
+            } catch (e: Exception) {
+                binding.googleBtn.isEnabled = true
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                false
+            }
 
-        googleBtn.setOnClickListener {
-            lifecycleScope.launch {
-                val signedIn = try {
-                    googleHelper.signIn()
-                    true
-                } catch (e: Exception) {
-                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-                    false
-                }
-
-                // Navigate outside the auth try/catch so a navigation failure is never masked
-                // as a sign-in error.
-                if (signedIn) {
-                    findNavController().navigate(R.id.action_loginScreen_to_homeScreen)
-                }
+            // Navigate outside the auth try/catch so a navigation failure is never masked
+            // as a sign-in error.
+            if (signedIn) {
+                findNavController().navigate(R.id.action_loginScreen_to_homeScreen)
             }
         }
     }
