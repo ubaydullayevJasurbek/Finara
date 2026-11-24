@@ -10,6 +10,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,8 @@ import com.google.firebase.auth.auth
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.core.auth.GoogleSignInHelper
 import com.ubaydullayev.expensetracker.core.auth.SessionManager
+import com.ubaydullayev.expensetracker.data.backup.BackupSummary
+import com.ubaydullayev.expensetracker.data.backup.BackupManager
 import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
 import com.ubaydullayev.expensetracker.data.local.prefs.UserPreferences
 import com.ubaydullayev.expensetracker.data.repository.SavingGoalRepositoryImpl
@@ -71,11 +74,24 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
                 prefs = UserPreferences.getInstance(requireContext()),
                 session = SessionManager.getInstance(requireContext()),
                 transactionRepository = TransactionRepositoryImpl(db.transactionDao()),
-                savingGoalRepository = SavingGoalRepositoryImpl(db.savingGoalDao())
+                savingGoalRepository = SavingGoalRepositoryImpl(db.savingGoalDao()),
+                backupManager = BackupManager(requireContext())
             )
         }
 
     private val googleHelper by lazy { GoogleSignInHelper(this, Firebase.auth) }
+
+    /** Zaxira faylini qayerga saqlashni foydalanuvchi tanlaydi (telefon, Drive...). */
+    private val createBackupFile =
+        registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+            uri?.let { viewModel.backupTo(it) }
+        }
+
+    /** Ba'zi joylar (masalan Drive) JSON'ni boshqa turda ko'rsatadi, shuning uchun bir nechta tur. */
+    private val openBackupFile =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri?.let { viewModel.readBackup(it) }
+        }
 
     /** Ikonka foni va rangi: oddiy qatorlar ko'k, xavfli amallar to'q sariq yoki qizil. */
     private enum class RowTone(@ColorRes val bg: Int, @ColorRes val tint: Int, @ColorRes val title: Int) {
@@ -114,6 +130,8 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
             R.drawable.ic_eye_off, R.string.profile_hide_balance,
             subtitle = R.string.profile_hide_balance_sub, trailing = Trailing.SWITCH
         )
+        rowBackup.setup(R.drawable.ic_backup, R.string.profile_backup, R.string.profile_backup_sub)
+        rowRestore.setup(R.drawable.ic_restore, R.string.profile_restore, R.string.profile_restore_sub)
         rowExport.setup(R.drawable.ic_download, R.string.profile_export, R.string.profile_export_sub)
         rowReset.setup(
             R.drawable.ic_refresh, R.string.profile_reset, R.string.profile_reset_sub,
@@ -161,6 +179,13 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
             viewModel.setHideBalanceOnStart(checked)
         }
 
+        rowBackup.root.setOnClickListener {
+            val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+            createBackupFile.launch("finara-backup-$date.json")
+        }
+        rowRestore.root.setOnClickListener {
+            openBackupFile.launch(arrayOf("application/json", "application/octet-stream", "text/*"))
+        }
         rowExport.root.setOnClickListener { viewModel.exportData() }
         rowReset.root.setOnClickListener { confirmResetData() }
         rowSupport.root.setOnClickListener { sendSupportEmail() }
@@ -199,7 +224,7 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
         }
 
         progressBusy.visibility = if (state.busy) View.VISIBLE else View.GONE
-        listOf(rowReset, rowSignOut, rowDeleteAccount).forEach {
+        listOf(rowBackup, rowRestore, rowReset, rowSignOut, rowDeleteAccount).forEach {
             it.root.isEnabled = !state.busy
             it.root.alpha = if (state.busy) 0.5f else 1f
         }
@@ -218,6 +243,9 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
                             toast(R.string.profile_delete_done)
                             goToLogin()
                         }
+                        ProfileEvent.BackupSaved -> toast(R.string.profile_backup_saved)
+                        is ProfileEvent.RestorePreview -> confirmRestore(event.summary)
+                        ProfileEvent.RestoreDone -> toast(R.string.profile_restore_done)
                         is ProfileEvent.Error -> toast(event.messageRes)
                     }
                 }
@@ -297,6 +325,31 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
             .setMessage(R.string.profile_reset_message)
             .setNegativeButton(R.string.profile_cancel, null)
             .setPositiveButton(R.string.profile_reset_confirm) { _, _ -> viewModel.resetAppData() }
+            .showFinara()
+            .tintPositiveDanger()
+    }
+
+    /** Fayl o'qilgan: nima tiklanishini ko'rsatib, almashtirishni tasdiqlatamiz. */
+    private fun confirmRestore(summary: BackupSummary) {
+        val res = resources
+        val date = if (summary.createdAt > 0) {
+            SimpleDateFormat("MMM d, yyyy · HH:mm", Locale.US).format(Date(summary.createdAt))
+        } else {
+            DASH
+        }
+        val message = getString(
+            R.string.profile_restore_message,
+            date,
+            res.getQuantityString(R.plurals.profile_count_transactions, summary.transactions, summary.transactions),
+            res.getQuantityString(R.plurals.profile_count_goals, summary.savingGoals, summary.savingGoals),
+            res.getQuantityString(R.plurals.profile_count_budgets, summary.budgets, summary.budgets)
+        )
+        MaterialAlertDialogBuilder(requireContext())
+            .setFinaraTitle(R.string.profile_restore_title, R.drawable.ic_restore, DialogTone.WARNING)
+            .setMessage(message)
+            .setNegativeButton(R.string.profile_cancel) { _, _ -> viewModel.cancelRestore() }
+            .setPositiveButton(R.string.profile_restore_confirm) { _, _ -> viewModel.confirmRestore() }
+            .setOnCancelListener { viewModel.cancelRestore() }
             .showFinara()
             .tintPositiveDanger()
     }

@@ -1,5 +1,6 @@
 package com.ubaydullayev.expensetracker.presentation.profile
 
+import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,10 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.core.auth.SessionManager
+import com.ubaydullayev.expensetracker.data.backup.BackupData
+import com.ubaydullayev.expensetracker.data.backup.BackupFormatException
+import com.ubaydullayev.expensetracker.data.backup.BackupManager
+import com.ubaydullayev.expensetracker.data.backup.BackupSummary
 import com.ubaydullayev.expensetracker.data.local.prefs.UserPreferences
 import com.ubaydullayev.expensetracker.domain.model.Transaction
 import com.ubaydullayev.expensetracker.domain.repository.SavingGoalRepository
@@ -34,7 +39,8 @@ class ProfileViewModel(
     private val prefs: UserPreferences,
     private val session: SessionManager,
     private val transactionRepository: TransactionRepository,
-    savingGoalRepository: SavingGoalRepository
+    savingGoalRepository: SavingGoalRepository,
+    private val backupManager: BackupManager
 ) : ViewModel() {
 
     /** Bir martalik natijalar (toast, ulashish, Login'ga o'tish). */
@@ -44,6 +50,10 @@ class ProfileViewModel(
         data object DataReset : ProfileEvent
         data object SignedOut : ProfileEvent
         data object AccountDeleted : ProfileEvent
+        data object BackupSaved : ProfileEvent
+        /** Fayl o'qildi: foydalanuvchiga nima tiklanishini ko'rsatib, tasdiq so'raladi. */
+        data class RestorePreview(val summary: BackupSummary) : ProfileEvent
+        data object RestoreDone : ProfileEvent
         data class Error(@StringRes val messageRes: Int) : ProfileEvent
     }
 
@@ -115,6 +125,35 @@ class ProfileViewModel(
         _events.send(ProfileEvent.DataReset)
     }
 
+    // ---------- Backup / Restore ----------
+
+    /** Tasdiqlanishini kutayotgan zaxira (fayl o'qilgan, bazaga hali yozilmagan). */
+    private var pendingRestore: BackupData? = null
+
+    fun backupTo(uri: Uri) = runBusy {
+        backupManager.writeBackup(uri)
+        _events.send(ProfileEvent.BackupSaved)
+    }
+
+    fun readBackup(uri: Uri) = runBusy {
+        val data = backupManager.readBackup(uri)
+        pendingRestore = data
+        _events.send(ProfileEvent.RestorePreview(data.summary))
+    }
+
+    fun confirmRestore() {
+        val data = pendingRestore ?: return
+        pendingRestore = null
+        runBusy {
+            backupManager.restore(data)
+            _events.send(ProfileEvent.RestoreDone)
+        }
+    }
+
+    fun cancelRestore() {
+        pendingRestore = null
+    }
+
     /** [credential] - qayta tasdiqlash uchun (parol yoki Google). */
     fun deleteAccount(credential: AuthCredential) = runBusy {
         session.deleteAccount(credential)
@@ -156,6 +195,7 @@ class ProfileViewModel(
 
     @StringRes
     private fun errorMessage(e: Exception): Int = when {
+        e is BackupFormatException -> R.string.profile_backup_invalid
         e is FirebaseNetworkException -> R.string.profile_error_network
         e is FirebaseAuthException && e.errorCode == "ERROR_USER_MISMATCH" ->
             R.string.profile_error_wrong_account

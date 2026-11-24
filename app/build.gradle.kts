@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.material)
     testImplementation(libs.junit)
+    // Unit testlarda haqiqiy org.json (Android'dagisi testda "not mocked" xatosini beradi)
+    testImplementation(libs.org.json)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 

@@ -64,4 +64,28 @@
     <string name="profile_ok">OK</string>
     <string name="profile_version_short">v%1$s</string>
     <string name="profile_currency_value">%1$s %2$s</string>
+
+    <!-- Backup / Restore -->
+    <string name="profile_backup">Back up data</string>
+    <string name="profile_backup_sub">Save everything to a file</string>
+    <string name="profile_restore">Restore from backup</string>
+    <string name="profile_restore_sub">Load a Finara backup file</string>
+    <string name="profile_backup_saved">Backup saved</string>
+    <string name="profile_backup_invalid">This file isn\'t a Finara backup or it\'s damaged.</string>
+    <string name="profile_restore_title">Restore this backup?</string>
+    <string name="profile_restore_message">Backup from %1$s\n%2$s, %3$s, %4$s\n\nEverything on this device will be replaced with the backup. This can\'t be undone.</string>
+    <string name="profile_restore_confirm">Restore</string>
+    <string name="profile_restore_done">Data restored</string>
+    <plurals name="profile_count_transactions">
+        <item quantity="one">%d transaction</item>
+        <item quantity="other">%d transactions</item>
+    </plurals>
+    <plurals name="profile_count_goals">
+        <item quantity="one">%d saving goal</item>
+        <item quantity="other">%d saving goals</item>
+    </plurals>
+    <plurals name="profile_count_budgets">
+        <item quantity="one">%d budget</item>
+        <item quantity="other">%d budgets</item>
+    </plurals>
 </resources>

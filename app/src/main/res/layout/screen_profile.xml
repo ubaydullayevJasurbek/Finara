@@ -307,6 +307,22 @@
                     android:orientation="vertical">
 
                     <include
+                        android:id="@+id/rowBackup"
+                        layout="@layout/item_profile_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View style="@style/ProfileRowDivider" />
+
+                    <include
+                        android:id="@+id/rowRestore"
+                        layout="@layout/item_profile_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View style="@style/ProfileRowDivider" />
+
+                    <include
                         android:id="@+id/rowExport"
                         layout="@layout/item_profile_row"
                         android:layout_width="match_parent"
