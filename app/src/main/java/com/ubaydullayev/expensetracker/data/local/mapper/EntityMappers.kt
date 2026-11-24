@@ -5,7 +5,6 @@ import com.ubaydullayev.expensetracker.data.local.entity.ContributionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.NotificationEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
-import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.domain.model.Contribution
 import com.ubaydullayev.expensetracker.domain.model.GoalStatus
@@ -13,7 +12,6 @@ import com.ubaydullayev.expensetracker.domain.model.Notification
 import com.ubaydullayev.expensetracker.domain.model.NotificationType
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.domain.model.Transaction
-import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
 
 fun TransactionEntity.toDomainModel(): Transaction {
 
@@ -45,29 +43,6 @@ fun Transaction.toEntity(): TransactionEntity {
     )
 }
 
-fun UpcomingBillEntity.toDomainModel(): UpcomingBill {
-    return UpcomingBill(
-        id = id,
-        title = title,
-        category = category,
-        frequency = frequency,
-        price = price,
-        dueText = dueText,
-        isUrgent = isUrgent,
-    )
-}
-
-fun UpcomingBill.toEntity(): UpcomingBillEntity {
-    return UpcomingBillEntity(
-        id = id,
-        title = title,
-        category = category,
-        frequency = frequency,
-        price = price,
-        dueText = dueText,
-        isUrgent = isUrgent
-    )
-}
 
 
 fun SavingGoalEntity.toDomainModel(): SavingGoal {

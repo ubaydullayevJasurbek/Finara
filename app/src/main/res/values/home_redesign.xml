@@ -13,7 +13,7 @@
 
     <string name="home_add_to_goal">Add to goal</string>
     <string name="home_safe_to_spend">Safe to spend today</string>
-    <string name="home_upcoming_bills">Upcoming bills</string>
+    <string name="home_upcoming_bills">Upcoming payments</string>
     <string name="home_insight">Insight</string>
     <string name="home_saving_rate">Saving %1$d%%</string>
     <string name="home_cd_currency">Change currency</string>

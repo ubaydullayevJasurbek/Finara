@@ -5,11 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.ubaydullayev.expensetracker.domain.model.Budget
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.domain.model.Transaction
-import com.ubaydullayev.expensetracker.domain.model.UpcomingBill
+import com.ubaydullayev.expensetracker.domain.model.RecurringPayment
 import com.ubaydullayev.expensetracker.domain.repository.BudgetRepository
 import com.ubaydullayev.expensetracker.domain.repository.SavingGoalRepository
 import com.ubaydullayev.expensetracker.domain.repository.TransactionRepository
-import com.ubaydullayev.expensetracker.domain.repository.UpcomingBillRepository
 import com.ubaydullayev.expensetracker.utils.DateFormatter
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -27,7 +26,6 @@ import kotlin.math.roundToInt
  */
 class HomeViewModel(
     private val transactionRepository: TransactionRepository,
-    private val upcomingBillRepository: UpcomingBillRepository,
     private val savingGoalRepository: SavingGoalRepository,
     private val budgetRepository: BudgetRepository
 ) : ViewModel() {
@@ -44,8 +42,13 @@ class HomeViewModel(
                 initialValue = emptyList()
             )
 
-    val upcomingBill: StateFlow<List<UpcomingBill>> =
-        upcomingBillRepository.getAllBills()
+    /**
+     * "Recurring" belgili xarajatlardan hisoblangan keyingi to'lovlar (eng yaqini birinchi).
+     * Alohida jadval yo'q: foydalanuvchi qo'shimcha hech narsa kiritmaydi.
+     */
+    val recurringPayments: StateFlow<List<RecurringPayment>> =
+        transactionRepository.getAllTransactions()
+            .map { RecurringPayment.fromTransactions(it, System.currentTimeMillis()) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
