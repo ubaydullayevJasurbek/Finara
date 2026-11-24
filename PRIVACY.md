@@ -25,9 +25,11 @@ This data is used only to let you sign in. Google's processing is described in t
 - We don't show ads or use advertising trackers.
 - We don't upload your financial data anywhere.
 
-## Exporting your data
+## Backups and exports
 
-You can export your transactions to a CSV file at any time: **Profile → Export to CSV**. The file is shared only where you choose to send it.
+- **Back up data** (Profile → Back up data) saves all your Finara data to a file in a place you choose, such as your phone's storage or your own Google Drive. Finara doesn't upload it anywhere else. Anyone with the file can read it, so keep it somewhere safe.
+- **Restore from backup** (Profile → Restore from backup) replaces the data on this device with the contents of a backup file you pick.
+- **Export to CSV** (Profile → Export to CSV) creates a spreadsheet of your transactions and shares it only where you choose to send it.
 
 ## Deleting your data
 

@@ -35,4 +35,15 @@ interface SavingGoalDao {
 
     @Query("SELECT * FROM saving_goals WHERE status = 'ACTIVE' ORDER BY title ASC")
     fun getActiveGoals(): Flow<List<SavingGoalEntity>>
+
+    // ---- Backup / Restore (BackupManager) ----
+
+    @Query("SELECT * FROM saving_goals")
+    suspend fun getAllForBackup(): List<SavingGoalEntity>
+
+    @Query("DELETE FROM saving_goals")
+    suspend fun deleteAll()
+
+    @Insert
+    suspend fun insertAll(items: List<SavingGoalEntity>)
 }

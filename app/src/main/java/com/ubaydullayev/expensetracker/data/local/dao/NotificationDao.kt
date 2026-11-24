@@ -23,4 +23,15 @@ interface NotificationDao {
 
     @Query("UPDATE notifications SET isRead = 1 WHERE isRead = 0")
     suspend fun markAllAsRead()
+
+    // ---- Backup / Restore (BackupManager) ----
+
+    @Query("SELECT * FROM notifications")
+    suspend fun getAllForBackup(): List<NotificationEntity>
+
+    @Query("DELETE FROM notifications")
+    suspend fun deleteAll()
+
+    @Insert
+    suspend fun insertAll(items: List<NotificationEntity>)
 }

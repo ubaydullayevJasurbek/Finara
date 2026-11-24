@@ -17,4 +17,15 @@ interface CustomCategoryDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM custom_category WHERE name = :name COLLATE NOCASE)")
     suspend fun categoryExists(name: String): Boolean
+
+    // ---- Backup / Restore (BackupManager) ----
+
+    @Query("SELECT * FROM custom_category")
+    suspend fun getAllForBackup(): List<CustomCategoryEntity>
+
+    @Query("DELETE FROM custom_category")
+    suspend fun deleteAll()
+
+    @Insert
+    suspend fun insertAll(items: List<CustomCategoryEntity>)
 }

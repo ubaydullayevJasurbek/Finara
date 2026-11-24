@@ -45,5 +45,15 @@ interface TransactionDao {
 
     @Query("SELECT DISTINCT title FROM transactions ORDER BY title ASC")
     fun getDistinctMerchantNames(): Flow<List<String>>
-}
 
+    // ---- Backup / Restore (BackupManager) ----
+
+    @Query("SELECT * FROM transactions")
+    suspend fun getAllForBackup(): List<TransactionEntity>
+
+    @Query("DELETE FROM transactions")
+    suspend fun deleteAll()
+
+    @Insert
+    suspend fun insertAll(items: List<TransactionEntity>)
+}

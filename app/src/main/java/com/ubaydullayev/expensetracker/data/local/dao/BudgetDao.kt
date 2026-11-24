@@ -42,4 +42,15 @@ interface BudgetDao {
         """
     )
     fun getBudgetsWithSpending(start: Long, end: Long): Flow<List<BudgetEntity>>
+
+    // ---- Backup / Restore (BackupManager) ----
+
+    @Query("SELECT * FROM budgets")
+    suspend fun getAllForBackup(): List<BudgetEntity>
+
+    @Query("DELETE FROM budgets")
+    suspend fun deleteAll()
+
+    @Insert
+    suspend fun insertAll(items: List<BudgetEntity>)
 }
