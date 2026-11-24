@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Transaction Detail ekrani matnlari -->
+<resources>
+    <string name="detail_duplicated">Transaction duplicated</string>
+    <string name="detail_share_chooser">Share transaction</string>
+    <string name="detail_delete_title">Delete transaction?</string>
+    <string name="detail_delete_message">It will be removed from your history, balance and budgets. This can\'t be undone.</string>
+    <string name="detail_delete">Delete</string>
+    <string name="detail_cancel">Cancel</string>
+</resources>

@@ -178,9 +178,12 @@
             <action
                 android:id="@+id/action_addFabScreen_to_addTransactionScreen"
                 app:destination="@id/addTransactionScreen" />
+            <!-- "+" menyusi yopilib, o'rniga Add Money sheet'i ochiladi -->
             <action
                 android:id="@+id/action_addFabScreen_to_addMoneyToGoalScreen"
-                app:destination="@id/addMoneyToGoalScreen" />
+                app:destination="@id/addMoneyToGoalScreen"
+                app:popUpTo="@id/addFabScreen"
+                app:popUpToInclusive="true" />
         </dialog>
         <fragment
             android:id="@+id/savingGoalsScreen"
@@ -213,7 +216,8 @@
 
         </fragment>
 
-        <fragment
+        <!-- Bottom sheet: "+" menyusidan ochiladi -->
+        <dialog
             android:id="@+id/addMoneyToGoalScreen"
             android:name="com.ubaydullayev.expensetracker.presentation.addmoney.AddMoneyToGoalScreen"
             android:label="screen_add_money_to_goal"

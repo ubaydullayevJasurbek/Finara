@@ -1,6 +1,15 @@
 package com.ubaydullayev.expensetracker.presentation.transactionDetail
 
+import com.ubaydullayev.expensetracker.presentation.common.showFinara
+import com.ubaydullayev.expensetracker.presentation.common.tintPositiveDanger
+import com.ubaydullayev.expensetracker.presentation.common.setFinaraTitle
+import com.ubaydullayev.expensetracker.presentation.common.DialogTone
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.widget.Toast
+import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,11 +72,23 @@ class TransactionDetailScreen : BaseFragment<ScreenTransactionDetailBinding>() {
 
 
         binding.ivHeroIcon.setImageResource(style.iconRes)
+        // Oq sarlavhada ikonka plitkasi kategoriya rangida
+        binding.ivHeroIcon.imageTintList = ColorStateList.valueOf(style.textColor)
+        binding.heroIconBg.background = GradientDrawable().apply {
+            cornerRadius = 13f * resources.displayMetrics.density
+            setColor(style.iconBgColor)
+        }
         binding.tvHeroMerchant.text = transaction.title
         binding.tvHeroCategory.text = transaction.category
 
         val sign = if (transaction.isIncome) "+" else "−"
         binding.tvHeroAmount.text = "$sign${formatAmount(transaction.amount)}"
+        binding.tvHeroAmount.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (transaction.isIncome) R.color.fin_success else R.color.fin_error
+            )
+        )
 
         // Details
         val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
@@ -101,24 +122,53 @@ class TransactionDetailScreen : BaseFragment<ScreenTransactionDetailBinding>() {
             // rejimida ishlaydi, tahrirlash rejimi keyinroq qo'shiladi
         }
 
-        binding.btnDuplicate.setOnClickListener {
-            // TODO: keyinroq
-        }
+        binding.btnDuplicate.setOnClickListener { duplicateTransaction() }
 
-        binding.btnHeroShare.setOnClickListener {
-            // TODO: keyinroq
-        }
+        // Hero'dagi va pastdagi Share tugmalari bir xil ishlaydi
+        binding.btnHeroShare.setOnClickListener { shareTransaction() }
+        binding.btnShared.setOnClickListener { shareTransaction() }
     }
 
     private fun showDeleteConfirmation() {
         MaterialAlertDialogBuilder(requireContext(), R.style.RoundedMaterialDialog)
-            .setTitle("Delete Transaction")
-            .setMessage("Are you sure you want to delete this transaction? This cannot be undone.")
-            .setPositiveButton("Delete") { _, _ ->
+            .setFinaraTitle(R.string.detail_delete_title, R.drawable.ic_delete, DialogTone.DANGER)
+            .setMessage(R.string.detail_delete_message)
+            .setPositiveButton(R.string.detail_delete) { _, _ ->
                 deleteTransaction()
             }
-            .setNegativeButton("Cancel", null)
-            .show()
+            .setNegativeButton(R.string.detail_cancel, null)
+            .showFinara()
+            .tintPositiveDanger()
+    }
+
+    /** Nusxa hozirgi vaqt bilan yangi tranzaksiya sifatida saqlanadi. */
+    private fun duplicateTransaction() {
+        val transaction = currentTransaction ?: return
+        val dao = AppDatabase.getInstance(requireContext()).transactionDao()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            dao.insert(transaction.copy(id = 0, timestamp = System.currentTimeMillis()).toEntity())
+            Toast.makeText(requireContext(), R.string.detail_duplicated, Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun shareTransaction() {
+        val t = currentTransaction ?: return
+        val sign = if (t.isIncome) "+" else "−"
+        val date = SimpleDateFormat("MMM d, yyyy · h:mm a", Locale.getDefault()).format(t.timestamp)
+        val text = buildString {
+            appendLine(t.title)
+            appendLine("$sign${formatAmount(t.amount)} · ${t.category}")
+            appendLine(date)
+            if (t.note.isNotBlank()) appendLine(t.note)
+        }.trim()
+
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+        startActivity(Intent.createChooser(intent, getString(R.string.detail_share_chooser)))
     }
 
     private fun deleteTransaction() {

@@ -7,7 +7,7 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="18dp"
     app:cardElevation="0dp"
-    app:strokeColor="#E5E7EB"
+    app:strokeColor="@color/fin_border"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_check"
-                app:tint="#0B7E57" />
+                app:tint="@color/fin_success" />
 
         </FrameLayout>
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_extra_bold"
                 android:text="Emergency Fund"
-                android:textColor="#0B0F14"
+                android:textColor="@color/fin_navy"
                 android:textSize="15sp" />
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="Completed Feb 2026"
-                android:textColor="#6B7280"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_extra_bold"
             android:text="$10,000"
-            android:textColor="#0B7E57"
+            android:textColor="@color/fin_success"
             android:textSize="15sp" />
 
     </LinearLayout>

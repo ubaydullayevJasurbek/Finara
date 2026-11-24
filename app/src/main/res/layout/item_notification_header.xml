@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:fontFamily="@font/inter_extra_bold"
-        android:textColor="#0B0F14"
+        android:textColor="@color/fin_navy"
         android:textSize="18sp"
         tools:text="Today" />
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_medium"
-        android:textColor="#6B7280"
+        android:textColor="@color/fin_text_secondary"
         android:textSize="13sp"
         tools:text="3 new" />
 </LinearLayout>

@@ -1,8 +1,8 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:angle="135"
-        android:centerColor="#084533"
-        android:endColor="#062A20"
-        android:startColor="#0F6B4D" />
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Saving Goals kartasi: to'liq kenglikdagi banner emas, alohida navy karta.
+     Progress halqasi to'q sariq (ekranning yagona urg'u rangi). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/fin_navy" />
     <corners android:radius="24dp" />
 </shape>

@@ -7,31 +7,40 @@
     android:paddingStart="24dp"
     android:paddingTop="24dp"
     android:paddingEnd="24dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="4dp">
 
     <FrameLayout
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:background="@drawable/bg_circle_category_icon">
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_fin_icon_tile">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_gravity="center"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_grid"
-            app:tint="#0F7B55" />
+            app:tint="@color/fin_blue" />
 
     </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/inter_extra_bold"
-        android:text="New Budget"
-        android:textColor="#1A1A1A"
-        android:textSize="18sp" />
+        android:text="New budget"
+        android:textColor="@color/fin_navy"
+        android:textSize="19sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Set a monthly spending limit for one category"
+        android:textColor="@color/fin_text_secondary"
+        android:textSize="13sp" />
 
     <!-- Category tanlash qatori -->
     <com.google.android.material.card.MaterialCardView
@@ -39,10 +48,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/fin_surface"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:strokeColor="#E5E7EB"
+        app:strokeColor="@color/fin_border"
         app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,8 +63,9 @@
                 android:id="@+id/tvBudgetCategoryLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
                 android:text="Category"
-                android:textColor="#9E9E9E"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/ivBudgetCategoryArrow"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,10 +76,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/inter_extra_bold"
                 android:text="Select category"
-                android:textColor="#1A1A1A"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textColor="@color/fin_navy"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/ivBudgetCategoryArrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBudgetCategoryLabel" />
@@ -83,7 +93,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="#9E9E9E" />
+                app:tint="@color/fin_text_secondary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -92,24 +102,20 @@
     <!-- Limit summasi -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilBudgetLimit"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        style="@style/Finara.TextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Monthly limit"
-        app:boxCornerRadiusBottomEnd="14dp"
-        app:boxCornerRadiusBottomStart="14dp"
-        app:boxCornerRadiusTopEnd="14dp"
-        app:boxCornerRadiusTopStart="14dp"
-        app:boxStrokeColor="#0F7B55"
-        app:hintTextColor="#0F7B55">
+        android:hint="Monthly limit">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etBudgetLimit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
             android:inputType="numberDecimal"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="@color/fin_navy" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

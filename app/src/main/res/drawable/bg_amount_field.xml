@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Katta summa kiritish maydoni foni. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/fin_surface_muted" />
+    <corners android:radius="18dp" />
+</shape>

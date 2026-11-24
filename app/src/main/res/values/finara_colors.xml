@@ -25,6 +25,13 @@
     <color name="fin_orange_text">#FFC2410C</color>   <!-- och fondagi to'q sariq matn -->
     <color name="fin_hero_mid">#FF0A3A55</color>      <!-- hero gradient o'rtasi -->
     <color name="fin_orange_on_dark">#FFFFB59E</color> <!-- navy/ko'k fondagi to'q sariq matn -->
+    <color name="fin_surface_muted">#FFF2F4F5</color>  <!-- oq fondagi kulrang tugma, qidiruv maydoni -->
+
+    <!-- Add Transaction paneli: turga qarab (Expense / Income) -->
+    <color name="fin_expense_dark">#FF912018</color>
+    <color name="fin_expense_deep">#FF55160C</color>
+    <color name="fin_income_dark">#FF05603A</color>
+    <color name="fin_income_deep">#FF053321</color>
 
     <!-- Holat ranglari -->
     <color name="fin_success">#FF067647</color>

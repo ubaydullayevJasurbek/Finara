@@ -1,6 +1,7 @@
 package com.ubaydullayev.expensetracker.adapter.listadapter
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,15 +36,12 @@ class CategoryPickerAdapter(
         b.categoryItemName.text = category
         b.categoryItemIcon.setImageResource(style.iconRes)
 
-        // Icon foni — to'q rangli doira
-        val iconBg = GradientDrawable()
-        iconBg.shape = GradientDrawable.OVAL
-        iconBg.setColor(style.textColor)
-        b.categoryItemIconBg.background = iconBg
-
-        // Kartaning O'ZI ham och rangli fon oladi (M3 "tonal" uslubi)
-        (b.root)
-            .setCardBackgroundColor(style.iconBgColor)
+        // Kategoriya rangidagi yumaloq kvadrat plitka, karta o'zi oq
+        b.categoryItemIcon.imageTintList = ColorStateList.valueOf(style.textColor)
+        b.categoryItemIconBg.background = GradientDrawable().apply {
+            cornerRadius = 12f * b.root.resources.displayMetrics.density
+            setColor(style.iconBgColor)
+        }
 
         b.root.setOnClickListener {
             onCategoryClick(category)

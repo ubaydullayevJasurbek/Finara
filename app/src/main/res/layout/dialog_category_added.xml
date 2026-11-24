@@ -39,7 +39,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/inter_extra_bold"
             android:text="Category Added"
-            android:textColor="#1A1A1A"
+            android:textColor="@color/fin_navy"
             android:textSize="16sp" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Ready to use in your transactions"
-            android:textColor="#9E9E9E"
+            android:textColor="@color/fin_text_secondary"
             android:textSize="13sp" />
 
     </LinearLayout>

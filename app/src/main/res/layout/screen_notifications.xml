@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F8FA"
+    android:background="@color/fin_bg"
     tools:context=".presentation.notifications.NotificationsScreen">
 
     <!-- ==================== HEADER ==================== -->
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_extra_bold"
                     android:text="@string/notifications_title"
-                    android:textColor="#0B0F14"
+                    android:textColor="@color/fin_navy"
                     android:textSize="24sp" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    app:cardBackgroundColor="#0F7B55"
+                    app:cardBackgroundColor="@color/fin_blue"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/inter_medium"
-                android:textColor="#6B7280"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="13sp"
                 tools:text="5 unread messages" />
         </LinearLayout>
@@ -89,7 +89,7 @@
             app:cardCornerRadius="24dp"
             app:cardElevation="0dp"
             app:rippleColor="#14000000"
-            app:strokeColor="#E5E7EB"
+            app:strokeColor="@color/fin_border"
             app:strokeWidth="1dp">
 
             <ImageView
@@ -98,7 +98,7 @@
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_done_all"
-                app:tint="#0F7B55" />
+                app:tint="@color/fin_blue" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
@@ -237,7 +237,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:cardBackgroundColor="#DDF5E8"
+            app:cardBackgroundColor="@color/fin_blue_tint"
             app:cardCornerRadius="40dp"
             app:cardElevation="0dp"
             app:strokeWidth="0dp">
@@ -248,7 +248,7 @@
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_notifications"
-                app:tint="#0F7B55" />
+                app:tint="@color/fin_blue" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -257,7 +257,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/inter_extra_bold"
             android:text="@string/empty_notifications_title"
-            android:textColor="#0B0F14"
+            android:textColor="@color/fin_navy"
             android:textSize="18sp" />
 
         <TextView
@@ -267,7 +267,7 @@
             android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="@string/empty_notifications_message"
-            android:textColor="#6B7280"
+            android:textColor="@color/fin_text_secondary"
             android:textSize="14sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

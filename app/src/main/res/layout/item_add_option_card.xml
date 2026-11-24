@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- "+" menyusidagi variant: oq karta, rangli ikonka plitkasi (rang kodda beriladi). -->
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/optionCard"
     android:layout_width="match_parent"
-    android:layout_height="134dp"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/fin_surface"
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
-    app:cardBackgroundColor="#E53935">
+    app:strokeColor="@color/fin_border"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Icon doira (yarim shaffof oq fon) -->
         <FrameLayout
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_circle_white_translucent">
+            android:id="@+id/optionIconTile"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_fin_icon_tile">
 
             <ImageView
                 android:id="@+id/optionIcon"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_arrow_down"
-                app:tint="@color/white" />
-
+                app:tint="@color/fin_blue"
+                tools:src="@drawable/ic_arrow_down" />
         </FrameLayout>
 
-        <!-- Sarlavha va tavsif -->
         <TextView
             android:id="@+id/optionTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/expense"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/inter_extra_bold"
+            android:textColor="@color/fin_navy"
+            android:textSize="15sp"
+            tools:text="Expense" />
 
         <TextView
             android:id="@+id/optionSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@string/track_spending"
-            android:textColor="#E8FFFFFF"
-            android:textSize="12sp" />
-
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/fin_text_secondary"
+            android:textSize="12sp"
+            tools:text="Track spending" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

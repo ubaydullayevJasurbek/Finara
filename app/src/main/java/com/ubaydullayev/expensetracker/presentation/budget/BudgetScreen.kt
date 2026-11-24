@@ -1,5 +1,10 @@
 package com.ubaydullayev.expensetracker.presentation.budget
 
+import com.ubaydullayev.expensetracker.presentation.common.showFinara
+import com.ubaydullayev.expensetracker.presentation.common.stretchButtons
+import com.ubaydullayev.expensetracker.presentation.common.tintPositiveDanger
+import com.ubaydullayev.expensetracker.presentation.common.setFinaraTitle
+import com.ubaydullayev.expensetracker.presentation.common.DialogTone
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Rect
@@ -84,11 +89,8 @@ class BudgetScreen :
         }
 
         dialog.setOnShowListener {
+            dialog.stretchButtons()
             val addButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            addButton.setTextColor(color(R.color.fin_blue))
-
-            val cancelButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-            cancelButton.setTextColor(color(R.color.fin_text_secondary))
 
             addButton.setOnClickListener {
                 val category = selectedCategory
@@ -162,13 +164,14 @@ class BudgetScreen :
 
     private fun showDeleteConfirmation(budget: Budget) {
         MaterialAlertDialogBuilder(requireContext(), R.style.RoundedMaterialDialog)
-            .setTitle("Delete Budget")
-            .setMessage("Are you sure you want to delete \"${budget.title}\"? This cannot be undone.")
+            .setFinaraTitle("Delete budget?", R.drawable.ic_delete, DialogTone.DANGER)
+            .setMessage("\"${budget.title}\" will be removed. Your transactions stay. This can't be undone.")
             .setPositiveButton("Delete") { _, _ ->
                 viewModel.deleteBudget(budget)
             }
             .setNegativeButton("Cancel", null)
-            .show()
+            .showFinara()
+            .tintPositiveDanger()
     }
 
     private var isEditMode = false

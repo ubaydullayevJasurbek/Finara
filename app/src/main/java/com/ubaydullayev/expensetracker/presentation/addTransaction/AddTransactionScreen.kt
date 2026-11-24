@@ -1,5 +1,6 @@
 package com.ubaydullayev.expensetracker.presentation.addTransaction
 
+import com.ubaydullayev.expensetracker.presentation.common.stretchButtons
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -13,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -66,6 +66,8 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
 
         applyEdgeToEdgeInsets()
         setupTypeTabs()
+        // "+" menyusidan Income tanlansa ham ekran Expense ko'rinishida ochilardi
+        applyTypeSelection(args.transactionType)
         setupAmountInput()
         setupCloseButton()
         setupCategoryPicker()
@@ -182,15 +184,13 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
                 .create()
 
         dialog.setOnShowListener {
+            dialog.stretchButtons()
             val saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            saveButton.setTextColor("#2E7D32".toColorInt())
-
-            val cancelButton = dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE)
-            cancelButton.setTextColor("#9E9E9E".toColorInt())
 
             saveButton.setOnClickListener {
                 enteredNote = dialogBinding.etNote.text.toString().trim()
                 updateNoteDisplay()
+                dialog.dismiss() // avval Save bosilganda oyna yopilmasdi
             }
         }
         dialog.show()
@@ -199,10 +199,10 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
     private fun updateNoteDisplay() {
         if (enteredNote.isEmpty()) {
             binding.tvNoteValue.text = getString(R.string.add_note_optional)
-            binding.tvNoteValue.setTextColor("#9E9E9E".toColorInt())
+            binding.tvNoteValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.fin_text_secondary))
         } else {
             binding.tvNoteValue.text = enteredNote
-            binding.tvNoteValue.setTextColor("#1A1A1A".toColorInt())
+            binding.tvNoteValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.fin_navy))
         }
     }
 
@@ -273,14 +273,16 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
 
     private fun applyCategorySelection(category: String) {
         binding.tvCategoryValue.text = category
-        binding.tvCategoryValue.setTextColor("#1A1A1A".toColorInt())
+        binding.tvCategoryValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.fin_navy))
 
         val style = com.ubaydullayev.expensetracker.utils.CategoryStyleProvider.getStyle(category)
         val icon = binding.categoryIconBg.getChildAt(0) as android.widget.ImageView
         icon.setImageResource(style.iconRes)
 
+        // Figma: kategoriya plitkasi doira emas, 13dp yumaloq kvadrat
         val bg = android.graphics.drawable.GradientDrawable()
-        bg.shape = android.graphics.drawable.GradientDrawable.OVAL
+        bg.shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+        bg.cornerRadius = 13f * resources.displayMetrics.density
         bg.setColor(style.iconBgColor)
         binding.categoryIconBg.background = bg
     }
@@ -312,12 +314,21 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
         selectedTab.setBackgroundResource(R.drawable.bg_segment_selected)
 
         val selectedTextColor = when (type) {
-            "Expense" -> "#B71C1C"
-            "Income" -> "#1B5E20"
-            else -> "#0D47A1"
+            "Expense" -> R.color.fin_error
+            "Income" -> R.color.fin_success
+            else -> R.color.fin_blue
         }
 
-        selectedTab.setTextColor(selectedTextColor.toColorInt())
+        selectedTab.setTextColor(ContextCompat.getColor(requireContext(), selectedTextColor))
+
+        // Panel rangi turga qarab: Expense qizil, Income yashil, Transfer ko'k
+        binding.panelBg.setImageResource(
+            when (type) {
+                "Expense" -> R.drawable.bg_add_panel_expense
+                "Income" -> R.drawable.bg_add_panel_income
+                else -> R.drawable.bg_add_panel_transfer
+            }
+        )
 
 
         binding.tvScreenTitle.text = when (type) {
@@ -364,13 +375,9 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
                 .create()
 
             dialog.setOnShowListener {
+                dialog.stretchButtons()
                 val saveButton =
                     dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
-                saveButton.setTextColor("#2E7D32".toColorInt())
-
-                val cancelButton =
-                    dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE)
-                cancelButton.setTextColor("#9E9E9E".toColorInt())
 
                 saveButton.setOnClickListener {
                     val name = dialogBinding.etMerchantName.text.toString().trim()
@@ -378,7 +385,7 @@ class AddTransactionScreen : BaseFragment<ScreenAddTransactionBinding>() {
                         dialogBinding.tilMerchantName.error = "Please enter a merchant name"
                     } else {
                         binding.tvMerchantValue.text = name
-                        binding.tvMerchantValue.setTextColor("#1A1A1A".toColorInt())
+                        binding.tvMerchantValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.fin_navy))
                         dialog.dismiss()
                     }
                 }

@@ -25,13 +25,13 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <!-- ==================== 1. HERO (Home bilan bir xil uslub) ====================
+            <!-- ==================== 1. HERO (bir tekis ko'k, yarim aylana bezak) ====================
                  Status bar ostiga cho'ziladi: tepa inset kodda paddingTop'ga qo'shiladi. -->
             <LinearLayout
                 android:id="@+id/heroContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_home_hero_layers"
+                android:background="@drawable/bg_hero_transactions"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp"
                 android:paddingTop="16dp"
