@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/fin_bg"
     tools:context=".presentation.savinggoals.SavingGoalsScreen">
 
     <androidx.core.widget.NestedScrollView
@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_extra_bold"
                         android:text="@string/saving_goals"
-                        android:textColor="#0B0F14"
+                        android:textColor="@color/fin_navy"
                         android:textSize="24sp" />
 
                     <TextView
@@ -56,7 +56,7 @@
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/inter_medium"
                         android:text="@string/_3_active_1_completed"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/fin_text_secondary"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -73,7 +73,7 @@
                         android:layout_gravity="center"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_add"
-                        app:tint="@color/white" />
+                        app:tint="@color/fin_navy" />
 
                 </FrameLayout>
 
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
                     android:text="@string/total_saved"
-                    android:textColor="#9FD9C0"
+                    android:textColor="#B3FFFFFF"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toStartOf="@id/progressRing"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +133,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/inter_medium"
                     android:text="of $24,000 target"
-                    android:textColor="#9FD9C0"
+                    android:textColor="#B3FFFFFF"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toStartOf="@id/progressRing"
                     app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +153,7 @@
                         android:layout_gravity="center"
                         android:indeterminate="false"
                         android:progress="53"
-                        app:indicatorColor="@color/white"
+                        app:indicatorColor="@color/fin_orange"
                         app:indicatorSize="60dp"
                         app:trackColor="#33FFFFFF"
                         app:trackCornerRadius="4dp"
@@ -198,7 +198,7 @@
                         android:layout_gravity="center"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_flag"
-                        app:tint="#B45309" />
+                        app:tint="@color/fin_warning" />
 
                 </FrameLayout>
 
@@ -209,7 +209,7 @@
                     android:layout_marginStart="12dp"
                     android:fontFamily="@font/inter_medium"
                     android:text="Next Milestone"
-                    android:textColor="#92600A"
+                    android:textColor="@color/fin_warning"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/milestoneIconBg"
@@ -223,7 +223,7 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/inter_extra_bold"
                     android:text="$1,160 more to reach $14,000 saved"
-                    android:textColor="#0B0F14"
+                    android:textColor="@color/fin_navy"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/milestoneIconBg"
@@ -240,7 +240,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/inter_extra_bold"
                 android:text="Active Goals"
-                android:textColor="#0B0F14"
+                android:textColor="@color/fin_navy"
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -270,7 +270,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/inter_extra_bold"
                     android:text="Planned Goals"
-                    android:textColor="#0B0F14"
+                    android:textColor="@color/fin_navy"
                     android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -299,7 +299,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/inter_extra_bold"
                     android:text="Completed"
-                    android:textColor="#0B0F14"
+                    android:textColor="@color/fin_navy"
                     android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -328,7 +328,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_extra_bold"
                     android:text="Contribution History"
-                    android:textColor="#0B0F14"
+                    android:textColor="@color/fin_navy"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@id/tvContributionPeriod"
                     app:layout_constraintStart_toStartOf="parent"
@@ -340,7 +340,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
                     android:text="6 months"
-                    android:textColor="#0B7E57"
+                    android:textColor="@color/fin_blue"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/tvContributionTitle"
@@ -356,7 +356,7 @@
                     app:cardCornerRadius="20dp"
                     app:cardElevation="0dp"
                     app:layout_constraintTop_toBottomOf="@id/tvContributionTitle"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/fin_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -397,7 +397,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/inter_medium"
                                     android:text="Oct"
-                                    android:textColor="#9E9E9E"
+                                    android:textColor="@color/fin_text_secondary"
                                     android:textSize="11sp" />
 
                             </LinearLayout>
@@ -422,7 +422,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/inter_medium"
                                     android:text="Nov"
-                                    android:textColor="#9E9E9E"
+                                    android:textColor="@color/fin_text_secondary"
                                     android:textSize="11sp" />
 
                             </LinearLayout>
@@ -447,7 +447,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/inter_medium"
                                     android:text="Dec"
-                                    android:textColor="#9E9E9E"
+                                    android:textColor="@color/fin_text_secondary"
                                     android:textSize="11sp" />
 
                             </LinearLayout>
@@ -472,7 +472,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/inter_medium"
                                     android:text="Jan"
-                                    android:textColor="#9E9E9E"
+                                    android:textColor="@color/fin_text_secondary"
                                     android:textSize="11sp" />
 
                             </LinearLayout>
@@ -497,7 +497,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/inter_extra_bold"
                                     android:text="Feb"
-                                    android:textColor="#0B7E57"
+                                    android:textColor="@color/fin_blue"
                                     android:textSize="11sp" />
 
                             </LinearLayout>
@@ -522,7 +522,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/inter_medium"
                                     android:text="Mar"
-                                    android:textColor="#9E9E9E"
+                                    android:textColor="@color/fin_text_secondary"
                                     android:textSize="11sp" />
 
                             </LinearLayout>
@@ -535,7 +535,7 @@
                             android:layout_height="1dp"
                             android:layout_marginTop="16dp"
                             android:layout_marginBottom="14dp"
-                            android:background="#EEEEEE" />
+                            android:background="@color/fin_border" />
 
                         <!-- Average qatori -->
                         <LinearLayout
@@ -550,7 +550,7 @@
                                 android:layout_weight="1"
                                 android:fontFamily="@font/inter_medium"
                                 android:text="Avg. monthly contribution"
-                                android:textColor="#6B7280"
+                                android:textColor="@color/fin_text_secondary"
                                 android:textSize="13.5sp" />
 
                             <TextView
@@ -559,7 +559,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_extra_bold"
                                 android:text="$680"
-                                android:textColor="#0B0F14"
+                                android:textColor="@color/fin_navy"
                                 android:textSize="15sp" />
 
                         </LinearLayout>

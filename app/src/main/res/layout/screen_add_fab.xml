@@ -1,61 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- "+" menyusi (bottom sheet): tortish chizig'i, sarlavha, yopish tugmasi va 4 ta variant.
+     Bill va Category variantlari olib tashlandi: ular uchun ekran yo'q, tugmalar hech narsa qilmasdi. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="24dp"
     tools:context=".presentation.addfab.AddFabScreen">
 
-    <!-- Sarlavha: "Add New" + X tugma -->
-    <TextView
-        android:id="@+id/tvSheetTitle"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/add_new"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:tint="@color/fin_border" />
 
-    <TextView
-        android:id="@+id/tvSheetSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/choose_what_to_record"
-        android:textColor="#9E9E9E"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSheetTitle" />
-
-    <ImageView
-        android:id="@+id/btnCloseSheet"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="20dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:importantForAccessibility="no"
-        android:padding="6dp"
-        android:src="@drawable/ic_closed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- 1-qator: Expense, Income -->
     <LinearLayout
-        android:id="@+id/row1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSheetTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_extra_bold"
+                android:text="@string/sheet_add_title"
+                android:textColor="@color/fin_navy"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvSheetSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@string/sheet_add_subtitle"
+                android:textColor="@color/fin_text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/btnCloseSheet"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_muted"
+            android:clickable="true"
+            android:contentDescription="@string/sheet_add_close_cd"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_closed"
+                app:tint="@color/fin_navy" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:baselineAligned="false"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSheetSubtitle">
+        android:orientation="horizontal">
 
         <include
             android:id="@+id/cardExpense"
@@ -72,21 +93,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_weight="1" />
-
     </LinearLayout>
 
-    <!-- 2-qator: Transfer, Saving Goal -->
     <LinearLayout
-        android:id="@+id/row2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
         android:baselineAligned="false"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/row1">
+        android:orientation="horizontal">
 
         <include
             android:id="@+id/cardTransfer"
@@ -103,38 +119,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_weight="1" />
-
     </LinearLayout>
 
-    <!-- 3-qator: Bill, Category -->
-    <LinearLayout
-        android:id="@+id/row3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/row2">
-
-        <include
-            android:id="@+id/cardBill"
-            layout="@layout/item_add_option_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1" />
-
-        <include
-            android:id="@+id/cardCategory"
-            layout="@layout/item_add_option_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

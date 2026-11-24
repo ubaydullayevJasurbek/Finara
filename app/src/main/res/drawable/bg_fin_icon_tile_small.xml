@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kichik ikonka plitkasi (kartalardagi sarlavha va ma'lumot qatorlari, 30-32dp). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/fin_blue_tint" />
+    <corners android:radius="10dp" />
+</shape>

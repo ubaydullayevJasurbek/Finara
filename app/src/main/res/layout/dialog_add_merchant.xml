@@ -13,14 +13,14 @@
     <FrameLayout
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:background="@drawable/bg_circle_merchant_icon">
+        android:background="@drawable/bg_fin_icon_tile">
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_cart"
-            app:tint="#2E7D32" />
+            app:tint="@color/fin_blue" />
 
     </FrameLayout>
 
@@ -30,30 +30,24 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/inter_extra_bold"
         android:text="@string/merchant"
-        android:textColor="#1A1A1A"
-        android:textSize="18sp" />
+        android:textColor="@color/fin_navy"
+        android:textSize="19sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/who_did_you_pay_or_receive_from"
-        android:textColor="#9E9E9E"
+        android:textColor="@color/fin_text_secondary"
         android:textSize="13sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMerchantName"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Finara.TextField.Dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="@string/merchant_name"
-        app:boxCornerRadiusBottomEnd="14dp"
-        app:boxCornerRadiusBottomStart="14dp"
-        app:boxCornerRadiusTopEnd="14dp"
-        app:boxCornerRadiusTopStart="14dp"
-        app:boxStrokeColor="@color/brand_green_dark"
-        app:hintTextColor="@color/brand_green_dark">
+        android:hint="@string/merchant_name">
 
         <AutoCompleteTextView
             android:id="@+id/etMerchantName"

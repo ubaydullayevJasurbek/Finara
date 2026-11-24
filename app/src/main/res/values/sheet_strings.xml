@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom sheet matnlari -->
+<resources>
+    <string name="sheet_category_title">Choose category</string>
+    <string name="sheet_category_subtitle">Group your transactions</string>
+    <string name="sheet_category_search">Search categories</string>
+    <string name="sheet_category_no_results">No categories found</string>
+    <string name="sheet_category_add_cd">Add category</string>
+
+    <string name="sheet_add_title">Add new</string>
+    <string name="sheet_add_subtitle">Choose what to record</string>
+    <string name="sheet_add_close_cd">Close</string>
+    <string name="sheet_add_expense">Expense</string>
+    <string name="sheet_add_expense_sub">Track spending</string>
+    <string name="sheet_add_income">Income</string>
+    <string name="sheet_add_income_sub">Log earnings</string>
+    <string name="sheet_add_transfer">Transfer</string>
+    <string name="sheet_add_transfer_sub">Move money</string>
+    <string name="sheet_add_goal">Saving goal</string>
+    <string name="sheet_add_goal_sub">Add to a goal</string>
+
+    <string name="add_money_title">Add to savings</string>
+    <string name="add_money_subtitle">Move money into one of your goals</string>
+    <string name="add_money_goal_label">Goal</string>
+    <string name="add_money_no_goals">You don\'t have active goals yet. Create one on the Saving Goals screen.</string>
+    <string name="add_money_amount_error">Enter an amount</string>
+    <string name="add_money_choose_goal">Choose a goal first</string>
+    <string name="add_money_confirm">Add money</string>
+    <string name="add_money_progress">%1$s of %2$s saved · %3$s to go</string>
+    <string name="add_money_done">Added to %1$s</string>
+</resources>

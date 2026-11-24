@@ -1,5 +1,6 @@
 package com.ubaydullayev.expensetracker.presentation.addTransaction.categorysheet
 
+import com.ubaydullayev.expensetracker.presentation.common.stretchButtons
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.setFragmentResult
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -25,7 +27,6 @@ import com.ubaydullayev.expensetracker.databinding.DialogCategoryAddedBinding
 import com.ubaydullayev.expensetracker.databinding.SheetCategoryPickerBinding
 import com.ubaydullayev.expensetracker.utils.TransactionCategory
 import kotlinx.coroutines.launch
-import androidx.core.graphics.toColorInt
 import com.google.android.material.textfield.TextInputLayout
 
 class CategoryPickerSheet : BottomSheetDialogFragment() {
@@ -72,7 +73,20 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
             showAddCategoryDialog()
         }
 
+        binding.etSearch.doAfterTextChanged { applyFilter() }
+
         observeCustomCategories()
+    }
+
+    /** Barcha kategoriyalar (foydalanuvchiniki + standart); qidiruv shu ro'yxatdan filtrlaydi. */
+    private var allCategories: List<String> = TransactionCategory.ALL
+
+    private fun applyFilter() {
+        val query = binding.etSearch.text?.toString().orEmpty().trim()
+        val filtered = if (query.isEmpty()) allCategories
+        else allCategories.filter { it.contains(query, ignoreCase = true) }
+        adapter.updateCategories(filtered)
+        binding.tvNoResults.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun observeCustomCategories() {
@@ -81,8 +95,8 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 dap.getAllCustomCategories().collect { customCategories ->
-                    val allNames = customCategories.map { it.name } + TransactionCategory.ALL
-                    adapter.updateCategories(allNames)
+                    allCategories = customCategories.map { it.name } + TransactionCategory.ALL
+                    applyFilter()
                 }
             }
         }
@@ -98,11 +112,8 @@ class CategoryPickerSheet : BottomSheetDialogFragment() {
             .create()
 
         dialog.setOnShowListener {
+            dialog.stretchButtons()
             val addButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            addButton.setTextColor("#2E7D32".toColorInt())
-
-            val cancelButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-            cancelButton.setTextColor("#9E9E9E".toColorInt())
 
             addButton.setOnClickListener {
                 val name = dialogBinding.etNewCategoryName.text.toString().trim()

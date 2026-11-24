@@ -24,6 +24,9 @@
         <item name="colorOnError">@color/white</item>
         <!-- Soyali kartalar (masalan Home "Safe to spend") binafsha tus olmasin -->
         <item name="elevationOverlayEnabled">false</item>
+        <!-- Barcha MaterialAlertDialog'lar bir xil uslubda (dialog_styles.xml) -->
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Finara.Dialog</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <!-- Light-only UI: opt out of platform/OEM Force Dark auto-inversion (API 29+). -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
@@ -52,18 +55,23 @@
         <item name="colorSecondaryContainer">@color/fin_blue_tint</item>
         <item name="colorOnSecondaryContainer">@color/fin_navy</item>
         <item name="colorError">@color/fin_error</item>
+        <item name="android:backgroundDimAmount">0.45</item>
+        <item name="colorSurfaceContainerLow">@color/fin_surface</item>
+        <item name="colorSurfaceContainerHighest">@color/fin_surface_muted</item>
+        <!-- Sheet ichidagi dialoglar ham Finara uslubida -->
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Finara.Dialog</item>
     </style>
 
     <style name="AppBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearance">@style/AppShapeAppearanceBottomSheet</item>
         <!-- Pin the rounded sheet surface to pure white (M3 colorSurface is slightly off-white). -->
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundTint">@color/fin_surface</item>
     </style>
 
     <style name="AppShapeAppearanceBottomSheet" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">24dp</item>
-        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeTopLeft">28dp</item>
+        <item name="cornerSizeTopRight">28dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>

@@ -111,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Japan Trip 2026"
-            android:textColor="#0B0F14"
+            android:textColor="@color/fin_navy"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/progressRing"
@@ -138,7 +138,7 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="3dp"
                 android:text="Travel"
-                android:textColor="#2E65C0"
+                android:textColor="@color/fin_blue"
                 android:textSize="10.5sp"
                 android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="Est. Nov 2026"
-                android:textColor="#6B7280"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="11.5sp" />
         </LinearLayout>
 
@@ -168,7 +168,7 @@
                 android:progress="68"
                 app:indicatorColor="#3359D9"
                 app:indicatorSize="52dp"
-                app:trackColor="#EFF1F5"
+                app:trackColor="@color/fin_border"
                 app:trackCornerRadius="4dp"
                 app:trackThickness="6dp" />
 
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="68%"
-                android:textColor="#0B0F14"
+                android:textColor="@color/fin_navy"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </FrameLayout>
@@ -200,7 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$4,080"
-                android:textColor="#0B0F14"
+                android:textColor="@color/fin_navy"
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="/ $6,000"
-                android:textColor="#6B7280"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -219,7 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$1,920 to go"
-            android:textColor="#0B7E57"
+            android:textColor="@color/fin_success"
             android:textSize="12.5sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/savedRow"

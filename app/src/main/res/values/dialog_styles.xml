@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  FINARA DIALOGLARI - yagona uslub.
+  - 24dp yumaloq oq oyna, fon 45% xiralashadi.
+  - Sarlavha navy, matn kulrang.
+  - Tugmalar: asosiy amal to'liq ko'k, "Cancel" och kulrang. Xavfli amalda asosiy tugma
+    kodda qizilga bo'yaladi (Dialogs.kt: tintPositiveDanger).
+  - Ikonka plitkasi bilan sarlavha: Dialogs.kt: setFinaraTitle.
+-->
+<resources>
+
+    <style name="ThemeOverlay.Finara.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/fin_surface</item>
+        <item name="colorPrimary">@color/fin_blue</item>
+        <item name="colorOnSurface">@color/fin_navy</item>
+        <item name="colorOnSurfaceVariant">@color/fin_text_secondary</item>
+        <!-- M3 dialog foni colorSurfaceContainerHigh'dan olinadi. Berilmasa standart binafsha-pushti
+             tus chiqadi (ekrandagi "New Budget" oynasi shunday edi). -->
+        <item name="colorSurfaceContainerHigh">@color/fin_surface</item>
+        <item name="colorSurfaceContainer">@color/fin_surface</item>
+        <item name="colorSurfaceContainerLow">@color/fin_surface</item>
+        <item name="colorSurfaceContainerHighest">@color/fin_surface_muted</item>
+        <item name="colorOutline">@color/fin_border</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="shapeAppearanceOverlay">@style/RoundedDialogShape</item>
+        <item name="android:backgroundDimAmount">0.45</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Finara.Dialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Finara.Dialog.Body</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Finara.Dialog.Button.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Finara.Dialog.Button.Negative</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Finara.Dialog.Button.Negative</item>
+    </style>
+
+    <style name="Finara.Dialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/fin_navy</item>
+        <item name="android:fontFamily">@font/inter_extra_bold</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="Finara.Dialog.Body" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/fin_text_secondary</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+    </style>
+
+    <style name="Finara.Dialog.Button.Positive" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/fin_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter_extra_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minWidth">96dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <style name="Finara.Dialog.Button.Negative" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/fin_surface_muted</item>
+        <item name="android:textColor">@color/fin_navy</item>
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minWidth">96dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="rippleColor">#14092634</item>
+    </style>
+
+    <!-- Dialog va sheet'lardagi matn maydonlari -->
+    <style name="Finara.TextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <item name="boxStrokeColor">@color/fin_field_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="hintTextColor">@color/fin_blue</item>
+        <item name="android:textColorHint">@color/fin_text_secondary</item>
+    </style>
+
+    <style name="Finara.TextField.Dropdown" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+        <item name="boxStrokeColor">@color/fin_field_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1.5dp</item>
+        <item name="hintTextColor">@color/fin_blue</item>
+        <item name="android:textColorHint">@color/fin_text_secondary</item>
+    </style>
+
+    <!-- Add Money: +10 / +50 / +100 tugmalari -->
+    <style name="Finara.QuickAmount" parent="Widget.Material3.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/fin_blue_tint</item>
+        <item name="android:textColor">@color/fin_blue</item>
+        <item name="android:fontFamily">@font/inter_extra_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+</resources>

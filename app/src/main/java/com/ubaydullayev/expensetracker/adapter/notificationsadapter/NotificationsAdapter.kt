@@ -19,7 +19,6 @@ import com.ubaydullayev.expensetracker.domain.model.NotificationType
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import androidx.core.graphics.toColorInt
 
 class NotificationsAdapter(
     private val onItemClick: (Notification) -> Unit
@@ -33,25 +32,37 @@ class NotificationsAdapter(
         @ColorInt val softBg: Int
     )
 
+    // Ranglar Finara palitrasidan (finara_colors.xml). Context RecyclerView'ga ulanganda olinadi.
+    private lateinit var appContext: android.content.Context
+
+    @ColorInt
+    private fun color(@androidx.annotation.ColorRes res: Int): Int =
+        androidx.core.content.ContextCompat.getColor(appContext, res)
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        appContext = recyclerView.context.applicationContext
+    }
+
     private fun styleOf(type: NotificationType): TypeStyle = when (type) {
         NotificationType.BUDGET -> TypeStyle(
             R.drawable.ic_pie_chart, R.string.filter_budget,
-            "#D97706".toColorInt(), "#FEF3C7".toColorInt()
+            color(R.color.fin_warning), color(R.color.fin_warning_tint)
         )
 
         NotificationType.BILL -> TypeStyle(
             R.drawable.ic_event, R.string.filter_bills,
-            "#2563EB".toColorInt(), "#DBEAFE".toColorInt()
+            color(R.color.fin_blue), color(R.color.fin_blue_tint)
         )
 
         NotificationType.GOAL -> TypeStyle(
             R.drawable.ic_target_1, R.string.filter_goals,
-            "#0F7B55".toColorInt(), "#DDF5E8".toColorInt()
+            color(R.color.fin_orange_text), color(R.color.fin_orange_tint)
         )
 
         NotificationType.INCOME -> TypeStyle(
             R.drawable.ic_trending_up, R.string.type_income,
-            "#0F7B55".toColorInt(), "#DDF5E8".toColorInt()
+            color(R.color.fin_success), color(R.color.fin_success_tint)
         )
     }
 
@@ -124,7 +135,7 @@ class NotificationsAdapter(
 
             // Holat: o'qilmagan -> rangli ramka + nuqta, o'qilgan -> kulrang, nuqtasiz
             if (n.isRead) {
-                binding.cardNotification.strokeColor = "#E8EBEF".toColorInt()
+                binding.cardNotification.strokeColor = color(R.color.fin_border)
                 binding.cardNotification.strokeWidth = (1 * density).toInt()
                 binding.viewUnreadDot.visibility = View.GONE
             } else {

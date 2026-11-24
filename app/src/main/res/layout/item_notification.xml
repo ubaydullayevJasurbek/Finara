@@ -12,7 +12,7 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:rippleColor="#14000000"
-    app:strokeColor="#E8EBEF"
+    app:strokeColor="@color/fin_border"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:id="@+id/cardIconBg"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            app:cardBackgroundColor="#DDF5E8"
+            app:cardBackgroundColor="@color/fin_blue_tint"
             app:cardCornerRadius="14dp"
             app:cardElevation="0dp"
             app:strokeWidth="0dp">
@@ -36,7 +36,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
-                app:tint="#0F7B55"
+                app:tint="@color/fin_blue"
                 tools:src="@drawable/ic_pie_chart" />
         </com.google.android.material.card.MaterialCardView>
 
@@ -61,7 +61,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/inter_extra_bold"
                     android:maxLines="1"
-                    android:textColor="#0B0F14"
+                    android:textColor="@color/fin_navy"
                     android:textSize="15sp"
                     tools:text="Dining budget at 92%" />
 
@@ -71,7 +71,7 @@
                     android:layout_height="8dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/bg_unread_dot"
-                    android:backgroundTint="#0F7B55" />
+                    android:backgroundTint="@color/fin_blue" />
             </LinearLayout>
 
             <TextView
@@ -82,7 +82,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/inter_medium"
                 android:maxLines="3"
-                android:textColor="#6B7280"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="13sp"
                 tools:text="You've used 92% of your Dining budget with 9 days left this month." />
 
@@ -97,7 +97,7 @@
                     android:id="@+id/cardType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#DDF5E8"
+                    app:cardBackgroundColor="@color/fin_blue_tint"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
@@ -109,7 +109,7 @@
                         android:fontFamily="@font/inter_extra_bold"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="3dp"
-                        android:textColor="#0F7B55"
+                        android:textColor="@color/fin_blue"
                         android:textSize="11sp"
                         tools:text="Budget" />
                 </com.google.android.material.card.MaterialCardView>
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/inter_medium"
-                    android:textColor="#6B7280"
+                    android:textColor="@color/fin_text_secondary"
                     android:textSize="12sp"
                     tools:text="08:15" />
             </LinearLayout>

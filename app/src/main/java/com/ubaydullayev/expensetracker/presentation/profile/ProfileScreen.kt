@@ -1,5 +1,10 @@
 package com.ubaydullayev.expensetracker.presentation.profile
 
+import com.ubaydullayev.expensetracker.presentation.common.showFinara
+import com.ubaydullayev.expensetracker.presentation.common.stretchButtons
+import com.ubaydullayev.expensetracker.presentation.common.tintPositiveDanger
+import com.ubaydullayev.expensetracker.presentation.common.setFinaraTitle
+import com.ubaydullayev.expensetracker.presentation.common.DialogTone
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
@@ -54,8 +59,8 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
     ProfileViewModel::class.java
 ) {
 
-    override val insetTop: Boolean = false          // navy hero status bar tagiga cho'ziladi
-    override val lightStatusBars: Boolean = false   // status bar ikonkalari oq
+    override val insetTop: Boolean = false          // och sarlavha status bar tagiga cho'ziladi
+    override val lightStatusBars: Boolean = true    // och fon: status bar ikonkalari to'q
 
     override fun inflateBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ScreenProfileBinding.inflate(inflater, container, false)
@@ -235,13 +240,14 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
         dialogBinding.etName.doAfterTextChanged { dialogBinding.tilName.error = null }
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.profile_edit_title)
+            .setFinaraTitle(R.string.profile_edit_title, R.drawable.ic_person)
             .setView(dialogBinding.root)
             .setNegativeButton(R.string.profile_cancel, null)
             .setPositiveButton(R.string.profile_save, null)
             .create()
 
         dialog.setOnShowListener {
+            dialog.stretchButtons()
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
                 if (viewModel.updateName(dialogBinding.etName.text.toString())) {
                     dialog.dismiss()
@@ -259,53 +265,53 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
         val checked = currencies.indexOfFirst { it.code == viewModel.uiState.value.currencyCode }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.profile_currency)
+            .setFinaraTitle(R.string.profile_currency, R.drawable.ic_currency)
             .setSingleChoiceItems(labels, checked) { dialog, which ->
                 viewModel.setCurrency(currencies[which].code)
                 dialog.dismiss()
             }
             .setNegativeButton(R.string.profile_cancel, null)
-            .show()
+            .showFinara()
     }
 
     private fun showAboutDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(getString(R.string.app_name))
+            .setFinaraTitle(getString(R.string.app_name), R.drawable.ic_info)
             .setMessage(getString(R.string.profile_about_message, appVersion()))
             .setPositiveButton(R.string.profile_ok, null)
-            .show()
+            .showFinara()
     }
 
     private fun confirmSignOut() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.profile_sign_out_title)
+            .setFinaraTitle(R.string.profile_sign_out_title, R.drawable.ic_logout)
             .setMessage(R.string.profile_sign_out_message)
             .setNegativeButton(R.string.profile_cancel, null)
             .setPositiveButton(R.string.profile_sign_out) { _, _ -> viewModel.signOut() }
-            .show()
+            .showFinara()
     }
 
     private fun confirmResetData() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.profile_reset_title)
+            .setFinaraTitle(R.string.profile_reset_title, R.drawable.ic_refresh, DialogTone.WARNING)
             .setMessage(R.string.profile_reset_message)
             .setNegativeButton(R.string.profile_cancel, null)
             .setPositiveButton(R.string.profile_reset_confirm) { _, _ -> viewModel.resetAppData() }
-            .show()
+            .showFinara()
+            .tintPositiveDanger()
     }
 
     /** 1-qadam: ogohlantirish. 2-qadam: shaxsni tasdiqlash (parol yoki Google). */
     private fun confirmDeleteAccount() {
         val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.profile_delete_title)
+            .setFinaraTitle(R.string.profile_delete_title, R.drawable.ic_delete, DialogTone.DANGER)
             .setMessage(R.string.profile_delete_message)
             .setNegativeButton(R.string.profile_cancel, null)
             .setPositiveButton(R.string.profile_delete_confirm) { _, _ ->
                 if (viewModel.isGoogleAccount()) reauthenticateWithGoogle() else askPassword()
             }
-            .show()
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.fin_error))
+            .showFinara()
+        dialog.tintPositiveDanger()
     }
 
     private fun askPassword() {
@@ -313,7 +319,7 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
         dialogBinding.etPassword.doAfterTextChanged { dialogBinding.tilPassword.error = null }
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.profile_delete_password_title)
+            .setFinaraTitle(R.string.profile_delete_password_title, R.drawable.ic_password, DialogTone.DANGER)
             .setMessage(getString(R.string.profile_delete_password_message, viewModel.accountEmail))
             .setView(dialogBinding.root)
             .setNegativeButton(R.string.profile_cancel, null)
@@ -321,8 +327,9 @@ class ProfileScreen : BaseViewModelFragment<ScreenProfileBinding, ProfileViewMod
             .create()
 
         dialog.setOnShowListener {
+            dialog.stretchButtons()
             val deleteButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE)
-            deleteButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.fin_error))
+            dialog.tintPositiveDanger()
             deleteButton.setOnClickListener {
                 val password = dialogBinding.etPassword.text?.toString().orEmpty()
                 if (password.isEmpty()) {

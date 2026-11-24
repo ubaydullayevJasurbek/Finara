@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="#F7F8FA"
+    app:cardBackgroundColor="@color/fin_bg"
     app:cardCornerRadius="18dp"
     app:cardElevation="0dp">
 
@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_grid"
-                app:tint="#6B7280" />
+                app:tint="@color/fin_text_secondary" />
 
         </FrameLayout>
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_extra_bold"
                 android:text="Home Renovation"
-                android:textColor="#0B0F14"
+                android:textColor="@color/fin_navy"
                 android:textSize="15sp" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="Target: $15,000"
-                android:textColor="#6B7280"
+                android:textColor="@color/fin_text_secondary"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -70,7 +70,7 @@
             android:paddingEnd="10dp"
             android:paddingBottom="4dp"
             android:text="Planned"
-            android:textColor="#6B7280"
+            android:textColor="@color/fin_text_secondary"
             android:textSize="11sp" />
 
     </LinearLayout>

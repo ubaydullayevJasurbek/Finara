@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F8FA"
+    android:background="@color/fin_bg"
     tools:context=".presentation.transactionDetail.TransactionDetailScreen">
 
     <androidx.core.widget.NestedScrollView
@@ -34,15 +34,16 @@
                     android:layout_height="match_parent"
                     android:importantForAccessibility="no"
                     android:scaleType="fitXY"
-                    android:src="@drawable/bg_hero_detail_panel" />
+                    android:src="@drawable/bg_detail_hero_light" />
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_gravity="top|end"
                     android:layout_marginTop="-70dp"
                     android:layout_marginEnd="-60dp"
-                    android:background="@drawable/bg_circle_white_translucent"
+                    android:background="@drawable/bg_circle_muted"
                     android:importantForAccessibility="no" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,7 +58,7 @@
                         android:id="@+id/btnBack"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_white_translucent"
+                        android:background="@drawable/bg_circle_muted"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -67,7 +68,7 @@
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_back"
-                            app:tint="@color/white" />
+                            app:tint="@color/fin_navy" />
 
                     </FrameLayout>
 
@@ -78,7 +79,7 @@
                         android:fontFamily="@font/inter_medium"
                         android:gravity="center"
                         android:text="@string/transaction"
-                        android:textColor="@color/white"
+                        android:textColor="@color/fin_navy"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@id/btnBack"
                         app:layout_constraintEnd_toStartOf="@id/btnHeroShare"
@@ -89,7 +90,7 @@
                         android:id="@+id/btnHeroShare"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:background="@drawable/bg_circle_white_translucent"
+                        android:background="@drawable/bg_circle_muted"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -99,7 +100,7 @@
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_share"
-                            app:tint="@color/white" />
+                            app:tint="@color/fin_navy" />
 
                     </FrameLayout>
 
@@ -108,7 +109,7 @@
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:layout_marginTop="28dp"
-                        android:background="@drawable/bg_hero_icon_square"
+                        android:background="@drawable/bg_fin_icon_tile"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/btnBack">
@@ -120,7 +121,7 @@
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_cart"
-                            app:tint="@color/white" />
+                            app:tint="@color/fin_navy" />
 
                     </FrameLayout>
 
@@ -131,7 +132,7 @@
                         android:layout_marginTop="14dp"
                         android:fontFamily="@font/inter_medium"
                         android:text="@string/whole_foods_market"
-                        android:textColor="#BFE8D9"
+                        android:textColor="@color/fin_text_secondary"
                         android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +145,7 @@
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/inter_extra_bold"
                         android:text="@string/_84_20"
-                        android:textColor="@color/white"
+                        android:textColor="@color/fin_navy"
                         android:textSize="38sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/bg_hero_badge_glass"
+                            android:background="@drawable/bg_pill_muted"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingStart="12dp"
@@ -177,7 +178,7 @@
                                 android:layout_height="14dp"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_grid"
-                                app:tint="@color/white" />
+                                app:tint="@color/fin_navy" />
 
                             <TextView
                                 android:id="@+id/tvHeroCategory"
@@ -186,7 +187,7 @@
                                 android:layout_marginStart="6dp"
                                 android:fontFamily="@font/inter_medium"
                                 android:text="@string/groceries"
-                                android:textColor="@color/white"
+                                android:textColor="@color/fin_navy"
                                 android:textSize="12.5sp" />
 
                         </LinearLayout>
@@ -194,7 +195,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/bg_hero_badge_status"
+                            android:background="@drawable/bg_pill_success_tint"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingStart="10dp"
@@ -205,7 +206,7 @@
                             <View
                                 android:layout_width="7dp"
                                 android:layout_height="7dp"
-                                android:background="@drawable/bg_circle_status_dot" />
+                                android:background="@drawable/bg_dot_success" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -213,7 +214,7 @@
                                 android:layout_marginStart="5dp"
                                 android:fontFamily="@font/inter_medium"
                                 android:text="@string/completed"
-                                android:textColor="#80FABF"
+                                android:textColor="@color/fin_success"
                                 android:textSize="12.5sp" />
 
                         </LinearLayout>
@@ -248,7 +249,7 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/fin_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -262,7 +263,7 @@
                         <FrameLayout
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:background="@drawable/bg_action_icon_blue">
+                            android:background="@drawable/bg_fin_icon_tile">
 
                             <ImageView
                                 android:layout_width="19dp"
@@ -270,7 +271,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_edit"
-                                app:tint="#2563EB" />
+                                app:tint="@color/fin_blue" />
 
                         </FrameLayout>
 
@@ -280,7 +281,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/inter_medium"
                             android:text="@string/edit"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -300,7 +301,7 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/fin_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -314,7 +315,7 @@
                         <FrameLayout
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:background="@drawable/bg_action_icon_purple">
+                            android:background="@drawable/bg_fin_icon_tile">
 
                             <ImageView
                                 android:layout_width="19dp"
@@ -322,7 +323,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_duplicate"
-                                app:tint="#7C3AED" />
+                                app:tint="@color/fin_blue" />
 
                         </FrameLayout>
 
@@ -332,7 +333,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/inter_medium"
                             android:text="Duplicate"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -352,7 +353,7 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/fin_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -366,7 +367,7 @@
                         <FrameLayout
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:background="@drawable/bg_action_icon_green">
+                            android:background="@drawable/bg_fin_icon_tile">
 
                             <ImageView
                                 android:layout_width="19dp"
@@ -374,7 +375,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_share"
-                                app:tint="#0B7E57" />
+                                app:tint="@color/fin_blue" />
 
                         </FrameLayout>
 
@@ -384,7 +385,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/inter_medium"
                             android:text="Share"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -404,7 +405,7 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#E5E7EB"
+                    app:strokeColor="@color/fin_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -418,7 +419,7 @@
                         <FrameLayout
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:background="@drawable/bg_action_icon_rose">
+                            android:background="@drawable/bg_fin_icon_tile_danger">
 
                             <ImageView
                                 android:layout_width="19dp"
@@ -426,7 +427,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_delete"
-                                app:tint="#E11D48" />
+                                app:tint="@color/fin_error" />
 
                         </FrameLayout>
 
@@ -436,7 +437,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/inter_medium"
                             android:text="Delete"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -454,7 +455,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
+                app:strokeColor="@color/fin_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -473,7 +474,7 @@
                         <FrameLayout
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:background="@drawable/bg_detail_icon_blue">
+                            android:background="@drawable/bg_fin_icon_tile_small">
 
                             <ImageView
                                 android:layout_width="17dp"
@@ -481,7 +482,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_calendar"
-                                app:tint="#2563EB" />
+                                app:tint="@color/fin_blue" />
 
                         </FrameLayout>
 
@@ -492,7 +493,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/inter_medium"
                             android:text="Date"
-                            android:textColor="#6B7280"
+                            android:textColor="@color/fin_text_secondary"
                             android:textSize="14sp" />
 
                         <TextView
@@ -501,7 +502,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
                             android:text="Mar 18, 2026"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
@@ -511,7 +512,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="56dp"
-                        android:background="#EFF1F5" />
+                        android:background="@color/fin_border" />
 
                     <!-- Time -->
                     <LinearLayout
@@ -524,7 +525,7 @@
                         <FrameLayout
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:background="@drawable/bg_detail_icon_purple">
+                            android:background="@drawable/bg_fin_icon_tile_small">
 
                             <ImageView
                                 android:layout_width="17dp"
@@ -532,7 +533,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_clock"
-                                app:tint="#7C3AED" />
+                                app:tint="@color/fin_blue" />
 
                         </FrameLayout>
 
@@ -543,7 +544,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/inter_medium"
                             android:text="Time"
-                            android:textColor="#6B7280"
+                            android:textColor="@color/fin_text_secondary"
                             android:textSize="14sp" />
 
                         <TextView
@@ -552,135 +553,14 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
                             android:text="8:24 AM"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="56dp"
-                        android:background="#EFF1F5" />
-
-                    <!-- Payment Method -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="14dp">
-
-                        <FrameLayout
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/bg_detail_icon_green">
-
-                            <ImageView
-                                android:layout_width="17dp"
-                                android:layout_height="17dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/ic_card"
-                                app:tint="#0B7E57" />
-
-                        </FrameLayout>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="Payment Method"
-                            android:textColor="#6B7280"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="6dp"
-                                android:fontFamily="@font/inter_medium"
-                                android:text="•• 6411"
-                                android:textColor="#0B0F14"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_visa_pill"
-                                android:fontFamily="@font/inter_medium"
-                                android:paddingStart="8dp"
-                                android:paddingTop="3dp"
-                                android:paddingEnd="8dp"
-                                android:paddingBottom="3dp"
-                                android:text="VISA"
-                                android:textColor="#2E65C0"
-                                android:textSize="10.5sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="56dp"
-                        android:background="#EFF1F5" />
-
-                    <!-- Account -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="14dp">
-
-                        <FrameLayout
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/bg_detail_icon_amber">
-
-                            <ImageView
-                                android:layout_width="17dp"
-                                android:layout_height="17dp"
-                                android:layout_gravity="center"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/ic_bank"
-                                app:tint="#92600A" />
-
-                        </FrameLayout>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="Account"
-                            android:textColor="#6B7280"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvDetailAccount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="Main Checking"
-                            android:textColor="#0B0F14"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                    <!-- Payment Method va Account qatorlari olib tashlandi: ilovada hisob/karta
+                         ma'lumoti saqlanmaydi, ular soxta ("•• 6411", "Main Checking") ko'rsatilardi. -->
 
                 </LinearLayout>
 
@@ -695,7 +575,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
+                app:strokeColor="@color/fin_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -713,7 +593,7 @@
                         <FrameLayout
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:background="@drawable/bg_notes_icon">
+                            android:background="@drawable/bg_fin_icon_tile_small">
 
                             <ImageView
                                 android:layout_width="15dp"
@@ -721,7 +601,7 @@
                                 android:layout_gravity="center"
                                 android:importantForAccessibility="no"
                                 android:src="@drawable/ic_note"
-                                app:tint="#92600A" />
+                                app:tint="@color/fin_blue" />
 
                         </FrameLayout>
 
@@ -731,7 +611,7 @@
                             android:layout_marginStart="10dp"
                             android:fontFamily="@font/inter_extra_bold"
                             android:text="Notes"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -744,7 +624,7 @@
                         android:fontFamily="@font/inter_medium"
                         android:lineSpacingMultiplier="1.35"
                         android:text="Weekly grocery run — stocked up on organic produce and pantry staples for the month."
-                        android:textColor="#6B7280"
+                        android:textColor="@color/fin_text_secondary"
                         android:textSize="13.5sp" />
 
                 </LinearLayout>
@@ -758,7 +638,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="16dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="#DEF7EC"
+                app:cardBackgroundColor="@color/fin_blue_tint"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 tools:visibility="visible">
@@ -782,7 +662,7 @@
                             android:layout_gravity="center"
                             android:importantForAccessibility="no"
                             android:src="@drawable/ic_refresh"
-                            app:tint="#0B7E57" />
+                            app:tint="@color/fin_blue" />
 
                     </FrameLayout>
 
@@ -798,7 +678,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_extra_bold"
                             android:text="Recurring Transaction"
-                            android:textColor="#0B0F14"
+                            android:textColor="@color/fin_navy"
                             android:textSize="14sp" />
 
                         <TextView
@@ -807,7 +687,7 @@
                             android:layout_marginTop="2dp"
                             android:fontFamily="@font/inter_medium"
                             android:text="This transaction repeats automatically"
-                            android:textColor="#6B7280"
+                            android:textColor="@color/fin_text_secondary"
                             android:textSize="12sp" />
 
                     </LinearLayout>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Saving Goals "+" tugmasi: ekrandagi asosiy amal, shuning uchun fin_orange (ikonka navy). -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="#0B7E57" />
+    android:shape="rectangle">
+    <solid android:color="@color/fin_orange" />
+    <corners android:radius="16dp" />
 </shape>
