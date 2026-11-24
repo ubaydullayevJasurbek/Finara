@@ -19,13 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ubaydullayev.expensetracker.R
 import com.ubaydullayev.expensetracker.adapter.budgetsadapter.BudgetsAdapter
 import com.ubaydullayev.expensetracker.adapter.transactionadapter.TransactionsAdapter
-import com.ubaydullayev.expensetracker.adapter.upcomingbillsadapter.UpcomingBillsAdapter
+import com.ubaydullayev.expensetracker.adapter.recurringadapter.RecurringPaymentsAdapter
 import com.ubaydullayev.expensetracker.data.local.database.AppDatabase
 import com.ubaydullayev.expensetracker.data.local.prefs.UserPreferences
 import com.ubaydullayev.expensetracker.data.repository.BudgetRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.SavingGoalRepositoryImpl
 import com.ubaydullayev.expensetracker.data.repository.TransactionRepositoryImpl
-import com.ubaydullayev.expensetracker.data.repository.UpcomingBillRepositoryImpl
 import com.ubaydullayev.expensetracker.databinding.ScreenHomeBinding
 import com.ubaydullayev.expensetracker.domain.model.SavingGoal
 import com.ubaydullayev.expensetracker.presentation.common.BaseViewModelFragment
@@ -53,14 +52,13 @@ class HomeScreen :
             val database = AppDatabase.getInstance(requireContext())
             return HomeViewModelFactory(
                 transactionRepository = TransactionRepositoryImpl(database.transactionDao()),
-                upcomingBillRepository = UpcomingBillRepositoryImpl(database.upcomingBillDao()),
                 savingGoalRepository = SavingGoalRepositoryImpl(database.savingGoalDao()),
                 budgetRepository = BudgetRepositoryImpl(database.budgetDao())
             )
         }
 
     private lateinit var transactionsAdapter: TransactionsAdapter
-    private lateinit var upcomingBillsAdapter: UpcomingBillsAdapter
+    private lateinit var recurringAdapter: RecurringPaymentsAdapter
     private lateinit var budgetsAdapter: BudgetsAdapter
 
     // Ko'z tugmasi: summalarni yashirish. Oxirgi summary saqlanadi, toggle'da qayta chiziladi.
@@ -99,10 +97,10 @@ class HomeScreen :
             isNestedScrollingEnabled = false
         }
 
-        upcomingBillsAdapter = UpcomingBillsAdapter(emptyList())
+        recurringAdapter = RecurringPaymentsAdapter()
         binding.rvUpcomingBills.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = upcomingBillsAdapter
+            adapter = recurringAdapter
             isNestedScrollingEnabled = false
         }
 
@@ -131,10 +129,19 @@ class HomeScreen :
                 }
 
                 launch {
-                    viewModel.upcomingBill.collect { upcomingBills ->
-                        binding.sectionUpcomingBills.visibility =
-                            if (upcomingBills.isEmpty()) View.GONE else View.VISIBLE
-                        upcomingBillsAdapter.updateData(upcomingBills)
+                    viewModel.recurringPayments.collect { payments ->
+                        // Bo'lim doim ko'rinadi: bo'sh bo'lsa, qanday qo'shish haqida izoh
+                        val isEmpty = payments.isEmpty()
+                        binding.tvUpcomingEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                        binding.rvUpcomingBills.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                        recurringAdapter.updateData(payments.take(MAX_RECURRING_ON_HOME))
+
+                        // O'ngda: barcha takrorlanuvchi to'lovlarning oylik jami
+                        binding.btnSeeUpcomingBills.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                        binding.btnSeeUpcomingBills.text = getString(
+                            R.string.recurring_monthly_total,
+                            formatAmount(payments.sumOf { it.amount })
+                        )
                     }
                 }
                 launch {
@@ -361,10 +368,6 @@ class HomeScreen :
             findNavController().navigate(R.id.action_homeScreen_to_transactionScreen)
         }
 
-        // Upcoming Bills uchun alohida ekran hali yo'q: bosilsa hech narsa
-        // bo'lmaydigan "See all" ko'rsatmaymiz. Ekran qo'shilgach shu yerda ulang.
-        binding.btnSeeUpcomingBills.visibility = View.GONE
-
         // SavingGoals "See all"
         binding.btnSeeAllSavingGoals.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreen_to_savingGoalsScreen)
@@ -378,5 +381,6 @@ class HomeScreen :
     private companion object {
         const val KEY_BALANCE_HIDDEN = "home_balance_hidden"
         const val BALANCE_MASK = "••••••"
+        const val MAX_RECURRING_ON_HOME = 4
     }
 }

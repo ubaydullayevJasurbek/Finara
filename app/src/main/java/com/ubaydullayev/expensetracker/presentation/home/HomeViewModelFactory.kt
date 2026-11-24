@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.ubaydullayev.expensetracker.domain.repository.BudgetRepository
 import com.ubaydullayev.expensetracker.domain.repository.SavingGoalRepository
 import com.ubaydullayev.expensetracker.domain.repository.TransactionRepository
-import com.ubaydullayev.expensetracker.domain.repository.UpcomingBillRepository
 
 class HomeViewModelFactory(
     private val transactionRepository: TransactionRepository,
-    private val upcomingBillRepository: UpcomingBillRepository,
     private val savingGoalRepository: SavingGoalRepository,
     private val budgetRepository: BudgetRepository,
 ): ViewModelProvider.Factory {
@@ -19,7 +17,6 @@ class HomeViewModelFactory(
            @Suppress("UNCHECKED_CAST")
            return HomeViewModel(
                transactionRepository,
-               upcomingBillRepository,
                savingGoalRepository,
                budgetRepository
 

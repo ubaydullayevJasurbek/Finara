@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.ubaydullayev.expensetracker.data.local.dao.BudgetDao
 import com.ubaydullayev.expensetracker.data.local.dao.ContributionDao
@@ -11,282 +12,65 @@ import com.ubaydullayev.expensetracker.data.local.dao.CustomCategoryDao
 import com.ubaydullayev.expensetracker.data.local.dao.NotificationDao
 import com.ubaydullayev.expensetracker.data.local.dao.SavingGoalDao
 import com.ubaydullayev.expensetracker.data.local.dao.TransactionDao
-import com.ubaydullayev.expensetracker.data.local.dao.UpcomingBillDao
 import com.ubaydullayev.expensetracker.data.local.entity.BudgetEntity
 import com.ubaydullayev.expensetracker.data.local.entity.ContributionEntity
 import com.ubaydullayev.expensetracker.data.local.entity.CustomCategoryEntity
 import com.ubaydullayev.expensetracker.data.local.entity.NotificationEntity
 import com.ubaydullayev.expensetracker.data.local.entity.SavingGoalEntity
 import com.ubaydullayev.expensetracker.data.local.entity.TransactionEntity
-import com.ubaydullayev.expensetracker.data.local.entity.UpcomingBillEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 
+/**
+ * Ilovaning lokal bazasi. Yangi foydalanuvchi bo'sh baza bilan boshlaydi:
+ * namuna (seed) ma'lumotlar endi yozilmaydi.
+ *
+ * Versiyalar:
+ * 1 - dastlabki sxema (upcoming_bills jadvali bilan).
+ * 2 - upcoming_bills olib tashlandi: takrorlanuvchi to'lovlar "Recurring" belgili
+ *     tranzaksiyalardan hisoblanadi (RecurringPayment).
+ */
 @Database(
     entities = [
         TransactionEntity::class,
-        UpcomingBillEntity::class,
         SavingGoalEntity::class,
         BudgetEntity::class,
         CustomCategoryEntity::class,
         ContributionEntity::class,
         NotificationEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun transactionDao(): TransactionDao
-    abstract fun upcomingBillDao(): UpcomingBillDao
     abstract fun savingGoalDao(): SavingGoalDao
     abstract fun budgetDao(): BudgetDao
     abstract fun contributionDao(): ContributionDao
-
     abstract fun notificationDao(): NotificationDao
+    abstract fun customCategoryDao(): CustomCategoryDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        private val databaseScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        /** Foydalanuvchining boshqa ma'lumotlari saqlanadi, faqat eski jadval o'chiriladi. */
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("DROP TABLE IF EXISTS upcoming_bills")
+            }
+        }
 
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                lateinit var instanceRef: AppDatabase
-
-                val instance = Room.databaseBuilder(
+                INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "expense_tracker_db"
                 )
-                    .addCallback(object :
-                        Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            databaseScope.launch {
-                                seedBudgets(instanceRef.budgetDao())
-                                seedTransactions(instanceRef.transactionDao())
-                                seedUpcomingBills(instanceRef.upcomingBillDao())
-                                seedSavingGoals(instanceRef.savingGoalDao())
-                                seedContributions(instanceRef.contributionDao(), goalId = 1L)
-                                seedNotifications(instanceRef.notificationDao())
-
-                            }
-                        }
-                    })
+                    .addMigrations(MIGRATION_1_2)
                     .build()
-
-                instanceRef = instance
-                INSTANCE = instance
-                instance
+                    .also { INSTANCE = it }
             }
         }
-
-        private suspend fun seedNotifications(dao: NotificationDao) {
-            val now = System.currentTimeMillis()
-            val hour = 60 * 60 * 1000L
-            val day = 24 * hour
-
-            dao.insert(
-                NotificationEntity(
-                    title = "Dining budget at 92%",
-                    message = "You've used 92% of your Dining budget with 9 days left this month.",
-                    type = "BUDGET",
-                    timestamp = now - 1 * hour,
-                    isRead = false
-                )
-            )
-            dao.insert(
-                NotificationEntity(
-                    title = "Netflix due in 2 days",
-                    message = "Your Netflix subscription will be charged soon.",
-                    type = "BILL",
-                    timestamp = now - 2 * hour,
-                    isRead = false
-                )
-            )
-            dao.insert(
-                NotificationEntity(
-                    title = "Japan Trip reached 68%",
-                    message = "Great progress! You're getting closer to your goal.",
-                    type = "GOAL",
-                    timestamp = now - 1 * day,
-                    isRead = false
-                )
-            )
-            dao.insert(
-                NotificationEntity(
-                    title = "Salary received",
-                    message = "Your salary was deposited into Main Checking.",
-                    type = "INCOME",
-                    timestamp = now - 5 * day,
-                    isRead = true
-                )
-            )
-            dao.insert(
-                NotificationEntity(
-                    title = "Emergency Fund milestone",
-                    message = "You crossed 80% of your target. Keep going!",
-                    type = "GOAL",
-                    timestamp = now - 7 * day,
-                    isRead = true
-                )
-            )
-        }
-
-        private suspend fun seedContributions(dao: ContributionDao, goalId: Long) {
-            val now = System.currentTimeMillis()
-            val oneMonthMs = 30L * 24 * 60 * 60 * 1000
-
-            // Oxirgi 6 oy uchun, turli summalar bilan namuna ma'lumot
-            dao.insert(
-                ContributionEntity(
-                    goalId = goalId,
-                    amount = 320.0,
-                    timestamp = now - oneMonthMs * 5
-                )
-            )
-            dao.insert(
-                ContributionEntity(
-                    goalId = goalId,
-                    amount = 450.0,
-                    timestamp = now - oneMonthMs * 4
-                )
-            )
-            dao.insert(
-                ContributionEntity(
-                    goalId = goalId,
-                    amount = 210.0,
-                    timestamp = now - oneMonthMs * 3
-                )
-            )
-            dao.insert(
-                ContributionEntity(
-                    goalId = goalId,
-                    amount = 580.0,
-                    timestamp = now - oneMonthMs * 2
-                )
-            )
-            dao.insert(
-                ContributionEntity(
-                    goalId = goalId,
-                    amount = 820.0,
-                    timestamp = now - oneMonthMs
-                )
-            )
-            dao.insert(ContributionEntity(goalId = goalId, amount = 440.0, timestamp = now))
-        }
-
-        private suspend fun seedBudgets(dao: BudgetDao) {
-            dao.insert(
-                BudgetEntity(
-                    title = "Housing",
-                    category = "Housing",
-                    spentAmount = 1200.0,
-                    limitAmount = 1500.0
-                )
-            )
-            dao.insert(
-                BudgetEntity(
-                    title = "Transport",
-                    category = "Transport",
-                    spentAmount = 420.0,
-                    limitAmount = 450.0
-                )
-            )
-        }
-
-        private suspend fun seedTransactions(dao: TransactionDao) {
-            val now = System.currentTimeMillis()
-            val oneDayMs = 24 * 60 * 60 * 1000L
-
-            dao.insert(
-                TransactionEntity(
-                    title = "Salary", category = "Income", timestamp = now,
-                    amount = 3200.00, isIncome = true, isRecurring = true
-                )
-            )
-            dao.insert(
-                TransactionEntity(
-                    title = "Grocery Store",
-                    category = "Groceries",
-                    timestamp = now - 5 * 60 * 60 * 1000,
-                    amount = 54.20,
-                    isIncome = false
-                )
-            )
-            dao.insert(
-                TransactionEntity(
-                    title = "Netflix Premium",
-                    category = "Entertainment",
-                    timestamp = now - oneDayMs,
-                    amount = 22.99,
-                    isIncome = false,
-                    isRecurring = true
-                )
-            )
-            dao.insert(
-                TransactionEntity(
-                    title = "Flight Ticket",
-                    category = "Travel",
-                    timestamp = now - oneDayMs - 2 * 60 * 60 * 1000,
-                    amount = 189.00,
-                    isIncome = false
-                )
-            )
-        }
-
-        private suspend fun seedUpcomingBills(dao: UpcomingBillDao) {
-            dao.insert(
-                UpcomingBillEntity(
-                    title = "Netflix Premium",
-                    category = "Entertainment",
-                    frequency = "Monthly",
-                    price = 22.99,
-                    dueText = "Due in 2d",
-                    isUrgent = true
-                )
-            )
-            dao.insert(
-                UpcomingBillEntity(
-                    title = "Car Insurance",
-                    category = "Insurance",
-                    frequency = "Monthly",
-                    price = 140.00,
-                    dueText = "Due in 5d",
-                    isUrgent = false
-                )
-            )
-            dao.insert(
-                UpcomingBillEntity(
-                    title = "Adobe Creative",
-                    category = "Software",
-                    frequency = "Monthly",
-                    price = 54.99,
-                    dueText = "Due in 9d",
-                    isUrgent = false
-                )
-            )
-        }
-
-        private suspend fun seedSavingGoals(dao: SavingGoalDao) {
-            dao.insert(
-                SavingGoalEntity(
-                    title = "Japan Trip 2026",
-                    category = "Travel",   // "Groceries" -> "Travel" TUZATILDI
-                    estimatedDate = "Est. Nov 2026",
-                    priority = "HIGH",
-                    targetDate = "Dec 2026",
-                    currentAmount = 4080.0,
-                    targetAmount = 6000.0,
-                    status = "ACTIVE"
-                )
-            )
-        }
     }
-
-    abstract fun customCategoryDao(): CustomCategoryDao
 }

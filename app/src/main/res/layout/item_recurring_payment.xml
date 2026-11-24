@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home: takrorlanuvchi to'lov qatori (obuna, ijara...). Ranglar adapterda beriladi. -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    app:cardBackgroundColor="@color/fin_surface"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/fin_border"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp">
+
+        <FrameLayout
+            android:id="@+id/iconTile"
+            android:layout_width="44dp"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:id="@+id/iconImage"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                tools:src="@drawable/ic_currency" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_extra_bold"
+                android:maxLines="1"
+                android:textColor="@color/fin_navy"
+                android:textSize="15sp"
+                tools:text="Netflix" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_medium"
+                android:maxLines="1"
+                android:textColor="@color/fin_text_secondary"
+                android:textSize="12sp"
+                tools:text="Monthly · Dec 2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_extra_bold"
+                android:textColor="@color/fin_navy"
+                android:textSize="15sp"
+                tools:text="$22.99" />
+
+            <TextView
+                android:id="@+id/tvDue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_pill_muted"
+                android:fontFamily="@font/inter_extra_bold"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textSize="11sp"
+                tools:text="In 2 days" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

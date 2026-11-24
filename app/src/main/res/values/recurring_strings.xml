@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home: takrorlanuvchi to'lovlar -->
+<resources>
+    <string name="recurring_due_today">Due today</string>
+    <string name="recurring_due_tomorrow">Tomorrow</string>
+    <plurals name="recurring_due_in_days">
+        <item quantity="one">In %d day</item>
+        <item quantity="other">In %d days</item>
+    </plurals>
+    <plurals name="recurring_overdue_days">
+        <item quantity="one">Overdue %d day</item>
+        <item quantity="other">Overdue %d days</item>
+    </plurals>
+    <string name="recurring_subtitle">Monthly · %1$s</string>
+    <string name="recurring_monthly_total">%1$s / month</string>
+    <string name="recurring_empty">Turn on Recurring when you add rent, internet or a subscription. Finara will show the next payment here.</string>
+</resources>
